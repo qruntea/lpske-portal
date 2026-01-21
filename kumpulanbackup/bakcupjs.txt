@@ -1,0 +1,1105 @@
+// ===================================================================
+// LPSKE PORTAL - MAIN JAVASCRIPT FILE
+// ===================================================================
+
+document.addEventListener('DOMContentLoaded', function () {
+    // ===================================================================
+    // VARIABLE DECLARATIONS
+    // ===================================================================
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('menu-button');
+    const mainNav = document.getElementById('main-nav');
+    const contentArea = document.getElementById('content-area');
+    const pageTitle = document.getElementById('page-title');
+    const pages = contentArea.querySelectorAll('.page');
+    const navLinks = mainNav.querySelectorAll('.nav-link');
+
+    // Variable untuk mencegah duplikasi event listener
+    let formEventListenersAdded = false;
+    
+    // Variable global untuk dokumentasi
+    let dokumentasiData = [];
+    let currentDokumentasiData = [];
+    let currentDokumentasiFilter = 'semua';
+
+    // ===================================================================
+    // UTILITY FUNCTIONS
+    // ===================================================================
+    
+    // Toggle sidebar
+    menuButton.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
+    
+    // Show loading state in tables
+    const showLoading = (tbody) => {
+        const colspan = tbody.parentElement.querySelector('thead tr').childElementCount;
+        tbody.innerHTML = `<tr><td colspan="${colspan}" class="text-center py-4">Memuat data...</td></tr>`;
+    };
+
+    // Show error state in tables
+    const showError = (tbody, message = 'Gagal memuat data.') => {
+        const colspan = tbody.parentElement.querySelector('thead tr').childElementCount;
+        tbody.innerHTML = `<tr><td colspan="${colspan}" class="text-center py-4 text-red-500">${message}</td></tr>`;
+    };
+
+    // ===================================================================
+    // CLOCK FUNCTIONS
+    // ===================================================================
+    function updateClock() {
+        const timeEl = document.getElementById('current-time-date');
+        if (timeEl) {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            };
+            timeEl.textContent = now.toLocaleDateString('id-ID', options);
+        }
+    }
+
+    // ===================================================================
+    // PRESENSI FUNCTIONS
+    // ===================================================================
+    async function muatHalamanPresensi() {
+        console.log('Loading halaman presensi...');
+        updateClock();
+        setInterval(updateClock, 1000);
+        
+        const container = document.getElementById('presensi-container');
+        const info = document.getElementById('presensi-info');
+        
+        if (!container) {
+            console.error('Presensi container not found');
+            return;
+        }
+        
+        container.innerHTML = `<button class="bg-gray-400 text-white font-bold py-4 px-8 rounded-lg text-lg cursor-not-allowed">Memuat Status...</button>`;
+        if (info) info.textContent = '';
+
+        try {
+            const response = await fetch('api/get_presensi_status.php');
+            const data = await response.json();
+            console.log('Presensi status:', data);
+
+            if (data.status === 'not_clocked_in') {
+                container.innerHTML = `<button id="btn-presensi" data-action="clock_in" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">Clock In</button>`;
+            } else if (data.status === 'clocked_in') {
+                container.innerHTML = `<button id="btn-presensi" data-action="clock_out" data-id="${data.presensi_id}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">Clock Out</button>`;
+                if (info) info.textContent = `Anda Clock In pada jam ${data.clock_in_time}`;
+            } else if (data.status === 'completed') {
+                container.innerHTML = `<button class="bg-green-500 text-white font-bold py-4 px-8 rounded-lg text-lg cursor-not-allowed">Selesai</button>`;
+                if (info) info.textContent = `Anda sudah menyelesaikan piket hari ini.`;
+            }
+        } catch (error) {
+            console.error("Gagal memuat status presensi:", error);
+            container.innerHTML = `<p class="text-red-500">Gagal memuat status. Coba lagi nanti.</p>`;
+        }
+        
+        tampilkanRiwayatPresensi();
+    }
+
+    async function tampilkanRiwayatPresensi() {
+        const tbody = document.getElementById('tabel-riwayat-presensi-body');
+        if (!tbody) {
+            console.error('Tabel riwayat presensi not found');
+            return;
+        }
+        
+        showLoading(tbody);
+        try {
+            const response = await fetch('api/get_riwayat_presensi.php');
+            const data = await response.json();
+            tbody.innerHTML = '';
+            if (data.length === 0) return showError(tbody, 'Belum ada riwayat presensi.');
+            data.forEach(r => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="py-3 px-4">${new Date(r.tanggal).toLocaleDateString('id-ID', {day:'2-digit', month:'long', year:'numeric'})}</td>
+                        <td class="py-3 px-4 text-center">${r.waktu_masuk_formatted}</td>
+                        <td class="py-3 px-4 text-center">${r.waktu_keluar_formatted}</td>
+                        <td class="py-3 px-4 text-center">${r.durasi}</td>
+                    </tr>`;
+            });
+        } catch (error) { 
+            console.error('Error Riwayat Presensi:', error); 
+            showError(tbody); 
+        }
+    }
+
+    // ===================================================================
+    // DATA DOSEN FUNCTIONS
+    // ===================================================================
+    async function tampilkanDataDosen() {
+        const tbody = document.getElementById('tabel-dosen-body');
+        showLoading(tbody);
+        try {
+            const response = await fetch('api/get_dosen.php');
+            const data = await response.json();
+            tbody.innerHTML = '';
+            if (data.length === 0) return showError(tbody, 'Tidak ada data dosen.');
+            data.forEach(d => {
+                let namaLengkap = [d.gelar_depan, d.nama_dosen, d.gelar_belakang].filter(Boolean).join(' ');
+                tbody.innerHTML += `<tr><td class="py-3 px-4">${namaLengkap}</td><td class="py-3 px-4">${d.nidn}</td><td class="py-3 px-4">${d.nip || '-'}</td><td class="py-3 px-4">${d.homebase_prodi || '-'}</td></tr>`;
+            });
+        } catch (error) { 
+            console.error('Error Dosen:', error); 
+            showError(tbody); 
+        }
+    }
+
+    // ===================================================================
+    // DATA ASISTEN FUNCTIONS
+    // ===================================================================
+    async function tampilkanDataAsisten() {
+        const tbody = document.getElementById('tabel-asisten-body');
+        showLoading(tbody);
+        try {
+            const response = await fetch('api/get_asisten.php');
+            const data = await response.json();
+            tbody.innerHTML = '';
+            if (data.length === 0) return showError(tbody, 'Tidak ada data asisten.');
+            data.forEach(a => {
+                const statusClass = a.status === 'Aktif' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800';
+                tbody.innerHTML += `<tr><td class="py-3 px-4">${a.nama_lengkap}</td><td class="py-3 px-4">${a.nim}</td><td class="py-3 px-4">${a.jabatan}</td><td class="py-3 px-4"><span class="${statusClass} py-1 px-3 rounded-full text-xs">${a.status}</span></td></tr>`;
+            });
+        } catch (error) { 
+            console.error('Error Asisten:', error); 
+            showError(tbody); 
+        }
+    }
+
+    // ===================================================================
+    // INVENTORY FUNCTIONS
+    // ===================================================================
+   async function tampilkanDataInventory() {
+    console.log('🔄 Loading inventory data...');
+    const tbody = document.getElementById('tabel-inventory-body');
+    
+    if (!tbody) {
+        console.error('❌ Element tabel-inventory-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('api/get_inventory.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('📦 Data inventory berhasil dimuat:', data);
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Tidak ada data inventory.');
+        }
+        
+        // Check apakah pakai sistem quantity atau tidak
+        const hasQuantitySystem = data[0]?.hasOwnProperty('jumlah_total') && 
+                                 data[0]?.hasOwnProperty('jumlah_tersedia') && 
+                                 data[0]?.has_quantity_system !== false;
+        
+        console.log('💡 Sistem quantity aktif:', hasQuantitySystem);
+        
+        data.forEach((item, index) => {
+            try {
+                let statusClass, statusText, quantityColumn = '';
+                
+                if (hasQuantitySystem) { // Hapus '&& item.jumlah_total > 1'
+                    // SISTEM BARU: Pakai quantity
+                    const tersedia = parseInt(item.jumlah_tersedia) || 0;
+                    const total = parseInt(item.jumlah_total) || 1;
+                    
+                    if (tersedia <= 0) {
+                        statusClass = 'bg-red-200 text-red-800';
+                        statusText = 'Habis';
+                    } else if (tersedia < total) {
+                        statusClass = 'bg-yellow-200 text-yellow-800';
+                        statusText = 'Sebagian Dipinjam';
+                    } else {
+                        statusClass = 'bg-green-200 text-green-800';
+                        statusText = 'Tersedia';
+                    }
+                    
+                    // Tampilkan kolom quantity
+                    quantityColumn = `
+                        <td class="py-3 px-4 text-center">
+                            <span class="font-medium text-blue-600">${tersedia}</span>
+                            <span class="text-gray-500"> / ${total}</span>
+                        </td>
+                    `;
+                } else {
+                    // SISTEM LAMA: Pakai status biasa
+                    switch(item.status) {
+                        case 'Tersedia': 
+                            statusClass = 'bg-green-200 text-green-800'; 
+                            statusText = 'Tersedia'; 
+                            break;
+                        case 'Dipinjam': 
+                            statusClass = 'bg-yellow-200 text-yellow-800'; 
+                            statusText = 'Dipinjam'; 
+                            break;
+                        case 'Rusak': 
+                            statusClass = 'bg-red-200 text-red-800'; 
+                            statusText = 'Rusak'; 
+                            break;
+                        default: 
+                            statusClass = 'bg-gray-200 text-gray-800'; 
+                            statusText = item.status || 'Tidak Diketahui';
+                    }
+                    
+                    // Tidak tampilkan kolom quantity untuk sistem lama
+                    quantityColumn = '';
+                }
+                
+                // Build baris tabel
+                const row = `
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="py-3 px-4 font-medium">${item.nama_alat || '-'}</td>
+                        <td class="py-3 px-4 text-gray-600">${item.kode_alat || '-'}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs">
+                                ${item.kategori || '-'}
+                            </span>
+                        </td>
+                        ${quantityColumn}
+                        <td class="py-3 px-4">
+                            <span class="${statusClass} py-1 px-3 rounded-full text-xs font-medium">
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-gray-600">${item.lokasi || '-'}</td>
+                    </tr>
+                `;
+                
+                tbody.innerHTML += row;
+                
+            } catch (itemError) {
+                console.error(`❌ Error memproses item ${index}:`, itemError, item);
+            }
+        });
+        
+        console.log('✅ Tabel inventory berhasil dimuat!');
+        
+    } catch (error) { 
+        console.error('❌ Error loading inventory:', error); 
+        showError(tbody, `Gagal memuat data inventory: ${error.message}`); 
+    }
+}
+
+    // ===================================================================
+    // PEMINJAMAN FUNCTIONS
+    // ===================================================================
+   async function tampilkanDataInventory() {
+    console.log('🔄 Loading inventory data...');
+    const tbody = document.getElementById('tabel-inventory-body');
+    
+    if (!tbody) {
+        console.error('❌ Element tabel-inventory-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('api/get_inventory.php');
+        const data = await response.json();
+        
+        console.log('📦 Data inventory berhasil dimuat:', data);
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Tidak ada data inventory.');
+        }
+        
+        // Check apakah database sudah punya kolom quantity
+        const hasRealQuantity = data[0]?.jumlah_total > 1 || data[0]?.has_quantity_system === true;
+        
+        console.log('💡 Real quantity system:', hasRealQuantity);
+        
+        data.forEach((item) => {
+            let statusClass, statusText, quantityColumn = '';
+            
+            if (hasRealQuantity) {
+                // SISTEM QUANTITY: Tampilkan jumlah tersedia/total
+                const tersedia = parseInt(item.jumlah_tersedia) || 0;
+                const total = parseInt(item.jumlah_total) || 1;
+                
+                if (tersedia <= 0) {
+                    statusClass = 'bg-red-200 text-red-800';
+                    statusText = 'Habis';
+                } else if (tersedia < total) {
+                    statusClass = 'bg-yellow-200 text-yellow-800';
+                    statusText = 'Sebagian Dipinjam';
+                } else {
+                    statusClass = 'bg-green-200 text-green-800';
+                    statusText = 'Tersedia';
+                }
+                
+                quantityColumn = `
+                    <td class="py-3 px-4 text-center">
+                        <span class="font-semibold text-blue-600">${tersedia}</span>
+                        <span class="text-gray-500"> / ${total}</span>
+                    </td>
+                `;
+            } else {
+                // SISTEM LAMA: Tampilkan status biasa
+                switch(item.status) {
+                    case 'Tersedia': 
+                        statusClass = 'bg-green-200 text-green-800'; 
+                        statusText = 'Tersedia'; 
+                        break;
+                    case 'Dipinjam': 
+                        statusClass = 'bg-yellow-200 text-yellow-800'; 
+                        statusText = 'Dipinjam'; 
+                        break;
+                    case 'Rusak': 
+                        statusClass = 'bg-red-200 text-red-800'; 
+                        statusText = 'Rusak'; 
+                        break;
+                    default: 
+                        statusClass = 'bg-gray-200 text-gray-800'; 
+                        statusText = item.status || 'Tidak Diketahui';
+                }
+            }
+            
+            tbody.innerHTML += `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 font-medium">${item.nama_alat || '-'}</td>
+                    <td class="py-3 px-4 text-gray-600">${item.kode_alat || '-'}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs">
+                            ${item.kategori || '-'}
+                        </span>
+                    </td>
+                    ${quantityColumn}
+                    <td class="py-3 px-4">
+                        <span class="${statusClass} py-1 px-3 rounded-full text-xs font-medium">
+                            ${statusText}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-gray-600">${item.lokasi || '-'}</td>
+                </tr>
+            `;
+        });
+        
+        console.log('✅ Tabel inventory berhasil dimuat!');
+        
+    } catch (error) { 
+        console.error('❌ Error loading inventory:', error); 
+        showError(tbody, `Gagal memuat data: ${error.message}`); 
+    }
+}
+
+// ===================================================================
+// UPDATE FUNCTION PEMINJAMAN UNTUK QUANTITY
+// ===================================================================
+
+async function muatOpsiPeminjaman() {
+    const selectAlat = document.getElementById('select-alat');
+    if (!selectAlat) return;
+    
+    selectAlat.innerHTML = '<option value="">Memuat...</option>';
+    
+    try {
+        const response = await fetch('api/get_inventory.php?available_only=true');
+        const data = await response.json();
+        
+        selectAlat.innerHTML = '<option value="">-- Pilih Alat/Ruang --</option>';
+        
+        if (Array.isArray(data) && data.length > 0) {
+            data.forEach(item => {
+                const hasQuantity = item.jumlah_total > 1;
+                const tersedia = item.jumlah_tersedia || 1;
+                
+                let optionText;
+                if (hasQuantity) {
+                    optionText = `${item.nama_alat} (${item.kode_alat}) - Tersedia: ${tersedia}`;
+                } else {
+                    optionText = `${item.nama_alat} (${item.kode_alat})`;
+                }
+                
+                selectAlat.innerHTML += `<option value="${item.id}">${optionText}</option>`;
+            });
+        }
+        
+    } catch (error) { 
+        console.error('Error loading peminjaman options:', error); 
+        selectAlat.innerHTML = '<option value="">Gagal memuat</option>'; 
+    }
+}
+
+// ===================================================================
+// PEMINJAMAN AKTIF - HANYA YANG BELUM DIKEMBALIKAN
+// ===================================================================
+
+async function tampilkanRiwayatPeminjaman() {
+    const tbody = document.getElementById('tabel-peminjaman-body');
+    if (!tbody) return;
+    
+    showLoading(tbody);
+    
+    try {
+        // Parameter active_only=true untuk hanya tampilkan yang belum dikembalikan
+        const response = await fetch('api/get_peminjaman.php?user_id=1&active_only=true'); 
+        const data = await response.json();
+        
+        tbody.innerHTML = '';
+        if (data.length === 0) return showError(tbody, 'Tidak ada peminjaman aktif.');
+        
+        data.forEach(p => {
+            let statusClass, statusText;
+            switch(p.status) {
+                case 'Diajukan': 
+                    statusClass = 'bg-blue-200 text-blue-800'; 
+                    statusText = 'Menunggu Persetujuan'; 
+                    break;
+                case 'Disetujui': 
+                    statusClass = 'bg-green-200 text-green-800'; 
+                    statusText = 'Disetujui - Siap Diambil'; 
+                    break;
+                case 'Dipinjam': 
+                    statusClass = 'bg-yellow-200 text-yellow-800'; 
+                    statusText = 'Sedang Dipinjam'; 
+                    break;
+                case 'Ditolak': 
+                    statusClass = 'bg-red-200 text-red-800'; 
+                    statusText = 'Ditolak'; 
+                    break;
+                default: 
+                    statusClass = 'bg-gray-200 text-gray-800'; 
+                    statusText = p.status;
+            }
+
+            let tombolAksi = '';
+            if (p.status === 'Dipinjam') {
+                const jumlah = p.jumlah_pinjam || 1;
+                tombolAksi = `
+                    <button class="btn-kembalikan bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600 text-xs" 
+                            data-peminjaman-id="${p.peminjaman_id || p.id}" 
+                            data-inventory-id="${p.inventory_id}"
+                            data-jumlah="${jumlah}">
+                        Kembalikan${jumlah > 1 ? ` (${jumlah})` : ''}
+                    </button>
+                `;
+            } else if (p.status === 'Disetujui') {
+                tombolAksi = `
+                    <button class="btn-ambil bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 text-xs" 
+                            data-peminjaman-id="${p.peminjaman_id || p.id}">
+                        Ambil Barang
+                    </button>
+                `;
+            } else if (p.status === 'Diajukan') {
+                tombolAksi = `
+                    <button class="btn-batalkan bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 text-xs" 
+                            data-peminjaman-id="${p.peminjaman_id || p.id}">
+                        Batalkan
+                    </button>
+                `;
+            }
+
+            const jumlahColumn = (p.jumlah_pinjam && p.jumlah_pinjam > 1) ? 
+                `<td class="py-3 px-4 text-center font-medium">${p.jumlah_pinjam}</td>` : '';
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="py-3 px-4">${p.nama_alat}</td>
+                    ${jumlahColumn}
+                    <td class="py-3 px-4">${p.tgl_pinjam}</td>
+                    <td class="py-3 px-4">${p.tgl_rencana_kembali}</td>
+                    <td class="py-3 px-4">
+                        <span class="${statusClass} py-1 px-3 rounded-full text-xs">${statusText}</span>
+                    </td>
+                    <td class="py-3 px-4 text-center">${tombolAksi}</td>
+                </tr>
+            `;
+        });
+        
+    } catch (error) { 
+        console.error('Error Riwayat Peminjaman:', error); 
+        showError(tbody); 
+    }
+}
+
+    // ===================================================================
+    // IZIN PENELITIAN FUNCTIONS
+    // ===================================================================
+    async function muatOpsiDosen() {
+        const selectDosen = document.getElementById('select-dosen');
+        selectDosen.innerHTML = '<option value="">Memuat...</option>';
+        try {
+            const response = await fetch('api/get_dosen_list.php');
+            const data = await response.json();
+            selectDosen.innerHTML = '<option value="">-- Pilih Dosen Pembimbing --</option>';
+            if (data.length > 0) {
+                data.forEach(d => {
+                    selectDosen.innerHTML += `<option value="${d.id}">${d.nama_lengkap}</option>`;
+                });
+            }
+        } catch (error) { 
+            console.error('Error Opsi Dosen:', error); 
+            selectDosen.innerHTML = '<option value="">Gagal memuat</option>'; 
+        }
+    }
+
+    async function tampilkanRiwayatIzin() {
+        const tbody = document.getElementById('tabel-riwayat-izin-body');
+        showLoading(tbody);
+        try {
+            const response = await fetch('api/get_riwayat_izin.php?user_id=1'); 
+            const data = await response.json();
+            tbody.innerHTML = '';
+            if (data.length === 0) return showError(tbody, 'Anda tidak memiliki riwayat pengajuan izin.');
+
+            data.forEach(p => {
+                let statusClass, statusText;
+                switch(p.status) {
+                    case 'Diajukan': statusClass = 'bg-blue-200 text-blue-800'; statusText = 'Diajukan'; break;
+                    case 'Disetujui': statusClass = 'bg-green-200 text-green-800'; statusText = 'Disetujui'; break;
+                    case 'Ditolak': statusClass = 'bg-red-200 text-red-800'; statusText = 'Ditolak'; break;
+                    default: statusClass = 'bg-gray-200 text-gray-800'; statusText = p.status;
+                }
+
+                let tombolAksi = '';
+                if (p.status === 'Diajukan') {
+                    tombolAksi = `
+                        <button class="btn-setujui bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600 text-xs mr-2" 
+                                data-id="${p.id}" data-action="setujui">
+                            Setujui
+                        </button>
+                        <button class="btn-tolak bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 text-xs" 
+                                data-id="${p.id}" data-action="tolak">
+                            Tolak
+                        </button>
+                    `;
+                } else {
+                    tombolAksi = '<span class="text-gray-500 text-xs">-</span>';
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="py-3 px-4">${p.judul_penelitian}</td>
+                        <td class="py-3 px-4">${p.nama_dosen}</td>
+                        <td class="py-3 px-4">${p.tgl_pengajuan}</td>
+                        <td class="py-3 px-4"><span class="${statusClass} py-1 px-3 rounded-full text-xs">${statusText}</span></td>
+                        <td class="py-3 px-4 text-center">${tombolAksi}</td>
+                    </tr>`;
+            });
+        } catch (error) { 
+            console.error('Error Riwayat Izin:', error); 
+            showError(tbody); 
+        }
+    }
+
+    // ===================================================================
+    // DOKUMENTASI FUNCTIONS
+    // ===================================================================
+    async function loadDokumentasiData() {
+        try {
+            const response = await fetch('api/get_dokumentasi.php');
+            const result = await response.json();
+            
+            if (result.success) {
+                dokumentasiData = result.data;
+                currentDokumentasiData = dokumentasiData;
+                renderDokumentasiGrid(currentDokumentasiData);
+                updateDokumentasiCount();
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error loading dokumentasi:', error);
+            showDokumentasiError('Gagal memuat dokumentasi: ' + error.message);
+        }
+    }
+
+    function showDokumentasiError(message) {
+        const container = document.getElementById('dokumentasi-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <i class="fas fa-exclamation-triangle text-red-400 text-6xl mb-4"></i>
+                    <p class="text-red-600 text-lg font-medium">Terjadi Kesalahan</p>
+                    <p class="text-gray-600 text-sm mt-2">${message}</p>
+                    <button onclick="loadDokumentasiData()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-refresh mr-2"></i>Coba Lagi
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    function formatTanggalDokumentasi(tanggal) {
+        const options = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        };
+        return new Date(tanggal).toLocaleDateString('id-ID', options);
+    }
+
+    function renderDokumentasiGrid(data) {
+        const container = document.getElementById('dokumentasi-container');
+        const loadingState = document.getElementById('loading-state');
+        
+        if (!container) {
+            console.error('Dokumentasi container not found');
+            return;
+        }
+        
+        if (loadingState) {
+            loadingState.remove();
+        }
+        
+        container.innerHTML = '';
+        
+        if (data.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <i class="fas fa-search text-gray-400 text-6xl mb-4"></i>
+                    <p class="text-gray-600 text-lg">Tidak ada dokumentasi ditemukan</p>
+                    <p class="text-gray-500 text-sm mt-2">Coba ubah filter atau kata kunci pencarian</p>
+                </div>
+            `;
+            return;
+        }
+
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'foto-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transform hover:-translate-y-1 transition-transform duration-300';
+            card.onclick = () => showDokumentasiModal(item);
+            
+            card.innerHTML = `
+                <div class="aspect-w-16 aspect-h-12">
+                    <img src="${item.url_gambar}" alt="${item.judul_kegiatan}" 
+                         class="w-full h-48 object-cover" 
+                        onerror="this.src='/lpske-portal/assets/images/no-image.png'"
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">${item.judul_kegiatan}</h3>
+                    <p class="text-gray-600 text-sm mb-3 line-clamp-3">${item.deskripsi}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            ${item.kategori}
+                        </span>
+                        <span class="text-xs text-gray-500">
+                            ${item.tanggal_formatted || formatTanggalDokumentasi(item.tanggal_kegiatan)}
+                        </span>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        });
+    }
+
+    function showDokumentasiModal(item) {
+        const modal = document.getElementById('modal-detail-dokumentasi');
+        if (!modal) {
+            console.error('Modal dokumentasi not found');
+            return;
+        }
+        
+        document.getElementById('detail-judul').textContent = item.judul_kegiatan;
+        document.getElementById('detail-gambar').src = item.url_gambar;
+        document.getElementById('detail-gambar').alt = item.judul_kegiatan;
+        document.getElementById('detail-tanggal').textContent = item.tanggal_formatted || formatTanggalDokumentasi(item.tanggal_kegiatan);
+        document.getElementById('detail-kategori').textContent = item.kategori;
+        document.getElementById('detail-uploader').textContent = item.uploader_nama || item.uploader || 'Admin LPSKE';
+        document.getElementById('detail-deskripsi').textContent = item.deskripsi;
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDokumentasiModal() {
+        const modal = document.getElementById('modal-detail-dokumentasi');
+        if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function filterDokumentasiData(kategori) {
+        currentDokumentasiFilter = kategori;
+        
+        if (kategori === 'semua') {
+            currentDokumentasiData = dokumentasiData;
+        } else {
+            currentDokumentasiData = dokumentasiData.filter(item => item.kategori === kategori);
+        }
+        
+        renderDokumentasiGrid(currentDokumentasiData);
+        updateDokumentasiCount();
+    }
+
+    function updateDokumentasiCount() {
+        const countElement = document.getElementById('dokumentasi-count');
+        if (countElement) {
+            countElement.textContent = `${currentDokumentasiData.length}`;
+        }
+    }
+
+    function initDokumentasiPage() {
+        console.log('Initializing dokumentasi page...');
+        
+        currentDokumentasiFilter = 'semua';
+        
+        const filterButtons = document.querySelectorAll('.filter-kategori');
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-blue-500', 'text-white');
+            btn.classList.add('bg-white', 'border-gray-300', 'text-gray-700');
+        });
+        
+        const semuaBtn = document.querySelector('.filter-kategori[data-kategori="semua"]');
+        if (semuaBtn) {
+            semuaBtn.classList.add('active', 'bg-blue-500', 'text-white');
+            semuaBtn.classList.remove('bg-white', 'border-gray-300', 'text-gray-700');
+        }
+        
+        loadDokumentasiData();
+    }
+
+    function addDokumentasiEventListeners() {
+        const filterButtons = document.querySelectorAll('.filter-kategori');
+        filterButtons.forEach(button => {
+            button.removeEventListener('click', handleFilterClick);
+            button.addEventListener('click', handleFilterClick);
+        });
+
+        const closeBtn = document.getElementById('close-modal-dokumentasi');
+        if (closeBtn) {
+            closeBtn.removeEventListener('click', closeDokumentasiModal);
+            closeBtn.addEventListener('click', closeDokumentasiModal);
+        }
+        
+        const modal = document.getElementById('modal-detail-dokumentasi');
+        if (modal) {
+            modal.removeEventListener('click', handleModalOutsideClick);
+            modal.addEventListener('click', handleModalOutsideClick);
+        }
+    }
+
+    function handleFilterClick() {
+        document.querySelectorAll('.filter-kategori').forEach(btn => {
+            btn.classList.remove('active', 'bg-blue-500', 'text-white');
+            btn.classList.add('bg-white', 'border-gray-300', 'text-gray-700');
+        });
+        
+        this.classList.add('active', 'bg-blue-500', 'text-white');
+        this.classList.remove('bg-white', 'border-gray-300', 'text-gray-700');
+        
+        filterDokumentasiData(this.dataset.kategori);
+    }
+
+    function handleModalOutsideClick(e) {
+        if (e.target === this) {
+            closeDokumentasiModal();
+        }
+    }
+
+    function tampilkanDokumentasi() {
+        console.log('Menampilkan halaman dokumentasi...');
+        initDokumentasiPage();
+        addDokumentasiEventListeners();
+    }
+
+    // ===================================================================
+    // FORM EVENT LISTENERS
+    // ===================================================================
+    function addFormEventListeners() {
+        if (formEventListenersAdded) return;
+
+        const formPeminjaman = document.getElementById('form-peminjaman');
+        if(formPeminjaman) {
+            formPeminjaman.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = new FormData(formPeminjaman);
+                const button = formPeminjaman.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                
+                if (button.disabled) return;
+                
+                button.textContent = 'Mengirim...';
+                button.disabled = true;
+                
+                try {
+                    formData.append('peminjam_user_id', 1);
+                    const response = await fetch('api/proses_peminjaman.php', { method: 'POST', body: formData });
+                    const result = await response.json();
+                    alert(result.message);
+                    if (result.success) {
+                        formPeminjaman.reset();
+                        tampilkanRiwayatPeminjaman();
+                        muatOpsiPeminjaman();
+                    }
+                } catch (error) {
+                    console.error('Error Submit Pinjam:', error);
+                    alert('Terjadi kesalahan koneksi.');
+                } finally {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            });
+        }
+
+        const formIzin = document.getElementById('form-izin');
+        if(formIzin) {
+            formIzin.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const formData = new FormData(formIzin);
+                const button = formIzin.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                
+                if (button.disabled) return;
+                
+                button.textContent = 'Mengirim...';
+                button.disabled = true;
+                
+                try {
+                    formData.append('user_id', 1);
+                    const response = await fetch('api/proses_izin.php', { method: 'POST', body: formData });
+                    const result = await response.json();
+                    alert(result.message);
+                    if (result.success) {
+                        formIzin.reset();
+                        tampilkanRiwayatIzin();
+                    }
+                } catch (error) {
+                    console.error('Error Submit Izin:', error);
+                    alert('Terjadi kesalahan koneksi.');
+                } finally {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            });
+        }
+
+        formEventListenersAdded = true;
+    }
+
+    // ===================================================================
+    // NAVIGATION LOGIC
+    // ===================================================================
+    mainNav.addEventListener('click', function(e) {
+        const link = e.target.closest('.nav-link');
+        if (!link) return;
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const pageId = link.dataset.page;
+        pages.forEach(p => p.id === `page-${pageId}` ? p.classList.remove('hidden') : p.classList.add('hidden'));
+        pageTitle.textContent = link.querySelector('span').textContent;
+
+        if (pageId === 'dosen') tampilkanDataDosen();
+        if (pageId === 'asisten') tampilkanDataAsisten();
+        if (pageId === 'inventory') tampilkanDataInventory();
+        if (pageId === 'peminjaman') {
+            muatOpsiPeminjaman();
+            tampilkanRiwayatPeminjaman();
+        }
+        if (pageId === 'izin') {
+            muatOpsiDosen();
+            tampilkanRiwayatIzin();
+        }
+        if (pageId === 'presensi') {
+            muatHalamanPresensi();
+        }
+        if (pageId === 'dokumentasi') {
+            tampilkanDokumentasi();
+        }
+
+        if (window.innerWidth < 768) sidebar.classList.add('-translate-x-full');
+    });
+
+    // ===================================================================
+    // EVENT LISTENER UNTUK TOMBOL AKSI
+    // ===================================================================
+    contentArea.addEventListener('click', async function(e) {
+        // Handle tombol kembalikan peminjaman
+        if (e.target.classList.contains('btn-kembalikan')) {
+            const button = e.target;
+            const peminjamanId = button.dataset.peminjamanId;
+            const inventoryId = button.dataset.inventoryId;
+
+            if (!window.confirm('Anda yakin ingin mengembalikan barang ini?')) return;
+            
+            const originalText = button.textContent;
+            
+            if (button.disabled) return;
+            
+            button.textContent = 'Memproses...';
+            button.disabled = true;
+
+            const formData = new FormData();
+            formData.append('peminjaman_id', peminjamanId);
+            formData.append('inventory_id', inventoryId);
+
+            try {
+                const response = await fetch('api/proses_pengembalian.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                alert(result.message);
+
+                if (result.success) {
+                    tampilkanRiwayatPeminjaman();
+                    muatOpsiPeminjaman();
+                } else {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error Pengembalian:', error);
+                alert('Terjadi kesalahan koneksi.');
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        // Handle tombol setujui/tolak izin penelitian
+        if (e.target.classList.contains('btn-setujui') || e.target.classList.contains('btn-tolak')) {
+            const button = e.target;
+            const izinId = button.dataset.id;
+            const action = button.dataset.action;
+            const actionText = action === 'setujui' ? 'menyetujui' : 'menolak';
+            
+            if (!window.confirm(`Anda yakin ingin ${actionText} pengajuan izin ini?`)) return;
+            
+            const originalText = button.textContent;
+            
+            if (button.disabled) return;
+            
+            button.textContent = 'Memproses...';
+            button.disabled = true;
+
+            const formData = new FormData();
+            formData.append('izin_id', izinId);
+            formData.append('action', action);
+            formData.append('user_id', 1);
+
+            try {
+                const response = await fetch('api/proses_aksi_izin.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                alert(result.message);
+
+                if (result.success) {
+                    tampilkanRiwayatIzin();
+                } else {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error Aksi Izin:', error);
+                alert('Terjadi kesalahan koneksi.');
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        // Handle tombol presensi (Clock In/Clock Out)
+        if (e.target && e.target.id === 'btn-presensi') {
+            const button = e.target;
+            const action = button.dataset.action;
+            const presensiId = button.dataset.id;
+
+            button.textContent = 'Memproses...';
+            button.disabled = true;
+
+            const formData = new FormData();
+            formData.append('action', action);
+            if (presensiId) {
+                formData.append('presensi_id', presensiId);
+            }
+
+            try {
+                const response = await fetch('api/proses_presensi.php', { method: 'POST', body: formData });
+                const result = await response.json();
+                alert(result.message);
+                muatHalamanPresensi();
+            } catch (error) {
+                console.error('Error Presensi:', error);
+                alert('Terjadi kesalahan koneksi.');
+                muatHalamanPresensi();
+            }
+        }
+    });
+
+    // ===================================================================
+    // GLOBAL EVENT LISTENERS
+    // ===================================================================
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDokumentasiModal();
+        }
+    });
+
+    // ===================================================================
+    // INITIALIZATION
+    // ===================================================================
+    
+    // Add form event listeners
+    addFormEventListeners();
+
+    // Expose functions to global scope if needed
+    window.loadDokumentasiData = loadDokumentasiData;
+    window.closeDokumentasiModal = closeDokumentasiModal;
+    window.filterDokumentasiData = filterDokumentasiData;
+
+    console.log('LPSKE Portal Script loaded successfully');
+
+    // ===================================================================
+// FUNCTION UNTUK DEBUG - TAMBAHKAN INI DI AKHIR script.js
+// ===================================================================
+
+// Function untuk test API di console
+async function testInventoryAPI() {
+    console.log('🧪 Testing Inventory API...');
+    
+    try {
+        const response = await fetch('api/get_inventory.php');
+        const data = await response.json();
+        
+        console.log('📊 API Response:', data);
+        console.log('📈 Total items:', data.length);
+        
+        if (data.length > 0) {
+            console.log('📋 First item structure:', data[0]);
+            console.log('🔧 Available columns:', Object.keys(data[0]));
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('❌ API Test Error:', error);
+        return null;
+    }
+}
+
+// Auto-run test saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inventory System Ready!');
+    
+    // Test API setelah 2 detik
+    setTimeout(() => {
+        testInventoryAPI();
+    }, 2000);
+});
+
+console.log('📦 Enhanced Inventory Functions Loaded!');
+});

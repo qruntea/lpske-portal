@@ -1,0 +1,730 @@
+<?php
+
+session_start();
+
+// Cek jika user tidak login atau rolenya bukan admin, arahkan ke login
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: login.html");
+    exit();
+}
+
+// Ambil data admin dari session
+$nama_admin = $_SESSION['user_name'] ?? 'Admin';
+$admin_id = $_SESSION['user_id'];
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Portal LPSKE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+
+        
+
+        /* Anda bisa menambahkan style kustom di sini jika diperlukan */
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link.active { background-color: rgb(31, 41, 55); } /* Warna aktif untuk menu sidebar */
+        .page { display: none; } /* Semua halaman disembunyikan secara default */
+        .page.active { display: block; } /* Hanya halaman aktif yang ditampilkan */
+
+                /* Clock animations */
+        #currentTime, #timeWidget {
+            transition: transform 0.1s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        #currentDate, #dateWidget {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Card hover effects */
+        .bg-gradient-to-br {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        .bg-gradient-to-br:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* Pulse animation untuk jam */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .pulse-subtle {
+            animation: pulse 2s infinite;
+        }
+
+    </style>
+
+
+</head>
+
+<body class="bg-gray-100" data-admin-id="<?php echo htmlspecialchars($admin_id, ENT_QUOTES, 'UTF-8'); ?>">
+    <div class="flex h-screen bg-gray-200">
+        <!-- Sidebar -->
+        <div class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white p-4 space-y-6 transform md:relative md:translate-x-0 -translate-x-full transition-transform duration-200 ease-in-out z-30" id="sidebar">
+            <a href="#" class="flex items-center space-x-2 px-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l-1.414-1.414m15.152 15.152l-1.414-1.414M18.364 5.636l-1.414 1.414m-11.314 11.314l-1.414 1.414"/></svg>
+                <span class="text-2xl font-bold">Admin Portal</span>
+            </a>
+            <nav class="space-y-2" id="main-nav">
+                <a href="#" data-page="dashboard" class="nav-link active flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <i class="fas fa-home fa-fw"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                
+                <a href="#" data-page="izin" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <i class="fas fa-file-contract fa-fw"></i>
+                    <span>Izin Kerja/Penelitian</span>
+                </a>
+
+                <h3 class="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Database</h3>
+                <a href="#" data-page="dosen" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <i class="fas fa-users fa-fw"></i>
+                    <span>Database Dosen</span>
+                </a>
+                <a href="#" data-page="asisten" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"></path><path d="M10 10V5a2 2 0 1 1 4 0v5"></path><path d="M4 15h16"></path><path d="M2 11a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"></path></svg>
+                    <span>Database Asisten</span>
+                </a>
+                <a href="#" data-page="inventory" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <i class="fas fa-boxes fa-fw"></i>
+                    <span>Database Inventory</span>
+                </a>
+                <a href="#" data-page="peminjaman" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <i class="fas fa-hand-holding fa-fw"></i>
+                    <span>Data Peminjaman</span>
+                </a>
+                <a href="#" data-page="presensi" class="nav-link flex items-center space-x-3 py-2 px-4 rounded-lg transition-colors hover:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Data Presensi</span>
+                </a>
+
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="flex justify-between items-center p-4 bg-white border-b-2 border-gray-200">
+                <button id="menu-button" class="md:hidden text-gray-500 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <h1 class="text-2xl font-semibold text-gray-800" id="page-title">Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600 font-medium">Selamat datang, <?php echo htmlspecialchars($nama_admin); ?>!</span>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium">Logout</button>
+                </div>
+            </header>
+            
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6 md:p-8" id="content-area">
+                
+                <!-- Dashboard Page -->
+                <div id="page-dashboard" class="page active">
+                    <h2 class="text-3xl font-bold text-gray-800">Selamat Datang di Panel Admin LPSKE</h2>
+                    <p class="mt-2 text-gray-600">Gunakan menu di sebelah kiri untuk mengelola data perizinan dan database laboratorium.</p>
+                       
+                    
+                    <!-- WIDGET JAM REAL-TIME -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600" id="currentTime">00:00:00</div>
+                            <div class="text-sm text-gray-600" id="currentDate">Loading...</div>
+                            <div class="text-xs text-gray-500 mt-1" id="currentDay">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 mt-8">
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Perizinan Pending</h3>
+                                    <p class="text-3xl font-bold text-yellow-600" id="pendingCount">-</p>
+                                    <p class="text-sm text-gray-500">menunggu persetujuan</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-clock text-yellow-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Total Users</h3>
+                                    <p class="text-3xl font-bold text-blue-600" id="usersCount">-</p>
+                                    <p class="text-sm text-gray-500">dosen & asisten</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-users text-blue-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Asisten Aktif</h3>
+                                    <p class="text-3xl font-bold text-green-600" id="activeLabCount">-</p>
+                                    <p class="text-sm text-gray-500">status aktif</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-user-check text-green-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Equipment</h3>
+                                    <p class="text-3xl font-bold text-purple-600" id="equipmentCount">-</p>
+                                    <p class="text-sm text-gray-500">total inventory</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-boxes text-purple-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Aktivitas Terbaru</h3>
+                        <div id="recentActivities">Loading...</div>
+                    </div>
+                </div>
+
+                
+
+
+                <!-- Izin Kerja/Penelitian Page -->
+                <div id="page-izin" class="page">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Izin Kerja/Penelitian</h2>
+                        <p class="text-gray-600 mt-2">Kelola pengajuan izin kerja dan penelitian dari dosen</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Riwayat Pengajuan Izin Anda</h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white admin-table">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left w-1/4">Judul</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left w-1/5">Nama Mahasiswa</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left w-1/5">Dosen Pembimbing</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left w-1/6">Tgl Pengajuan</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left w-1/8">Status</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center w-1/8">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-riwayat-izin-body" class="text-gray-700">
+                                    <!-- Data akan dimuat oleh JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Dosen Page (Diperbarui) -->
+                <div id="page-dosen" class="page hidden">
+                    <!-- Tampilan Daftar Dosen (Awal) -->
+                    <div id="dosen-list-view">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold text-gray-700">Database Dosen LPSKE</h2>
+                                <button id="btn-tambah-dosen" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">
+                                    <i class="fas fa-plus mr-2"></i>Tambah Dosen
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-200">
+    <tr>
+        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama Lengkap</th>
+        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">NIP</th>
+        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">NIDN</th>
+        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Homebase Prodi</th>
+        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Aksi</th>
+    </tr>
+</thead>
+
+                                    <tbody id="tabel-dosen-body" class="text-gray-700"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tampilan Detail Dosen (Awalnya tersembunyi) -->
+                    <div id="dosen-detail-view" class="hidden">
+                      <img id="fotoDosen" src="uploads/default-placeholder.jpg" width="150" height="150" style="border-radius: 50%; object-fit: cover;">
+                        <!-- Konten detail akan dimuat di sini oleh JavaScript -->
+                    </div>
+                    <!-- Tampilan Form Tambah/Edit Dosen (Awalnya tersembunyi) -->
+                    <div id="dosen-form-view" class="hidden">
+                        <h2 id="form-dosen-title" class="text-2xl font-bold text-gray-800 mb-6">Tambah Dosen Baru</h2>
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <form id="form-dosen" enctype="multipart/form-data">
+    <input type="hidden" id="dosen-id" name="dosen_id">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label for="nama_dosen" class="block text-sm font-medium text-gray-700">Nama Dosen (Tanpa Gelar)</label>
+            <input type="text" name="nama_dosen" id="nama_dosen" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="gelar_depan" class="block text-sm font-medium text-gray-700">Gelar Depan</label>
+                <input type="text" name="gelar_depan" id="gelar_depan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="gelar_belakang" class="block text-sm font-medium text-gray-700">Gelar Belakang</label>
+                <input type="text" name="gelar_belakang" id="gelar_belakang" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+        </div>
+        <div>
+            <label for="nidn" class="block text-sm font-medium text-gray-700">NIDN</label>
+            <input type="text" name="nidn" id="nidn" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        </div>
+        <div>
+            <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
+            <input type="text" name="nip" id="nip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        </div>
+        <div>
+            <label for="homebase_prodi" class="block text-sm font-medium text-gray-700">Homebase Prodi</label>
+            <input type="text" name="homebase_prodi" id="homebase_prodi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        </div>
+        <!-- TAMBAHAN FIELD USERNAME DAN PASSWORD -->
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input type="text" name="username" id="username" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <p class="text-xs text-gray-500 mt-1">Kosongkan untuk menggunakan NIDN sebagai username</p>
+        </div>
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <p class="text-xs text-gray-500 mt-1" id="password-help">Kosongkan jika tidak ingin mengubah password</p>
+        </div>
+        <div class="md:col-span-2">
+            <label for="foto" class="block text-sm font-medium text-gray-700">Foto Dosen</label>
+            <input type="file" name="foto" id="foto" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah foto.</p>
+        </div>
+    </div>
+    <div class="mt-8 flex justify-end space-x-4">
+        <button type="button" id="btn-batal-form" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Batal</button>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Simpan</button>
+    </div>
+</form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Asisten Page -->
+                <div id="page-asisten" class="page">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-700">Database Asisten Laboratorium</h2>
+                            <button id="btn-tambah-asisten" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">
+                                <i class="fas fa-plus mr-2"></i>Tambah Asisten
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">NIM</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Jabatan</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Status</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-asisten-body" class="text-gray-700"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Modal Form Asisten -->
+                    <div id="modal-asisten" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+                        <div class="flex justify-center items-center min-h-screen p-4">
+                            <div class="bg-white rounded-lg shadow-lg w-full max-w-md">
+                                <div class="flex justify-between items-center p-6 border-b">
+                                    <h3 id="modal-title" class="text-lg font-semibold text-gray-900">Tambah Asisten</h3>
+                                    <button id="btn-close-modal" class="text-gray-400 hover:text-gray-600">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <form id="form-asisten" class="p-6">
+                                    <input type="hidden" id="asisten-id" name="asisten_id">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="nama-user" class="block text-sm font-medium text-gray-700">Nama User</label>
+                                            <input type="text" id="nama-user" name="nama_user" placeholder="Ketik nama lengkap user" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="nim-user" class="block text-sm font-medium text-gray-700">NIM</label>
+                                            <input type="text" id="nim-user" name="nim" placeholder="Ketik NIM user" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="jabatan" class="block text-sm font-medium text-gray-700">Jabatan</label>
+                                            <input type="text" id="jabatan" name="jabatan" placeholder="Contoh: Asisten Dosen, Koordinator Lab, dll" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="angkatan" class="block text-sm font-medium text-gray-700">Angkatan</label>
+                                            <input type="text" id="angkatan" name="angkatan" placeholder="Contoh: 2023" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                        </div>
+                                        <div>
+                                            <label for="status-input" class="block text-sm font-medium text-gray-700">Status</label>
+                                            <input type="text" id="status-input" name="status" placeholder="Contoh: Aktif, Tidak Aktif" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end space-x-3 mt-6">
+                                        <button type="button" id="btn-cancel" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 border border-gray-300 rounded-md hover:bg-gray-300">
+                                            Batal
+                                        </button>
+                                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Inventory Page -->
+                <div id="page-inventory" class="page">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-700 mb-4">Database Inventory</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama Alat</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Kode</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Kategori</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Jumlah</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Status</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Lokasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-inventory-body" class="text-gray-700"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Peminjaman Page -->
+                <div id="page-peminjaman" class="page">
+                    <!-- Header dengan Statistik -->
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Data Peminjaman Laboratorium</h2>
+                        <p class="text-gray-600 mt-2">Monitor dan kelola semua aktivitas peminjaman alat laboratorium</p>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Total Peminjaman</h3>
+                                    <p class="text-3xl font-bold text-blue-600" id="totalPeminjaman">-</p>
+                                    <p class="text-sm text-gray-500">seluruh waktu</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-clipboard-list text-blue-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Sedang Dipinjam</h3>
+                                    <p class="text-3xl font-bold text-yellow-600" id="sedangDipinjam">-</p>
+                                    <p class="text-sm text-gray-500">alat aktif</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-clock text-yellow-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Terlambat</h3>
+                                    <p class="text-3xl font-bold text-red-600" id="terlambat">-</p>
+                                    <p class="text-sm text-gray-500">perlu tindakan</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                            <div class="flex items-center">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-700">Dikembalikan</h3>
+                                    <p class="text-3xl font-bold text-green-600" id="dikembalikan">-</p>
+                                    <p class="text-sm text-gray-500">selesai</p>
+                                </div>
+                                <div class="ml-4">
+                                    <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter dan Tools -->
+                     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <div class="flex flex-wrap gap-4 items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-700">
+                                <i class="fas fa-filter mr-2"></i>Filter & Tools
+                            </h3>
+                            <div class="flex gap-4 flex-wrap">
+                                <select id="filterStatus" class="px-3 py-2 border border-gray-300 rounded-md text-sm">
+                                    <option value="">Semua Status</option>
+                                    <option value="Dipinjam">Sedang Dipinjam</option>
+                                    <option value="Terlambat">Terlambat</option>
+                                    <option value="Dikembalikan">Dikembalikan</option>
+                                </select>
+                                
+                                <select id="filterRole" class="px-3 py-2 border border-gray-300 rounded-md text-sm">
+                                    <option value="">Semua Peminjam</option>
+                                    <option value="dosen">Dosen</option>
+                                    <option value="asisten">Asisten</option>
+                                </select>
+                                
+                                <input type="date" id="filterTanggal" class="px-3 py-2 border border-gray-300 rounded-md text-sm">
+                                
+                                <button onclick="applyPeminjamanFilter()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
+                                    <i class="fas fa-filter mr-2"></i>Filter
+                                </button>
+                                
+                                <button onclick="resetPeminjamanFilter()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm">
+                                    <i class="fas fa-undo mr-2"></i>Reset
+                                </button>
+                                
+                                <button onclick="tampilkanDataPeminjamanWithFilter()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm">
+                                    <i class="fas fa-sync-alt mr-2"></i>Refresh
+                                </button>
+                                
+                                <button onclick="exportPeminjamanData()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md text-sm">
+                                    <i class="fas fa-download mr-2"></i>Export CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Data Peminjaman -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-gray-700">
+                                <i class="fas fa-table mr-2"></i>Daftar Peminjaman
+                            </h3>
+                            <div class="text-sm text-gray-500">
+                                Data diurutkan berdasarkan prioritas: Terlambat → Dipinjam → Dikembalikan
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">
+                                            <i class="fas fa-user mr-1"></i>Peminjam
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">
+                                            <i class="fas fa-tools mr-1"></i>Alat
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-calendar-alt mr-1"></i>Tgl Pinjam
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-calendar-check mr-1"></i>Rencana Kembali
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-calendar-times mr-1"></i>Aktual Kembali
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-hourglass-half mr-1"></i>Durasi
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-info-circle mr-1"></i>Status
+                                        </th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">
+                                            <i class="fas fa-cog mr-1"></i>Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-peminjaman-body" class="text-gray-700">
+                                    <!-- Data akan dimuat oleh JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Info Panel -->
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Legend -->
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-3">
+                                <i class="fas fa-info-circle mr-2"></i>Keterangan Status
+                            </h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-green-200 text-green-800 py-1 px-3 rounded-full text-xs font-medium">Dikembalikan</span>
+                                    <span class="text-gray-600">Alat sudah dikembalikan</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-yellow-200 text-yellow-800 py-1 px-3 rounded-full text-xs font-medium">Dipinjam</span>
+                                    <span class="text-gray-600">Alat sedang dipinjam (normal)</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-red-200 text-red-800 py-1 px-3 rounded-full text-xs font-medium">Terlambat</span>
+                                    <span class="text-gray-600">Melewati batas waktu kembali</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <h4 class="font-semibold text-yellow-800 mb-3">
+                                <i class="fas fa-bolt mr-2"></i>Aksi Cepat
+                            </h4>
+                            <div class="space-y-2">
+                                <button onclick="alert('Fitur akan segera hadir!')" class="w-full text-left px-3 py-2 bg-white border border-yellow-300 rounded text-sm hover:bg-yellow-100 transition-colors">
+                                    <i class="fas fa-bell mr-2"></i>Kirim Pengingat Peminjam Terlambat
+                                </button>
+                                <button onclick="alert('Fitur akan segera hadir!')" class="w-full text-left px-3 py-2 bg-white border border-yellow-300 rounded text-sm hover:bg-yellow-100 transition-colors">
+                                    <i class="fas fa-chart-bar mr-2"></i>Lihat Laporan Bulanan
+                                </button>
+                                <button onclick="alert('Fitur akan segera hadir!')" class="w-full text-left px-3 py-2 bg-white border border-yellow-300 rounded text-sm hover:bg-yellow-100 transition-colors">
+                                    <i class="fas fa-history mr-2"></i>Backup Data Peminjaman
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Presensi Page -->
+                <div id="page-presensi" class="page">
+                    <!-- Statistics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold text-gray-700">Hari Ini</h3>
+                            <p class="text-3xl font-bold text-blue-600" id="presensiHariIni">-</p>
+                            <p class="text-sm text-gray-500">yang hadir</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold text-gray-700">Sedang Piket</h3>
+                            <p class="text-3xl font-bold text-green-600" id="sedangPiket">-</p>
+                            <p class="text-sm text-gray-500">asisten aktif</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold text-gray-700">Bulan Ini</h3>
+                            <p class="text-3xl font-bold text-purple-600" id="totalBulanIni">-</p>
+                            <p class="text-sm text-gray-500">total presensi</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold text-gray-700">Rata-rata</h3>
+                            <p class="text-3xl font-bold text-orange-600" id="rataRata">-</p>
+                            <p class="text-sm text-gray-500">jam per hari</p>
+                        </div>
+                    </div>
+
+                    <!-- Filter dan Search -->
+                     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <div class="flex flex-wrap gap-4 items-center justify-between">
+                            <h2 class="text-xl font-semibold text-gray-700">Data Presensi Asisten</h2>
+                            <div class="flex gap-4">
+                                <input type="date" id="filterTanggalPresensi" class="px-3 py-2 border border-gray-300 rounded-md" placeholder="Pilih tanggal">
+                                
+                                <select id="filterStatusPresensi" class="px-3 py-2 border border-gray-300 rounded-md">
+                                    <option value="">Semua Status</option>
+                                    <option value="sedang piket">Sedang Piket</option>
+                                    <option value="selesai">Selesai</option>
+                                </select>
+                                
+                                <button onclick="filterPresensi()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                                    <i class="fas fa-filter mr-2"></i>Filter
+                                </button>
+                                
+                                <button onclick="resetFilterPresensi()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
+                                    <i class="fas fa-undo mr-2"></i>Reset
+                                </button>
+                                
+                                <button onclick="tampilkanDataPresensi()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
+                                    <i class="fas fa-sync-alt mr-2"></i>Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Presensi Hari Ini -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Presensi Hari Ini</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama Asisten</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Clock In</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Clock Out</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Durasi</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-presensi-hari-ini-body" class="text-gray-700"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Semua Presensi -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">Riwayat Presensi (30 Hari Terakhir)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Tanggal</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama Asisten</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Clock In</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Clock Out</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Durasi</th>
+                                        <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-semua-presensi-body" class="text-gray-700"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="scriptadmin.js" defer></script>
+</body>
+</html>

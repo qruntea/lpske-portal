@@ -1,0 +1,525 @@
+<?php
+session_start();
+
+// Cek apakah user sudah login sebagai guest
+if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] !== 'guest' || !isset($_SESSION['is_guest'])) {
+    header("Location: login.html");
+    exit;
+}
+
+// Ambil data dari session
+$nama = $_SESSION['nama_lengkap'];
+$email = $_SESSION['email'];
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Laboratorium LPSKE - Mode Tamu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar-royal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .nav-dropdown {
+            display: none;
+        }
+        .nav-dropdown.show {
+            display: block;
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.show {
+            max-height: 500px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar untuk Guest -->
+    <nav class="navbar-royal shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0 flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-white to-gray-100 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-flask text-purple-600 text-2xl"></i>
+                        </div>
+                        <div class="text-white">
+                            <h1 class="text-xl font-bold">LPSKE Portal</h1>
+                            <p class="text-xs text-purple-200">Mode Tamu - Akses Terbatas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#" onclick="showPage('dashboard')" class="nav-link text-white hover:text-purple-200 px-3 py-2 rounded-lg font-medium transition-all duration-300">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </a>
+
+                    <div class="relative">
+                        <button onclick="toggleDropdown()" class="text-white hover:text-purple-200 px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center">
+                            <i class="fas fa-database mr-2"></i>Database
+                            <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                        </button>
+                        <div id="dropdown" class="nav-dropdown absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 py-2">
+                            <a href="#" onclick="showPage('dosen')" class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600 hover:bg-gray-50">
+                                <i class="fas fa-user-tie w-5 mr-3 text-purple-500"></i>Database Dosen
+                            </a>
+                            <a href="#" onclick="showPage('asisten')" class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600 hover:bg-gray-50">
+                                <i class="fas fa-user-graduate w-5 mr-3 text-indigo-500"></i>Database Asisten
+                            </a>
+                            <a href="#" onclick="showPage('inventory')" class="dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600 hover:bg-gray-50">
+                                <i class="fas fa-boxes w-5 mr-3 text-violet-500"></i>Database Inventory
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="flex items-center space-x-4">
+                    <div class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <i class="fas fa-user-friends mr-1"></i>Mode Tamu
+                    </div>
+                    
+                    <div class="hidden md:block text-right">
+                        <span class="text-white font-medium">Selamat datang, <?php echo htmlspecialchars($nama); ?>!</span>
+                    </div>
+                    
+                    <button onclick="logout()" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden text-white p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu lg:hidden bg-white bg-opacity-10 backdrop-blur-sm rounded-xl mt-2 mb-4">
+                <div class="px-4 py-3 space-y-3">
+                    <a href="#" onclick="showPage('dashboard')" class="block px-4 py-3 text-white hover:bg-white hover:bg-opacity-20 rounded-lg">
+                        <i class="fas fa-home mr-3"></i>Dashboard
+                    </a>
+                    <div class="space-y-2">
+                        <p class="px-4 text-purple-200 text-xs font-semibold uppercase">Database</p>
+                        <a href="#" onclick="showPage('dosen')" class="block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg">
+                            <i class="fas fa-user-tie mr-3"></i>Database Dosen
+                        </a>
+                        <a href="#" onclick="showPage('asisten')" class="block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg">
+                            <i class="fas fa-user-graduate mr-3"></i>Database Asisten
+                        </a>
+                        <a href="#" onclick="showPage('inventory')" class="block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg">
+                            <i class="fas fa-boxes mr-3"></i>Database Inventory
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="bg-white border-b border-gray-200 px-6 py-4">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl font-bold text-gray-900" id="page-title">Dashboard Tamu</h1>
+            <p class="text-sm text-gray-500 mt-1">Akses terbatas untuk melihat database LPSKE</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page active">
+            <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-lg shadow-lg mb-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user-friends text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold">Web LPSKE - Mode Tamu</h2>
+                        <p class="text-orange-100 mt-1">Selamat datang di Portal Laboratorium LPSKE</p>
+                        <p class="text-sm text-orange-200 mt-2">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Sebagai tamu, Anda hanya dapat mengakses database dosen, asisten, dan inventory
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clock Card -->
+            <div class="bg-white p-4 rounded-lg shadow-lg border-l-4 border-orange-500 mb-8">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600" id="currentTime">Loading...</div>
+                    <div class="text-sm text-gray-600" id="currentDate">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Fitur Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow border-l-4 border-green-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Database Dosen</h3>
+                            <p class="text-sm text-gray-500 mt-2">Lihat informasi dosen LPSKE</p>
+                        </div>
+                        <i class="fas fa-user-tie text-green-500 text-2xl"></i>
+                    </div>
+                    <button onclick="showPage('dosen')" class="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors">
+                        <i class="fas fa-eye mr-2"></i>Lihat Database
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Database Asisten</h3>
+                            <p class="text-sm text-gray-500 mt-2">Lihat daftar asisten lab</p>
+                        </div>
+                        <i class="fas fa-user-graduate text-blue-500 text-2xl"></i>
+                    </div>
+                    <button onclick="showPage('asisten')" class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-eye mr-2"></i>Lihat Database
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow border-l-4 border-purple-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Database Inventory</h3>
+                            <p class="text-sm text-gray-500 mt-2">Lihat peralatan lab</p>
+                        </div>
+                        <i class="fas fa-boxes text-purple-500 text-2xl"></i>
+                    </div>
+                    <button onclick="showPage('inventory')" class="mt-4 w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-eye mr-2"></i>Lihat Database
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info Keterbatasan -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                <div class="flex">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-lg mr-3 mt-1"></i>
+                    <div>
+                        <h3 class="text-sm font-medium text-red-800">Keterbatasan Akses Mode Tamu</h3>
+                        <div class="mt-2 text-sm text-red-700">
+                            <p>Sebagai tamu, Anda TIDAK dapat mengakses:</p>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li>Sistem peminjaman dan pengembalian alat</li>
+                                <li>Pengajuan izin kerja atau penelitian</li>
+                                <li>Presensi piket asisten</li>
+                                <li>Dokumentasi kegiatan laboratorium</li>
+                                <li>LogBook kegiatan</li>
+                            </ul>
+                            <p class="mt-2 font-semibold">Untuk akses penuh, silakan login dengan akun resmi Anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dosen Page -->
+        <div id="page-dosen" class="page">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700">Database Dosen LPSKE</h2>
+                    <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        <i class="fas fa-eye mr-1"></i>Mode Lihat Saja
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Nama Lengkap</th>
+                                <th class="py-3 px-4 text-left">NIP</th>
+                                <th class="py-3 px-4 text-left">NIDN</th>
+                                <th class="py-3 px-4 text-left">Homebase Prodi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-dosen-body">
+                            <tr>
+                                <td colspan="4" class="text-center py-4">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Asisten Page -->
+        <div id="page-asisten" class="page">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700">Database Asisten Laboratorium</h2>
+                    <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        <i class="fas fa-eye mr-1"></i>Mode Lihat Saja
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Nama</th>
+                                <th class="py-3 px-4 text-left">NIM</th>
+                                <th class="py-3 px-4 text-left">Jabatan</th>
+                                <th class="py-3 px-4 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-asisten-body">
+                            <tr>
+                                <td colspan="4" class="text-center py-4">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Page -->
+        <div id="page-inventory" class="page">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700">Database Inventory</h2>
+                    <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        <i class="fas fa-eye mr-1"></i>Mode Lihat Saja
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Nama Alat</th>
+                                <th class="py-3 px-4 text-left">Kode</th>
+                                <th class="py-3 px-4 text-left">Kategori</th>
+                                <th class="py-3 px-4 text-left">Status</th>
+                                <th class="py-3 px-4 text-left">Lokasi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-inventory-body">
+                            <tr>
+                                <td colspan="5" class="text-center py-4">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Clock function
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            const date = now.toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            document.getElementById('currentTime').textContent = time;
+            document.getElementById('currentDate').textContent = date;
+        }
+
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Update title
+            const titles = {
+                'dashboard': 'Dashboard Tamu',
+                'dosen': 'Database Dosen',
+                'asisten': 'Database Asisten',
+                'inventory': 'Database Inventory'
+            };
+            document.getElementById('page-title').textContent = titles[pageId] || 'Dashboard Tamu';
+            
+            // Load data for specific pages
+            if (pageId === 'dosen') loadDosen();
+            if (pageId === 'asisten') loadAsisten();
+            if (pageId === 'inventory') loadInventory();
+            
+            // Close dropdowns and mobile menu
+            document.getElementById('dropdown').classList.remove('show');
+            document.getElementById('mobile-menu').classList.remove('show');
+        }
+
+        function toggleDropdown() {
+            document.getElementById('dropdown').classList.toggle('show');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('show');
+        }
+
+        // Logout function
+        async function logout() {
+            if (confirm('Anda yakin ingin keluar?')) {
+                try {
+                    await fetch('api/guest_logout.php', { method: 'POST' });
+                } catch (error) {
+                    console.error('Logout error:', error);
+                }
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Data loading functions
+        async function loadDosen() {
+            try {
+                const response = await fetch('api/get_dosen.php');
+                const data = await response.json();
+                const tbody = document.getElementById('tabel-dosen-body');
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4">Tidak ada data dosen.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                data.forEach(d => {
+                    const namaLengkap = [d.gelar_depan, d.nama_dosen, d.gelar_belakang].filter(Boolean).join(' ');
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4">${namaLengkap}</td>
+                            <td class="py-3 px-4">${d.nip || '-'}</td>
+                            <td class="py-3 px-4">${d.nidn}</td>
+                            <td class="py-3 px-4">${d.homebase_prodi || '-'}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error loading dosen:', error);
+                document.getElementById('tabel-dosen-body').innerHTML = '<tr><td colspan="4" class="text-center py-4 text-red-500">Gagal memuat data.</td></tr>';
+            }
+        }
+
+        async function loadAsisten() {
+            try {
+                const response = await fetch('api/get_asisten.php');
+                const data = await response.json();
+                const tbody = document.getElementById('tabel-asisten-body');
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4">Tidak ada data asisten.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                data.forEach(a => {
+                    const statusClass = a.status === 'Aktif' || a.status == 1 ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800';
+                    const statusText = a.status == 1 ? 'Aktif' : a.status == 0 ? 'Tidak Aktif' : a.status;
+                    
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4">${a.nama_lengkap}</td>
+                            <td class="py-3 px-4">${a.nim}</td>
+                            <td class="py-3 px-4">${a.jabatan}</td>
+                            <td class="py-3 px-4">
+                                <span class="${statusClass} py-1 px-3 rounded-full text-xs">${statusText}</span>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error loading asisten:', error);
+                document.getElementById('tabel-asisten-body').innerHTML = '<tr><td colspan="4" class="text-center py-4 text-red-500">Gagal memuat data.</td></tr>';
+            }
+        }
+
+        async function loadInventory() {
+            try {
+                const response = await fetch('api/get_inventory.php');
+                const data = await response.json();
+                const tbody = document.getElementById('tabel-inventory-body');
+                
+                if (!Array.isArray(data) || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Tidak ada data inventory.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                data.forEach(item => {
+                    let statusClass, statusText;
+                    switch(item.status) {
+                        case 'Tersedia': 
+                            statusClass = 'bg-green-200 text-green-800'; 
+                            statusText = 'Tersedia'; 
+                            break;
+                        case 'Dipinjam': 
+                            statusClass = 'bg-yellow-200 text-yellow-800'; 
+                            statusText = 'Dipinjam'; 
+                            break;
+                        case 'Rusak': 
+                            statusClass = 'bg-red-200 text-red-800'; 
+                            statusText = 'Rusak'; 
+                            break;
+                        default: 
+                            statusClass = 'bg-gray-200 text-gray-800'; 
+                            statusText = item.status || 'Tidak Diketahui';
+                    }
+                    
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4">${item.nama_alat || '-'}</td>
+                            <td class="py-3 px-4">${item.kode_alat || '-'}</td>
+                            <td class="py-3 px-4">${item.kategori || '-'}</td>
+                            <td class="py-3 px-4">
+                                <span class="${statusClass} py-1 px-3 rounded-full text-xs">${statusText}</span>
+                            </td>
+                            <td class="py-3 px-4">${item.lokasi || '-'}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                document.getElementById('tabel-inventory-body').innerHTML = '<tr><td colspan="5" class="text-center py-4 text-red-500">Gagal memuat data.</td></tr>';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.relative')) {
+                    document.getElementById('dropdown').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

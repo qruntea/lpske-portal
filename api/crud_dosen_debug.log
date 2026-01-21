@@ -1,0 +1,367 @@
+[2025-07-15 07:55:11] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:11] FILES DATA: Array
+(
+)
+
+[2025-07-15 07:55:11] ACTION: delete
+[2025-07-15 07:55:11] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 07:55:12] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:12] FILES DATA: Array
+(
+)
+
+[2025-07-15 07:55:12] ACTION: delete
+[2025-07-15 07:55:12] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 07:55:26] POST DATA: Array
+(
+    [dosen_id] => undefined
+    [nama_dosen] => Ir.Bambang Suhardi
+    [gelar_depan] => Prof. Dr.
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 197405202000121001
+    [nip] => 197405202000121001
+    [email] => IrBambangSuhardi@gmail.com
+    [homebase_prodi] => Lectuzre of Laboratory
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:26] FILES DATA: Array
+(
+    [foto] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+[2025-07-15 07:55:26] ACTION: create
+[2025-07-15 07:55:26] INPUT DATA - Nama: Ir.Bambang Suhardi, NIDN: 197405202000121001, Email: IrBambangSuhardi@gmail.com, DosenID: 
+[2025-07-15 07:55:26] No valid file uploaded. File error: 4, Size: 0
+[2025-07-15 07:55:42] POST DATA: Array
+(
+    [dosen_id] => undefined
+    [nama_dosen] => Ir.Bambang Suhardi
+    [gelar_depan] => Prof. Dr.
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 197405202000121001
+    [nip] => 197405202000121001
+    [email] => IrBambangSuhardi@gmail.com
+    [homebase_prodi] => rudi
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:42] FILES DATA: Array
+(
+    [foto] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+
+[2025-07-15 07:55:42] ACTION: create
+[2025-07-15 07:55:42] INPUT DATA - Nama: Ir.Bambang Suhardi, NIDN: 197405202000121001, Email: IrBambangSuhardi@gmail.com, DosenID: 
+[2025-07-15 07:55:42] No valid file uploaded. File error: 4, Size: 0
+[2025-07-15 07:55:58] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:58] FILES DATA: Array
+(
+)
+
+[2025-07-15 07:55:58] ACTION: delete
+[2025-07-15 07:55:58] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 07:55:59] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 07:55:59] FILES DATA: Array
+(
+)
+
+[2025-07-15 07:55:59] ACTION: delete
+[2025-07-15 07:55:59] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:01:48] POST DATA: Array
+(
+    [nama_dosen] => Ir.Bambang Suhardi
+    [gelar_depan] => Prof. Dr.
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 197405202000121001
+    [nip] => 197405202000121001
+    [email] => IrBambangSuhardi@gmail.com
+    [homebase_prodi] => tiindustri
+    [admin_id] => 74
+)
+
+[2025-07-15 08:01:48] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:01:48] ACTION: create
+[2025-07-15 08:01:48] INPUT DATA - Nama: Ir.Bambang Suhardi, NIDN: 197405202000121001, Email: IrBambangSuhardi@gmail.com, DosenID: 
+[2025-07-15 08:01:48] No valid file uploaded. File error: no file, Size: 0
+[2025-07-15 08:01:51] POST DATA: Array
+(
+    [nama_dosen] => Ir.Bambang Suhardi
+    [gelar_depan] => Prof. Dr.
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 197405202000121001
+    [nip] => 197405202000121001
+    [email] => IrBambangSuhardi@gmail.com
+    [homebase_prodi] => tiindustri
+    [admin_id] => 74
+)
+
+[2025-07-15 08:01:51] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:01:51] ACTION: create
+[2025-07-15 08:01:51] INPUT DATA - Nama: Ir.Bambang Suhardi, NIDN: 197405202000121001, Email: IrBambangSuhardi@gmail.com, DosenID: 
+[2025-07-15 08:01:51] No valid file uploaded. File error: no file, Size: 0
+[2025-07-15 08:02:18] POST DATA: Array
+(
+    [nama_dosen] => Ir.Bambang Suhardi
+    [gelar_depan] => Prof. Dr.
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 197405202000121001
+    [nip] => 197405202000121001
+    [email] => IrBambangSuhardi@gmail.com
+    [homebase_prodi] => tiindustri
+    [admin_id] => 74
+)
+
+[2025-07-15 08:02:18] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:02:18] ACTION: create
+[2025-07-15 08:02:18] INPUT DATA - Nama: Ir.Bambang Suhardi, NIDN: 197405202000121001, Email: IrBambangSuhardi@gmail.com, DosenID: 
+[2025-07-15 08:02:18] No valid file uploaded. File error: no file, Size: 0
+[2025-07-15 08:02:27] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:02:27] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:02:27] ACTION: delete
+[2025-07-15 08:02:27] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:02:28] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:02:28] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:02:28] ACTION: delete
+[2025-07-15 08:02:28] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:02:29] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:02:29] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:02:29] ACTION: delete
+[2025-07-15 08:02:29] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:43] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:07:43] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:07:43] ACTION: delete
+[2025-07-15 08:07:43] Failed to prepare foto query: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:43] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:44] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:07:44] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:07:44] ACTION: delete
+[2025-07-15 08:07:44] Failed to prepare foto query: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:44] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:45] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:07:45] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:07:45] ACTION: delete
+[2025-07-15 08:07:45] Failed to prepare foto query: Unknown column 'id' in 'where clause'
+[2025-07-15 08:07:45] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:09:05] POST DATA: Array
+(
+    [nama_dosen] => ccc
+    [gelar_depan] => sas
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 333333
+    [nip] => 121212
+    [email] => admin@example.com
+    [homebase_prodi] => tiindustrisa
+    [admin_id] => 74
+)
+
+[2025-07-15 08:09:05] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:09:05] ACTION: create
+[2025-07-15 08:09:05] INPUT DATA - Nama: ccc, NIDN: 333333, Email: admin@example.com, DosenID: 
+[2025-07-15 08:09:05] No valid file uploaded. File error: no file, Size: 0
+[2025-07-15 08:09:05] Prepare failed for insert: Unknown column 'email' in 'field list'
+[2025-07-15 08:09:15] POST DATA: Array
+(
+    [nama_dosen] => ccc
+    [gelar_depan] => sas
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 333333
+    [nip] => 121212
+    [email] => ambahan@gmail.com
+    [homebase_prodi] => tiindustrisa
+    [admin_id] => 74
+)
+
+[2025-07-15 08:09:15] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:09:15] ACTION: create
+[2025-07-15 08:09:15] INPUT DATA - Nama: ccc, NIDN: 333333, Email: ambahan@gmail.com, DosenID: 
+[2025-07-15 08:09:15] No valid file uploaded. File error: no file, Size: 0
+[2025-07-15 08:09:15] Prepare failed for insert: Unknown column 'email' in 'field list'
+[2025-07-15 08:09:22] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:09:22] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:09:22] ACTION: delete
+[2025-07-15 08:09:22] Failed to prepare foto query: Unknown column 'id' in 'where clause'
+[2025-07-15 08:09:22] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:09:23] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 17
+    [admin_id] => 74
+)
+
+[2025-07-15 08:09:23] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:09:23] ACTION: delete
+[2025-07-15 08:09:23] Failed to prepare foto query: Unknown column 'id' in 'where clause'
+[2025-07-15 08:09:23] Prepare failed for delete: Unknown column 'id' in 'where clause'
+[2025-07-15 08:13:20] Table columns: nidn, user_id, gelar_depan, nama_dosen, gelar_belakang, nip, homebase_prodi, foto
+[2025-07-15 08:13:20] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 197405202000121001
+    [admin_id] => 74
+)
+
+[2025-07-15 08:13:20] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:13:20] ACTION: delete
+[2025-07-15 08:13:20] Photo file deleted: bambang.png
+[2025-07-15 08:13:20] Delete successful for NIDN: 197405202000121001
+[2025-07-15 08:14:49] Table columns: nidn, user_id, gelar_depan, nama_dosen, gelar_belakang, nip, homebase_prodi, foto
+[2025-07-15 08:14:49] POST DATA: Array
+(
+    [action] => delete
+    [dosen_id] => 197004041996031002
+    [admin_id] => 74
+)
+
+[2025-07-15 08:14:49] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:14:49] ACTION: delete
+[2025-07-15 08:14:50] Photo file deleted: irwan.png
+[2025-07-15 08:14:50] Delete successful for NIDN: 197004041996031002
+[2025-07-15 08:15:11] Table columns: nidn, user_id, gelar_depan, nama_dosen, gelar_belakang, nip, homebase_prodi, foto
+[2025-07-15 08:15:11] POST DATA: Array
+(
+    [nama_dosen] => awesas
+    [gelar_depan] => sas
+    [gelar_belakang] => S.T. , M.T
+    [nidn] => 121212
+    [nip] => 121212
+    [email] => Citta@gmail.com
+    [homebase_prodi] => tiindustrisa
+    [admin_id] => 74
+)
+
+[2025-07-15 08:15:11] FILES DATA: Array
+(
+)
+
+[2025-07-15 08:15:11] ACTION: create
+[2025-07-15 08:15:11] INPUT DATA - Nama: awesas, NIDN: 121212, Email: Citta@gmail.com, Original NIDN: 
+[2025-07-15 08:15:11] Prepare failed for insert: Unknown column 'email' in 'field list'
+[2025-07-15 08:19:23] Table structure verified | Context: {"columns":["nidn","user_id","gelar_depan","nama_dosen","gelar_belakang","nip","homebase_prodi","foto"]}

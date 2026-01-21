@@ -1,0 +1,115 @@
+<?php
+header('Content-Type: application/json');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require 'koneksi.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Hanya menerima request POST']);
+    exit;
+}
+
+$action = $_POST['action'] ?? '';
+$response = ['success' => false, 'message' => 'Aksi tidak valid.'];
+
+// Tentukan action
+if (empty($action)) {
+    if (isset($_POST['dosen_id']) && !empty($_POST['dosen_id']) && $_POST['dosen_id'] !== 'undefined') {
+        $action = 'update';
+    } else {
+        $action = 'create';
+    }
+}
+
+if ($action === 'create' || $action === 'update') {
+    $nama_dosen = $_POST['nama_dosen'] ?? '';
+    $gelar_depan = $_POST['gelar_depan'] ?? '';
+    $gelar_belakang = $_POST['gelar_belakang'] ?? '';
+    $nidn = $_POST['nidn'] ?? '';
+    $nip = $_POST['nip'] ?? '';
+    $homebase_prodi = $_POST['homebase_prodi'] ?? '';
+    $admin_id = $_POST['admin_id'] ?? '';
+    $foto = '';
+
+    // Handle foto upload
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('dosen_') . '.' . $ext;
+        $upload_dir = __DIR__ . '/../uploads/foto_dosen/';
+        if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $upload_dir . $filename)) {
+            $foto = $filename;
+        }
+    }
+
+    if ($action === 'create') {
+        // Check NIDN duplicate
+        $check_query = "SELECT nidn FROM dosen WHERE nidn = ?";
+        $check_stmt = mysqli_prepare($koneksi, $check_query);
+        mysqli_stmt_bind_param($check_stmt, "s", $nidn);
+        mysqli_stmt_execute($check_stmt);
+        $check_result = mysqli_stmt_get_result($check_stmt);
+        
+        if (mysqli_num_rows($check_result) > 0) {
+            $response = ['success' => false, 'message' => 'NIDN sudah terdaftar dalam sistem.'];
+        } else {
+            // Insert with user_id (required by foreign key)
+            if ($foto) {
+                $query = "INSERT INTO dosen (nidn, user_id, nama_dosen, gelar_depan, gelar_belakang, nip, homebase_prodi, foto) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($koneksi, $query);
+                mysqli_stmt_bind_param($stmt, "sissssss", $nidn, $admin_id, $nama_dosen, $gelar_depan, $gelar_belakang, $nip, $homebase_prodi, $foto);
+            } else {
+                $query = "INSERT INTO dosen (nidn, user_id, nama_dosen, gelar_depan, gelar_belakang, nip, homebase_prodi) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($koneksi, $query);
+                mysqli_stmt_bind_param($stmt, "sisssss", $nidn, $admin_id, $nama_dosen, $gelar_depan, $gelar_belakang, $nip, $homebase_prodi);
+            }
+            
+            if (mysqli_stmt_execute($stmt)) {
+                $response = ['success' => true, 'message' => 'Dosen berhasil ditambahkan.'];
+            } else {
+                $response = ['success' => false, 'message' => 'Gagal menambahkan dosen: ' . mysqli_error($koneksi)];
+            }
+        }
+        mysqli_stmt_close($check_stmt);
+    } 
+    else if ($action === 'update') {
+        $original_nidn = $_POST['dosen_id'] ?? '';
+        
+        if ($foto) {
+            $query = "UPDATE dosen SET nama_dosen=?, gelar_depan=?, gelar_belakang=?, nidn=?, nip=?, homebase_prodi=?, foto=? WHERE nidn=?";
+            $stmt = mysqli_prepare($koneksi, $query);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $nama_dosen, $gelar_depan, $gelar_belakang, $nidn, $nip, $homebase_prodi, $foto, $original_nidn);
+        } else {
+            $query = "UPDATE dosen SET nama_dosen=?, gelar_depan=?, gelar_belakang=?, nidn=?, nip=?, homebase_prodi=? WHERE nidn=?";
+            $stmt = mysqli_prepare($koneksi, $query);
+            mysqli_stmt_bind_param($stmt, "sssssss", $nama_dosen, $gelar_depan, $gelar_belakang, $nidn, $nip, $homebase_prodi, $original_nidn);
+        }
+
+        if (mysqli_stmt_execute($stmt)) {
+            $response = ['success' => true, 'message' => 'Data dosen berhasil diperbarui.'];
+        } else {
+            $response = ['success' => false, 'message' => 'Gagal memperbarui data: ' . mysqli_error($koneksi)];
+        }
+    }
+} 
+elseif ($action === 'delete') {
+    $nidn = $_POST['dosen_id'] ?? '';
+    if ($nidn) {
+        $stmt = mysqli_prepare($koneksi, "DELETE FROM dosen WHERE nidn=?");
+        mysqli_stmt_bind_param($stmt, "s", $nidn);
+        if (mysqli_stmt_execute($stmt)) {
+            $response = ['success' => true, 'message' => 'Data dosen berhasil dihapus.'];
+        } else {
+            $response = ['success' => false, 'message' => 'Gagal menghapus data: ' . mysqli_error($koneksi)];
+        }
+    } else {
+        $response = ['success' => false, 'message' => 'NIDN dosen tidak ditemukan.'];
+    }
+}
+
+echo json_encode($response);
+exit;

@@ -1,0 +1,409 @@
+ /* Base styles for body and overall layout */
+         body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            /* Correct path for bguns.jpg */
+            background-image: url('uploads/bguns.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            /* Fallback background color if image fails to load */
+            background-color: #e2e8f0;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Animated particles overlay */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            pointer-events: none;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+        }
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1);
+            }
+        }
+        
+
+        .logo-uns {
+            width: 100px;
+            height: auto;
+            margin-bottom: 2rem;
+            opacity: 0.2;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .left-section:hover .logo-uns {
+            transform: scale(1.05);
+            opacity: 0.3;
+        }
+
+        /* Glass morphism effect for the main container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            overflow: hidden;
+            animation: slideInFromBottom 1s ease-out forwards;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Enhanced animation for the login container */
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Left section with enhanced glass effect */
+        .left-section {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            padding: 4rem;
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating elements in left section */
+        .left-section::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 197, 253, 0.3));
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            filter: blur(40px);
+            animation: floatElement 6s ease-in-out infinite alternate;
+        }
+
+        .left-section::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(-45deg, rgba(168, 85, 247, 0.3), rgba(196, 181, 253, 0.3));
+            border-radius: 50%;
+            bottom: -75px;
+            left: -75px;
+            filter: blur(30px);
+            animation: floatElement 8s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatElement {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(20px, -20px) rotate(180deg); }
+        }
+
+        /* Right section with enhanced styling */
+        .right-section {
+            padding: 4rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        /* Enhanced input styling */
+        .input-with-icon {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 1.2rem 1rem 1.2rem 3.5rem;
+            border: 2px solid rgba(59, 130, 246, 0.1);
+            border-radius: 1rem;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(10px);
+            font-size: 1rem;
+            color: #334155;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-with-icon input:focus {
+            border-color: #3b82f6;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 
+                        0 10px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .input-with-icon .icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .input-with-icon input:focus + .icon,
+        .input-with-icon input:focus ~ .icon {
+            color: #1d4ed8;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .input-with-icon .eye-icon {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            z-index: 3;
+        }
+
+        .input-with-icon .eye-icon:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Enhanced checkbox styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            appearance: none;
+            width: 1.4rem;
+            height: 1.4rem;
+            border: 2px solid #3b82f6;
+            border-radius: 0.4rem;
+            margin-right: 0.75rem;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
+        .checkbox-container input[type="checkbox"]::before {
+            content: "";
+            width: 0.8rem;
+            height: 0.8rem;
+            transform: scale(0);
+            transition: 200ms transform cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 1em 1em #ffffff;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 60%);
+        }
+
+        .checkbox-container input[type="checkbox"]:checked {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-color: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        .checkbox-container input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        /* Premium login button */
+        .login-button-gradient {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8, #6366f1);
+            background-size: 200% 200%;
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 2rem;
+            border-radius: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            letter-spacing: 0.05em;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .login-button-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .login-button-gradient:hover {
+            background-position: 100% 0;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .login-button-gradient:hover::before {
+            left: 100%;
+        }
+
+        .login-button-gradient:active {
+            transform: translateY(-1px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Enhanced alert styles */
+        .alert-box-elegant {
+            border-left-width: 4px;
+            padding: 1.2rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: slideInAlert 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            font-size: 0.95rem;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideInAlert {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .alert-success-elegant {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.1));
+            border-color: #10b981;
+            color: #064e3b;
+        }
+
+        .alert-error-elegant {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(248, 113, 113, 0.1));
+            border-color: #ef4444;
+            color: #7f1d1d;
+        }
+
+        /* Enhanced loading spinner */
+        .spinner-premium {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.4); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                background-attachment: scroll;
+            }
+            
+            .login-container {
+                flex-direction: column;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .left-section {
+                padding: 2.5rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .right-section {
+                padding: 2.5rem;
+            }
+        }
+
+        /* Text styling for left section */
+        .hero-title {
+            background: linear-gradient(135deg, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }

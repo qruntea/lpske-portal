@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Fakultas Teknik UNS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #005BAC;
+            --secondary-color: #003d73;
+            --text-color: #333;
+            --light-bg: #f4f8fb;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 60px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--card-bg), #eef5ff);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            gap: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-text {
+            flex: 1;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-text h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            margin-bottom: 20px;
+        }
+
+        .btn-login {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .hero-img {
+            text-align: center;
+            animation: scaleIn 1s ease-in-out;
+        }
+
+        .hero-img img {
+            max-width: 450px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* INFO SECTIONS */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .info-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .info-section p {
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            margin-left: 25px;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-img img {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="uploads/uns.jpg" alt="Logo UNS">
+        <h1>Universitas Sebelas Maret</h1>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Selamat Datang di Fakultas Teknik UNS</h1>
+                <p>
+                    Fakultas Teknik (FT) Universitas Sebelas Maret (UNS) adalah salah satu fakultas terbaik di Indonesia yang berfokus pada pengembangan ilmu pengetahuan dan teknologi. Dengan fasilitas modern dan kurikulum inovatif, kami berkomitmen mencetak insinyur unggul dan berdaya saing global.
+                </p>
+                <p>
+                    Untuk informasi lebih lanjut tentang program studi, pendaftaran, dan kegiatan mahasiswa, silakan login terlebih dahulu.
+                </p>
+                <a href="login.html" class="btn-login">Masuk ke Halaman Login</a>
+            </div>
+            <div class="hero-img">
+                <img src="uploads/bguns.jpg" alt="Gedung Fakultas Teknik UNS">
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-section">
+                <h2>Visi & Misi Fakultas</h2>
+                <p>
+                    Menjadi fakultas unggul dalam pengembangan ilmu dan teknologi untuk mendukung pembangunan berkelanjutan. Kami berupaya menghasilkan lulusan yang kompeten, beretika, dan inovatif melalui Tri Dharma Perguruan Tinggi.
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h2>Program Studi Unggulan</h2>
+                <p>Fakultas Teknik UNS menawarkan berbagai program studi sarjana dan pascasarjana, termasuk:</p>
+                <ul>
+                    <li>Teknik Sipil</li>
+                    <li>Arsitektur</li>
+                    <li>Teknik Mesin</li>
+                    <li>Teknik Industri</li>
+                    <li>Teknik Elektro</li>
+                    <li>Perencanaan Wilayah dan Kota</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>Prestasi Mahasiswa</h2>
+                <p>Mahasiswa Fakultas Teknik telah menorehkan berbagai prestasi membanggakan, di antaranya:</p>
+                <ul>
+                    <li>Juara Kontes Robot Indonesia (KRI)</li>
+                    <li>Medali emas Pekan Ilmiah Mahasiswa Nasional (PIMNAS)</li>
+                    <li>Pemenang kompetisi inovasi teknologi nasional dan internasional</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Fakultas Teknik Universitas Sebelas Maret - Semua Hak Dilindungi
+    </footer>
+
+</body>
+</html>
