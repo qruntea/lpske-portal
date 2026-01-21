@@ -91,6 +91,7 @@
         .hero-text p {
             line-height: 1.8;
             margin-bottom: 18px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .btn-login {
@@ -182,6 +183,12 @@
                 font-size: 2.1rem;
             }
         }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -190,7 +197,6 @@
     <img src="assets/images/logosmk.png" alt="Logo SMKN 2 Surakarta" class="logo">
     <h1>Perpustakaan SMKN 2 Surakarta</h1>
 </header>
-
 
 <div class="container">
 
@@ -212,14 +218,12 @@
         </div>
 
         <div class="hero-img">
-            <!-- GANTI FOTO SESUAI KEBUTUHAN -->
             <img src="assets/images/smkn.jpg" alt="Perpustakaan SMKN 2 Surakarta">
         </div>
     </section>
 
     <!-- CARD SECTION -->
     <section class="info-grid">
-
         <div class="info-section">
             <h3>Visi & Misi</h3>
             <p>
@@ -245,7 +249,6 @@
                 lomba membaca, dan pembelajaran berbasis proyek.
             </p>
         </div>
-
     </section>
 
 </div>
