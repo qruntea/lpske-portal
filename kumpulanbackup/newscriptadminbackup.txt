@@ -1,0 +1,2126 @@
+// Fungsi Logout
+async function logout() {
+    try {
+        await fetch('api/logout.php', { method: 'POST' });
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error('Logout error:', error);
+        window.location.href = 'login.html';
+    }
+}
+
+// ===================================================================
+// UTILITY FUNCTIONS
+// ===================================================================
+function showLoading(element) {
+    if (element && element.closest('table')) {
+        const colspan = element.closest('table').querySelector('th').parentElement.children.length;
+        element.innerHTML = `<tr><td colspan="${colspan}" class="text-center py-4">Memuat data...</td></tr>`;
+    }
+}
+
+function showError(element, message = 'Gagal memuat data.') {
+    if (element && element.closest('table')) {
+        const colspan = element.closest('table').querySelector('th').parentElement.children.length;
+        element.innerHTML = `<tr><td colspan="${colspan}" class="text-center py-4 text-red-500">${message}</td></tr>`;
+    }
+}
+
+
+// ===================================================================
+// REAL-TIME CLOCK FUNCTIONS
+// ===================================================================
+
+function updateClock() {
+    const now = new Date();
+    
+    // Format waktu (HH:MM:SS)
+    const time = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+    
+    // Format tanggal (DD MMMM YYYY)
+    const date = now.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+    
+    // Format hari
+    const day = now.toLocaleDateString('id-ID', {
+        weekday: 'long'
+    });
+    
+    // Update semua elemen jam
+    const timeElements = [
+        document.getElementById('currentTime'),
+        document.getElementById('timeWidget')
+    ];
+    
+    const dateElements = [
+        document.getElementById('currentDate'),
+        document.getElementById('dateWidget')
+    ];
+    
+    const dayElement = document.getElementById('currentDay');
+    
+    timeElements.forEach(el => {
+        if (el) {
+            el.textContent = time;
+            // Tambahkan animasi subtle
+            el.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                el.style.transform = 'scale(1)';
+            }, 100);
+        }
+    });
+    
+    dateElements.forEach(el => {
+        if (el) el.textContent = date;
+    });
+    
+    if (dayElement) {
+        dayElement.textContent = day;
+    }
+}
+
+function initializeClock() {
+    // Update jam setiap detik
+    updateClock(); // Initial call
+    setInterval(updateClock, 1000);
+    
+    console.log('🕐 Real-time clock initialized');
+}
+
+
+
+// ===================================================================
+// DASHBOARD FUNCTIONS
+// ===================================================================
+async function loadDashboardData() {
+    try {
+        console.log('🔄 Loading dashboard statistics...');
+        
+        // Initialize clock first
+        initializeClock();
+        
+        const response = await fetch('api/get_dashboard_stats.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        console.log('📊 Dashboard stats loaded:', result);
+        
+        const stats = result.data || {};
+        
+        // Update statistics cards dengan animasi
+        const updateCardWithAnimation = (elementId, value) => {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.style.transform = 'scale(0.8)';
+                el.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    el.textContent = value || '0';
+                    el.style.transform = 'scale(1)';
+                    el.style.opacity = '1';
+                    el.style.transition = 'all 0.3s ease';
+                }, 150);
+            }
+        };
+        
+        updateCardWithAnimation('pendingCount', stats.perizinan_pending);
+        updateCardWithAnimation('usersCount', stats.total_users);
+        updateCardWithAnimation('activeLabCount', stats.asisten_aktif);
+        updateCardWithAnimation('equipmentCount', stats.total_equipment);
+        
+        // Load recent activities
+        await loadRecentActivities();
+        
+        console.log('✅ Dashboard loaded successfully!');
+        
+    } catch (error) {
+        console.error('❌ Error loading dashboard:', error);
+        
+        // Initialize clock even if stats fail
+        initializeClock();
+        
+        // Fallback to default values
+        const elements = ['pendingCount', 'usersCount', 'activeLabCount', 'equipmentCount'];
+        elements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = '-';
+        });
+    }
+}
+
+async function loadRecentActivities() {
+    const recentActivitiesEl = document.getElementById('recentActivities');
+    if (!recentActivitiesEl) return;
+    
+    recentActivitiesEl.innerHTML = 'Memuat aktivitas terbaru...';
+    
+    try {
+        const response = await fetch('api/get_recent_activities.php');
+        const result = await response.json();
+        
+        if (result.success && result.data.length > 0) {
+            const activities = result.data.slice(0, 5); // Ambil 5 terbaru
+            recentActivitiesEl.innerHTML = `
+                <div class="space-y-3">
+                    ${activities.map(activity => `
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas ${activity.icon} ${activity.color} text-lg"></i>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-700">${activity.description}</p>
+                                <p class="text-xs text-gray-500">${activity.time}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else {
+            recentActivitiesEl.innerHTML = `
+                <div class="text-center py-4 text-gray-500">
+                    <i class="fas fa-info-circle mb-2"></i>
+                    <p>Belum ada aktivitas terbaru</p>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading recent activities:', error);
+        recentActivitiesEl.innerHTML = `
+            <div class="text-center py-4 text-gray-500">
+                <i class="fas fa-exclamation-triangle mb-2"></i>
+                <p>Gagal memuat aktivitas terbaru</p>
+            </div>
+        `;
+    }
+}
+
+// ===================================================================
+// INVENTORY FUNCTIONS
+// ===================================================================
+async function tampilkanDataInventory() {
+    console.log('🔄 Loading inventory data...');
+    const tbody = document.getElementById('tabel-inventory-body');
+    
+    if (!tbody) {
+        console.error('❌ Element tabel-inventory-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('api/get_inventory.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('📦 Data inventory berhasil dimuat:', data);
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Tidak ada data inventory.');
+        }
+        
+        // Check apakah pakai sistem quantity atau tidak
+        const hasQuantitySystem = data[0]?.hasOwnProperty('jumlah_total') && 
+                                 data[0]?.hasOwnProperty('jumlah_tersedia') && 
+                                 data[0]?.has_quantity_system !== false;
+        
+        console.log('💡 Sistem quantity aktif:', hasQuantitySystem);
+        
+        data.forEach((item, index) => {
+            try {
+                let statusClass, statusText, quantityColumn = '';
+                
+                if (hasQuantitySystem) {
+                    // SISTEM BARU: Pakai quantity
+                    const tersedia = parseInt(item.jumlah_tersedia) || 0;
+                    const total = parseInt(item.jumlah_total) || 1;
+                    
+                    if (tersedia <= 0) {
+                        statusClass = 'bg-red-200 text-red-800';
+                        statusText = 'Habis';
+                    } else if (tersedia < total) {
+                        statusClass = 'bg-yellow-200 text-yellow-800';
+                        statusText = 'Sebagian Dipinjam';
+                    } else {
+                        statusClass = 'bg-green-200 text-green-800';
+                        statusText = 'Tersedia';
+                    }
+                    
+                    // Tampilkan kolom quantity
+                    quantityColumn = `
+                        <td class="py-3 px-4 text-center">
+                            <span class="font-medium text-blue-600">${tersedia}</span>
+                            <span class="text-gray-500"> / ${total}</span>
+                        </td>
+                    `;
+                } else {
+                    // SISTEM LAMA: Pakai status biasa
+                    switch(item.status) {
+                        case 'Tersedia': 
+                            statusClass = 'bg-green-200 text-green-800'; 
+                            statusText = 'Tersedia'; 
+                            break;
+                        case 'Dipinjam': 
+                            statusClass = 'bg-yellow-200 text-yellow-800'; 
+                            statusText = 'Dipinjam'; 
+                            break;
+                        case 'Rusak': 
+                            statusClass = 'bg-red-200 text-red-800'; 
+                            statusText = 'Rusak'; 
+                            break;
+                        default: 
+                            statusClass = 'bg-gray-200 text-gray-800'; 
+                            statusText = item.status || 'Tidak Diketahui';
+                    }
+                    
+                    // Tidak tampilkan kolom quantity untuk sistem lama
+                    quantityColumn = '';
+                }
+                
+                // Build baris tabel
+                const row = `
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="py-3 px-4 font-medium">${item.nama_alat || '-'}</td>
+                        <td class="py-3 px-4 text-gray-600">${item.kode_alat || '-'}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs">
+                                ${item.kategori || '-'}
+                            </span>
+                        </td>
+                        ${quantityColumn}
+                        <td class="py-3 px-4">
+                            <span class="${statusClass} py-1 px-3 rounded-full text-xs font-medium">
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-gray-600">${item.lokasi || '-'}</td>
+                    </tr>
+                `;
+                
+                tbody.innerHTML += row;
+                
+            } catch (itemError) {
+                console.error(`❌ Error memproses item ${index}:`, itemError, item);
+            }
+        });
+        
+        console.log('✅ Tabel inventory berhasil dimuat!');
+        
+    } catch (error) { 
+        console.error('❌ Error loading inventory:', error); 
+        showError(tbody, `Gagal memuat data inventory: ${error.message}`); 
+    }
+}
+
+// ===================================================================
+// IZIN PENELITIAN FUNCTIONS
+// ===================================================================
+async function tampilkanRiwayatIzin() {
+    const tbody = document.getElementById('tabel-riwayat-izin-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4">Memuat data...</td></tr>';
+    
+    try {
+        // FIXED: Admin harus pakai get_admin_izin.php untuk lihat SEMUA data
+        const response = await fetch('api/get_admin_izin.php'); 
+        const result = await response.json();
+        
+        tbody.innerHTML = '';
+        
+        // FIXED: Handle new response structure
+        if (!result.success) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-red-500">${result.message || 'Gagal memuat data'}</td></tr>`;
+            return;
+        }
+        
+        const data = result.data; // Ambil array dari property 'data'
+        
+        if (!data || data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4">Tidak ada riwayat pengajuan izin.</td></tr>';
+            return;
+        }
+
+        data.forEach(p => {
+            let statusClass, statusText;
+            switch(p.status) {
+                case 'Diajukan': 
+                    statusClass = 'bg-yellow-200 text-yellow-800'; 
+                    statusText = 'Diajukan'; 
+                    break;
+                case 'Disetujui': 
+                    statusClass = 'bg-green-200 text-green-800'; 
+                    statusText = 'Disetujui'; 
+                    break;
+                case 'Ditolak': 
+                    statusClass = 'bg-red-200 text-red-800'; 
+                    statusText = 'Ditolak'; 
+                    break;
+                default: 
+                    statusClass = 'bg-gray-200 text-gray-800'; 
+                    statusText = p.status;
+            }
+
+            let tombolAksi = '';
+            if (p.status === 'Diajukan') {
+                tombolAksi = `
+                    <button class="btn-setujui bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600 text-xs mr-2" 
+                            data-id="${p.id}" data-action="setujui">
+                        Setujui
+                    </button>
+                    <button class="btn-tolak bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 text-xs" 
+                            data-id="${p.id}" data-action="tolak">
+                        Tolak
+                    </button>
+                `;
+            } else {
+                tombolAksi = `<span class="text-gray-500 text-xs">Tindakan Selesai</span>`;
+            }
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="py-3 px-4">${p.judul_penelitian}</td>
+                    <td class="py-3 px-4"><strong>${p.nama_mahasiswa}</strong><br><small class="text-gray-500">${p.nomor_induk}</small></td>
+                    <td class="py-3 px-4">${p.nama_dosen}</td>
+                    <td class="py-3 px-4">${p.tgl_pengajuan}</td>
+                    <td class="py-3 px-4"><span class="${statusClass} py-1 px-3 rounded-full text-xs">${statusText}</span></td>
+                    <td class="py-3 px-4 text-center">${tombolAksi}</td>
+                </tr>`;
+        });
+        
+        // Optional: Log untuk debugging
+        console.log('Admin data loaded:', result.debug);
+        
+    } catch (error) { 
+        console.error('Error Riwayat Izin:', error); 
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-red-500">Gagal memuat data.</td></tr>';
+    }
+}
+
+async function prosesAksiIzin(izinId, action) {
+    const adminId = document.body.dataset.adminId;
+    if (!adminId) {
+        alert('Error: Admin ID tidak ditemukan. Sesi mungkin telah berakhir.');
+        return;
+    }
+    const actionText = action === 'setujui' ? 'menyetujui' : 'menolak';
+    if (!window.confirm(`Anda yakin ingin ${actionText} pengajuan izin ini?`)) return;
+
+    const button = document.querySelector(`button[data-id='${izinId}'][data-action='${action}']`);
+    if (button && button.disabled) return;
+    
+    if (button) {
+        const originalText = button.textContent;
+        button.textContent = 'Memproses...';
+        button.disabled = true;
+    }
+
+    const formData = new FormData();
+    formData.append('izin_id', izinId);
+    formData.append('action', action);
+    formData.append('user_id', adminId); 
+
+    try {
+        const response = await fetch('api/proses_aksi_izin.php', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        alert(result.message);
+        if (result.success) {
+            tampilkanRiwayatIzin();
+        } else if (button) {
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+    } catch (error) {
+        console.error('Error Aksi Izin:', error);
+        alert('Terjadi kesalahan koneksi.');
+        if (button) {
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+    }
+}
+
+
+// ===================================================================
+// DOSEN CRUD FUNCTIONS - TAMBAHAN
+// ===================================================================
+
+function showFormDosen(isEdit = false, data = {}) {
+    const listView = document.getElementById('dosen-list-view');
+    const formView = document.getElementById('dosen-form-view');
+    const detailView = document.getElementById('dosen-detail-view');
+    const formTitle = document.getElementById('form-dosen-title');
+    const passwordHelp = document.getElementById('password-help');
+    
+    if (!listView || !formView || !formTitle) return;
+    
+    // Hide other views
+    listView.classList.add('hidden');
+    if (detailView) detailView.classList.add('hidden');
+    formView.classList.remove('hidden');
+    
+    // Update form title and password help text
+    if (isEdit) {
+        formTitle.textContent = 'Edit Data Dosen';
+        if (passwordHelp) passwordHelp.textContent = 'Kosongkan jika tidak ingin mengubah password';
+        document.getElementById('password').removeAttribute('required');
+    } else {
+        formTitle.textContent = 'Tambah Dosen Baru';
+        if (passwordHelp) passwordHelp.textContent = 'Password wajib diisi untuk dosen baru';
+        document.getElementById('password').setAttribute('required', 'required');
+    }
+    
+    // Populate form if editing
+    if (isEdit && data) {
+        document.getElementById('dosen-id').value = data.id || '';
+        document.getElementById('nama_dosen').value = data.nama_dosen || '';
+        document.getElementById('gelar_depan').value = data.gelar_depan || '';
+        document.getElementById('gelar_belakang').value = data.gelar_belakang || '';
+        document.getElementById('nidn').value = data.nidn || '';
+        document.getElementById('nip').value = data.nip || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('homebase_prodi').value = data.homebase_prodi || '';
+        document.getElementById('username').value = data.username || '';
+        // Password field tetap kosong untuk keamanan
+        document.getElementById('password').value = '';
+    } else {
+        // Reset form for new entry
+        document.getElementById('form-dosen').reset();
+        document.getElementById('dosen-id').value = '';
+    }
+}
+
+async function saveDosen(formData) {
+    try {
+        const dosenId = formData.get('dosen_id');
+        const isEdit = dosenId !== '' && dosenId !== null;
+        
+        console.log('💾 Saving dosen:', isEdit ? 'UPDATE' : 'CREATE');
+        console.log('📋 Form data entries:');
+        for (let [key, value] of formData.entries()) {
+            console.log(`  ${key}: ${value}`);
+        }
+        
+        const endpoint = isEdit ? 'api/update_dosen.php' : 'api/add_dosen.php';
+        console.log('🎯 Endpoint:', endpoint);
+        
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: formData
+        });
+        
+        console.log('📡 Response status:', response.status);
+        console.log('📡 Response ok:', response.ok);
+        console.log('📡 Content-Type:', response.headers.get('content-type'));
+        
+        // Get raw response text first
+        const rawText = await response.text();
+        console.log('📝 Raw response length:', rawText.length);
+        console.log('📝 Raw response first 1000 chars:', rawText.substring(0, 1000));
+        
+        // Cek apakah ada HTML error
+        if (rawText.includes('<br />') || rawText.includes('<b>Fatal error</b>') || rawText.includes('Parse error')) {
+            console.error('❌ Server returned PHP error:', rawText);
+            alert('Server error! Cek console untuk detail PHP error.');
+            return;
+        }
+        
+        // Try to parse as JSON
+        let result;
+        try {
+            result = JSON.parse(rawText);
+        } catch (parseError) {
+            console.error('❌ JSON Parse Error:', parseError);
+            console.error('❌ Raw response:', rawText);
+            alert('Server mengembalikan response yang tidak valid:\n' + rawText.substring(0, 200) + '...');
+            return;
+        }
+        
+        console.log('📤 Parsed result:', result);
+        
+        if (result.success) {
+            alert(result.message || 'Data berhasil disimpan!');
+            // Kembali ke list view
+            document.getElementById('dosen-form-view').classList.add('hidden');
+            document.getElementById('dosen-list-view').classList.remove('hidden');
+            await tampilkanDataDosen(); // Reload data
+        } else {
+            alert('Error: ' + (result.message || 'Gagal menyimpan data'));
+        }
+    } catch (error) {
+        console.error('❌ Error saving dosen:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+    }
+}
+
+async function deleteDosen(dosenId, namaDosen) {
+    if (!confirm(`Apakah Anda yakin ingin menghapus dosen ${namaDosen}?\n\nPerhatian: User account yang terkait juga akan dihapus!`)) {
+        return;
+    }
+    
+    try {
+        const formData = new FormData();
+        formData.append('dosen_id', dosenId);
+        
+        const response = await fetch('api/delete_dosen.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(result.message);
+            tampilkanDataDosen(); // Reload data
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error deleting dosen:', error);
+        alert('Terjadi kesalahan saat menghapus data.');
+    }
+}
+
+
+// ===================================================================
+// DATA DOSEN FUNCTIONS
+// ===================================================================
+async function tampilkanDataDosen() {
+    const tbody = document.getElementById('tabel-dosen-body');
+    if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Memuat data dosen...</td></tr>';
+    try {
+        const response = await fetch('api/get_dosen.php');
+        const data = await response.json();
+        tbody.innerHTML = '';
+        if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Tidak ada data dosen.</td></tr>';
+            return;
+        }
+
+        data.forEach(d => {
+            let namaLengkap = [d.gelar_depan, d.nama_dosen, d.gelar_belakang].filter(Boolean).join(' ');
+            tbody.innerHTML += `
+                <tr>
+                    <td class="py-3 px-4">${namaLengkap}</td>
+                    <td class="py-3 px-4">${d.nip || '-'}</td>
+                    <td class="py-3 px-4">${d.nidn || '-'}</td>
+                    <td class="py-3 px-4">${d.homebase_prodi || '-'}</td>
+                    <td class="py-3 px-4 text-center">
+                        <div class="flex justify-center space-x-2">
+                            <button class="btn-detail-dosen bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 text-xs flex items-center space-x-1" 
+                                    data-id="${d.id}">
+                                <i class="fas fa-search"></i>
+                                <span>Detail</span>
+                            </button>
+                            <button class="btn-edit-dosen bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 text-xs flex items-center space-x-1" 
+                                    data-id="${d.id}"
+                                    data-nama="${d.nama_dosen || ''}"
+                                    data-gelar-depan="${d.gelar_depan || ''}"
+                                    data-gelar-belakang="${d.gelar_belakang || ''}"
+                                    data-nidn="${d.nidn || ''}"
+                                    data-nip="${d.nip || ''}"
+                                    data-email="${d.email || ''}"
+                                    data-homebase="${d.homebase_prodi || ''}"
+                                    data-username="${d.username || ''}">
+                                <i class="fas fa-cog"></i>
+                                <span>Edit</span>
+                            </button>
+                            <button class="btn-delete-dosen bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 text-xs flex items-center space-x-1" 
+                                    data-id="${d.id}" 
+                                    data-nama="${namaLengkap}">
+                                <i class="fas fa-times-circle"></i>
+                                <span>Hapus</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error('Error Dosen:', error);
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-red-500">Gagal memuat data dosen.</td></tr>';
+    }
+}
+async function tampilkanDetailDosen(userId) {
+    const listView = document.getElementById('dosen-list-view');
+    const detailView = document.getElementById('dosen-detail-view');
+    if (!listView || !detailView) return;
+
+    listView.classList.add('hidden');
+    detailView.classList.remove('hidden');
+    detailView.innerHTML = '<div class="text-center py-4">Memuat detail...</div>';
+
+    try {
+        const response = await fetch(`api/get_dosen_detail.php?id=${userId}`);
+        const data = await response.json();
+
+        if (!data || data.success === false) {
+            detailView.innerHTML = '<div class="text-center py-4 text-red-500">Gagal memuat detail dosen.</div>';
+            return;
+        }
+
+        let namaLengkap = [data.gelar_depan, data.nama_dosen, data.gelar_belakang].filter(Boolean).join(' ');
+        const fotoDosen = data.foto ? `uploads/foto_dosen/${data.foto}` : 'uploads/default-placeholder.jpg';
+
+        detailView.innerHTML = `
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+                <button id="btn-kembali-dosen" class="mb-6 bg-gray-500 text-white hover:bg-gray-600 py-2 px-4 rounded-lg flex items-center space-x-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Kembali ke Daftar</span>
+                </button>
+                <div class="text-center mb-8">
+                    <img src="${fotoDosen}" alt="Foto ${namaLengkap}" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-200 shadow-lg mx-auto mb-4">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">${namaLengkap}</h1>
+                    <p class="text-lg text-blue-600 font-medium">${data.homebase_prodi || 'Prodi Tidak Terdaftar'}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700 mb-3">Informasi Dasar</h3>
+                        <div class="space-y-2">
+                            <p><span class="font-medium text-gray-600">NIDN:</span> ${data.nidn || '-'}</p>
+                            <p><span class="font-medium text-gray-600">NIP:</span> ${data.nip || '-'}</p>
+                            <p><span class="font-medium text-gray-600">Email:</span> ${data.email || '-'}</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700 mb-3">Gelar Akademik</h3>
+                        <div class="space-y-2">
+                            <p><span class="font-medium text-gray-600">Gelar Depan:</span> ${data.gelar_depan || '-'}</p>
+                            <p><span class="font-medium text-gray-600">Gelar Belakang:</span> ${data.gelar_belakang || '-'}</p>
+                            <p><span class="font-medium text-gray-600">Homebase:</span> ${data.homebase_prodi || '-'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('btn-kembali-dosen').addEventListener('click', () => {
+            document.getElementById('dosen-detail-view').classList.add('hidden');
+            document.getElementById('dosen-list-view').classList.remove('hidden');
+        });
+
+    } catch (error) {
+        console.error('Error Detail Dosen:', error);
+        detailView.innerHTML = '<div class="text-center py-4 text-red-500">Gagal memuat detail dosen.</div>';
+    }
+}
+
+// ===================================================================
+// ASISTEN FUNCTIONS
+// ===================================================================
+async function tampilkanDataAsisten() {
+    console.log('🔄 Loading asisten data...');
+    const tbody = document.getElementById('tabel-asisten-body');
+   
+    if (!tbody) {
+        console.error('❌ Element tabel-asisten-body tidak ditemukan!');
+        return;
+    }
+   
+    showLoading(tbody);
+   
+    try {
+        const response = await fetch('api/get_asisten.php');
+       
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+       
+        const data = await response.json();
+        console.log('👥 Data asisten berhasil dimuat:', data);
+       
+        tbody.innerHTML = '';
+       
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Tidak ada data asisten.');
+        }
+
+        // Kelompokkan data berdasarkan angkatan
+        const groupedData = {};
+        data.forEach(asisten => {
+            const angkatan = asisten.angkatan || 'Tidak Diketahui';
+            if (!groupedData[angkatan]) {
+                groupedData[angkatan] = [];
+            }
+            groupedData[angkatan].push(asisten);
+        });
+
+        // Urutkan angkatan dari terbaru ke terlama
+        const sortedAngkatan = Object.keys(groupedData).sort((a, b) => {
+            if (a === 'Tidak Diketahui') return 1;
+            if (b === 'Tidak Diketahui') return -1;
+            return b - a; // Descending order
+        });
+
+        // Tampilkan data yang sudah dikelompokkan
+        sortedAngkatan.forEach(angkatan => {
+            // Header untuk setiap angkatan
+            tbody.innerHTML += `
+                <tr class="bg-blue-100">
+                    <td colspan="5" class="py-3 px-4 font-bold text-blue-800">
+                        Angkatan ${angkatan} (${groupedData[angkatan].length} orang)
+                    </td>
+                </tr>
+            `;
+
+            // Data asisten untuk angkatan ini
+            groupedData[angkatan].forEach(asisten => {
+                const statusClass = asisten.status === 'Aktif' || asisten.status == 1
+                    ? 'bg-green-200 text-green-800'
+                    : 'bg-red-200 text-red-800';
+               
+                const statusText = asisten.status == 1 ? 'Aktif' :
+                                 asisten.status == 0 ? 'Tidak Aktif' : asisten.status;
+
+                // ✅ PERBAIKAN: Tambah data-nim dan perbaiki escaping
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="py-3 px-4 pl-8 font-medium">${asisten.nama_lengkap || '-'}</td>
+                        <td class="py-3 px-4 text-gray-600">${asisten.nim || '-'}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs">
+                                ${asisten.jabatan || '-'}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4">
+                            <span class="${statusClass} py-1 px-3 rounded-full text-xs font-medium">
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <div class="flex justify-center space-x-2">
+                                <button class="btn-edit-asisten bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs"
+                                        data-id="${asisten.id}" 
+                                        data-user-id="${asisten.user_id || ''}"
+                                        data-nama="${asisten.nama_lengkap || ''}"
+                                        data-nim="${asisten.nim || ''}"
+                                        data-jabatan="${asisten.jabatan || ''}" 
+                                        data-angkatan="${asisten.angkatan || ''}"
+                                        data-status="${asisten.status}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-delete-asisten bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs"
+                                        data-id="${asisten.id}" 
+                                        data-nama="${asisten.nama_lengkap || ''}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+
+        console.log('✅ Tabel asisten berhasil dimuat!');
+
+    } catch (error) {
+        console.error('❌ Error loading asisten:', error);
+        showError(tbody, `Gagal memuat data asisten: ${error.message}`);
+    }
+}
+
+async function loadUsersForSelect() {
+    try {
+        const response = await fetch('api/get_users_for_asisten.php');
+        const users = await response.json();
+        const userSelect = document.getElementById('user-select');
+        
+        userSelect.innerHTML = '<option value="">Pilih User...</option>';
+        
+        users.forEach(user => {
+            userSelect.innerHTML += `
+                <option value="${user.id}">${user.nama_lengkap} (${user.nomor_induk})</option>
+            `;
+        });
+    } catch (error) {
+        console.error('Error loading users:', error);
+    }
+}
+
+function showModalAsisten(isEdit = false, data = {}) {
+    const modal = document.getElementById('modal-asisten');
+    const modalTitle = document.getElementById('modal-title');
+    const form = document.getElementById('form-asisten');
+   
+    if (!modal || !modalTitle || !form) {
+        console.error('❌ Modal elements tidak ditemukan!');
+        return;
+    }
+
+    modalTitle.textContent = isEdit ? 'Edit Asisten' : 'Tambah Asisten';
+   
+    if (isEdit && data) {
+        // Mode Edit: Isi semua field dengan data yang ada
+        console.log('📝 Editing asisten dengan data:', data);
+        
+        document.getElementById('asisten-id').value = data.id || '';
+        document.getElementById('nama-user').value = data.nama || '';
+        document.getElementById('nim-user').value = data.nim || '';
+        document.getElementById('jabatan').value = data.jabatan || '';
+        document.getElementById('angkatan').value = data.angkatan || '';
+        
+        // ✅ PERBAIKAN: Handle status dengan benar
+        let statusValue = '';
+        if (data.status == 1 || data.status === 'Aktif') {
+            statusValue = 'Aktif';
+        } else if (data.status == 0 || data.status === 'Tidak Aktif') {
+            statusValue = 'Tidak Aktif';
+        } else {
+            statusValue = data.status || '';
+        }
+        document.getElementById('status-input').value = statusValue;
+        
+    } else {
+        // Mode Tambah: Reset semua field
+        form.reset();
+        document.getElementById('asisten-id').value = '';
+    }
+   
+    modal.classList.remove('hidden');
+}
+
+
+
+function hideModalAsisten() {
+    const modal = document.getElementById('modal-asisten');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+async function saveAsisten(formData) {
+    try {
+        const asistenId = formData.get('asisten_id');
+        const isEdit = asistenId !== '' && asistenId !== null;
+        
+        console.log('💾 Saving asisten:', isEdit ? 'UPDATE' : 'CREATE');
+        console.log('📋 Form data:', Object.fromEntries(formData));
+       
+        const endpoint = isEdit ? 'api/update_asisten.php' : 'api/add_asisten.php';
+        
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: formData
+        });
+       
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        console.log('📤 Server response:', result);
+       
+        if (result.success) {
+            alert(result.message || 'Data berhasil disimpan!');
+            hideModalAsisten();
+            await tampilkanDataAsisten(); // Reload data
+        } else {
+            alert('Error: ' + (result.message || 'Gagal menyimpan data'));
+            console.error('❌ Server error:', result);
+        }
+    } catch (error) {
+        console.error('❌ Error saving asisten:', error);
+        alert('Terjadi kesalahan saat menyimpan data: ' + error.message);
+    }
+}
+
+async function deleteAsisten(asistenId, namaAsisten) {
+    if (!confirm(`Apakah Anda yakin ingin menghapus asisten ${namaAsisten}?`)) {
+        return;
+    }
+    
+    try {
+        const formData = new FormData();
+        formData.append('asisten_id', asistenId);
+        
+        const response = await fetch('api/delete_asisten.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(result.message);
+            tampilkanDataAsisten();
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error deleting asisten:', error);
+        alert('Terjadi kesalahan saat menghapus data.');
+    }
+}
+
+// ===================================================================
+// PRESENSI ADMIN FUNCTIONS - Tambahkan ke scriptadmin.js
+// ===================================================================
+
+async function tampilkanDataPresensi() {
+    console.log('🔄 Loading presensi data...');
+    
+    try {
+        // Load statistics
+        await loadPresensiStatistics();
+        
+        // Load presensi hari ini
+        await tampilkanPresensiHariIni();
+        
+        // Load riwayat presensi
+        await tampilkanSemuaPresensi();
+        
+        console.log('✅ Data presensi berhasil dimuat!');
+        
+    } catch (error) {
+        console.error('❌ Error loading presensi data:', error);
+    }
+}
+
+// Fungsi untuk format status yang benar
+function formatPresensiStatus(status) {
+    switch (status) {
+        case 'sedang piket':
+            return {
+                class: 'bg-green-200 text-green-800',
+                text: 'Sedang Piket'
+            };
+        case 'selesai':
+            return {
+                class: 'bg-blue-200 text-blue-800',
+                text: 'Selesai'
+            };
+        default:
+            return {
+                class: 'bg-gray-200 text-gray-800',
+                text: status || 'Unknown'
+            };
+    }
+}
+
+
+// Perbaiki fungsi loadPresensiStatistics untuk handle response yang baru
+async function loadPresensiStatistics() {
+    try {
+        const response = await fetch('./api/get_presensi_statistics.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        // Debug info
+        console.log('📊 Statistics response:', data);
+        if (data.debug_users) {
+            console.log('👥 Available users:', data.debug_users);
+        }
+        
+        // Update elements jika ada
+        const hariIniEl = document.getElementById('presensiHariIni');
+        const sedangPiketEl = document.getElementById('sedangPiket');
+        const bulanIniEl = document.getElementById('totalBulanIni');
+        const rataRataEl = document.getElementById('rataRata');
+        
+        if (hariIniEl) hariIniEl.textContent = data.hari_ini || '0';
+        if (sedangPiketEl) sedangPiketEl.textContent = data.sedang_piket || '0';
+        if (bulanIniEl) bulanIniEl.textContent = data.bulan_ini || '0';
+        if (rataRataEl) rataRataEl.textContent = data.rata_rata || '0h';
+        
+    } catch (error) {
+        console.error('Error loading statistics:', error);
+    }
+}
+
+// Perbaiki fungsi tampilkanPresensiHariIni
+async function tampilkanPresensiHariIni() {
+    const tbody = document.getElementById('tabel-presensi-hari-ini-body');
+    if (!tbody) {
+        console.log('⚠️ Element tabel-presensi-hari-ini-body tidak ditemukan');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('./api/get_presensi_hari_ini.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        
+        // Handle new response format with debug info
+        const data = result.data || result; // Fallback untuk format lama
+        
+        console.log('📋 Presensi hari ini response:', result);
+        if (result.debug_join) {
+            console.log('🔍 JOIN debug info:', result.debug_join);
+        }
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Belum ada presensi hari ini.');
+        }
+        
+        data.forEach(presensi => {
+            const statusFormat = formatPresensiStatus(presensi.status);
+            
+            const row = `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 font-medium">
+                        ${presensi.nama_asisten || 'Unknown User'}
+                        ${presensi.nomor_induk ? `<br><small class="text-gray-500">${presensi.nomor_induk}</small>` : ''}
+                    </td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_masuk_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_keluar_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.durasi || '-'}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="${statusFormat.class} py-1 px-3 rounded-full text-xs font-medium">
+                            ${statusFormat.text}
+                        </span>
+                    </td>
+                </tr>
+            `;
+            
+            tbody.innerHTML += row;
+        });
+        
+        console.log('✅ Presensi hari ini loaded:', data.length, 'records');
+        
+    } catch (error) {
+        console.error('Error loading presensi hari ini:', error);
+        showError(tbody, 'Gagal memuat data presensi hari ini.');
+    }
+}
+
+// Perbaiki fungsi tampilkanSemuaPresensi
+async function tampilkanSemuaPresensi() {
+    const tbody = document.getElementById('tabel-semua-presensi-body');
+    if (!tbody) {
+        console.log('⚠️ Element tabel-semua-presensi-body tidak ditemukan');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('./api/get_all_presensi.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Belum ada data presensi.');
+        }
+        
+        data.forEach(presensi => {
+            const statusFormat = formatPresensiStatus(presensi.status);
+            
+            const row = `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4">${new Date(presensi.tanggal).toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric'
+                    })}</td>
+                    <td class="py-3 px-4 font-medium">
+                        ${presensi.nama_asisten || 'Unknown User'}
+                        ${presensi.nomor_induk ? `<br><small class="text-gray-500">${presensi.nomor_induk}</small>` : ''}
+                    </td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_masuk_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_keluar_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.durasi || '-'}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="${statusFormat.class} py-1 px-3 rounded-full text-xs font-medium">
+                            ${statusFormat.text}
+                        </span>
+                    </td>
+                </tr>
+            `;
+            
+            tbody.innerHTML += row;
+        });
+        
+        console.log('✅ All presensi loaded:', data.length, 'records');
+        
+    } catch (error) {
+        console.error('Error loading all presensi:', error);
+        showError(tbody, 'Gagal memuat data presensi.');
+    }
+}
+
+// Perbaiki fungsi filterPresensi juga
+async function filterPresensi() {
+    console.log('🔍 Filtering presensi...');
+    
+    // PERBAIKAN: Gunakan ID yang unik untuk presensi
+    const tanggal = document.getElementById('filterTanggalPresensi')?.value;
+    const status = document.getElementById('filterStatusPresensi')?.value;
+    
+    console.log('Filter presensi values:', { tanggal, status });
+    
+    const tbody = document.getElementById('tabel-semua-presensi-body');
+    if (!tbody) {
+        console.error('❌ Element tabel-semua-presensi-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        let url = 'api/get_all_presensi.php';
+        const params = new URLSearchParams();
+        
+        if (tanggal) {
+            params.append('tanggal', tanggal);
+            console.log('📅 Filter tanggal:', tanggal);
+        }
+        
+        if (status && status !== '') {
+            params.append('status', status);
+            console.log('🏷️ Filter status:', status);
+        }
+        
+        if (params.toString()) {
+            url += '?' + params.toString();
+        }
+        
+        console.log('🔍 Filtering presensi with URL:', url);
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('📋 Filtered presensi data:', data);
+        
+        tbody.innerHTML = '';
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            return showError(tbody, 'Tidak ada data presensi sesuai filter.');
+        }
+        
+        data.forEach(presensi => {
+            const statusFormat = formatPresensiStatus(presensi.status);
+            
+            const row = `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4">${new Date(presensi.tanggal).toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric'
+                    })}</td>
+                    <td class="py-3 px-4 font-medium">
+                        ${presensi.nama_asisten || 'Unknown User'}
+                        ${presensi.nomor_induk ? `<br><small class="text-gray-500">${presensi.nomor_induk}</small>` : ''}
+                    </td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_masuk_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.waktu_keluar_formatted || '-'}</td>
+                    <td class="py-3 px-4 text-center">${presensi.durasi || '-'}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="${statusFormat.class} py-1 px-3 rounded-full text-xs font-medium">
+                            ${statusFormat.text}
+                        </span>
+                    </td>
+                </tr>
+            `;
+            
+            tbody.innerHTML += row;
+        });
+        
+        console.log('✅ Filtered presensi loaded:', data.length, 'records');
+        
+    } catch (error) {
+        console.error('❌ Error filtering presensi:', error);
+        showError(tbody, 'Gagal memfilter data presensi: ' + error.message);
+    }
+}
+
+function resetFilterPresensi() {
+    console.log('🔄 Resetting presensi filters...');
+    
+    // Reset semua input filter presensi dengan ID yang baru
+    const filterTanggal = document.getElementById('filterTanggalPresensi');
+    const filterStatus = document.getElementById('filterStatusPresensi');
+    
+    if (filterTanggal) {
+        filterTanggal.value = '';
+        console.log('📅 Reset filter tanggal');
+    }
+    
+    if (filterStatus) {
+        filterStatus.value = '';
+        console.log('🏷️ Reset filter status');
+    }
+    
+    // Reload semua data presensi
+    tampilkanSemuaPresensi();
+}
+
+function initPresensiFilterListeners() {
+    const filterTanggal = document.getElementById('filterTanggalPresensi');
+    const filterStatus = document.getElementById('filterStatusPresensi');
+    
+    if (filterTanggal) {
+        filterTanggal.addEventListener('change', function() {
+            console.log('📅 Tanggal changed, auto filtering...');
+            filterPresensi();
+        });
+    }
+    
+    if (filterStatus) {
+        filterStatus.addEventListener('change', function() {
+            console.log('🏷️ Status changed, auto filtering...');
+            filterPresensi();
+        });
+    }
+    
+    console.log('✅ Presensi filter listeners initialized');
+}
+
+async function tampilkanDataPresensiWithFilter() {
+    console.log('🔄 Loading presensi data with filter support...');
+    
+    try {
+        // Load statistics
+        await loadPresensiStatistics();
+        
+        // Load presensi hari ini
+        await tampilkanPresensiHariIni();
+        
+        // Load riwayat presensi
+        await tampilkanSemuaPresensi();
+        
+        // Initialize filter listeners setelah data dimuat
+        setTimeout(() => {
+            initPresensiFilterListeners();
+        }, 500);
+        
+        console.log('✅ Data presensi dengan filter berhasil dimuat!');
+        
+    } catch (error) {
+        console.error('❌ Error loading presensi data:', error);
+    }
+}
+
+
+// Update fungsi showPage untuk include presensi
+// Tambahkan kondisi ini di dalam fungsi showPage yang sudah ada:
+/*
+else if (pageId === 'presensi') {
+    tampilkanDataPresensi();
+}
+*/
+let allPeminjamanData = [];
+
+
+async function tampilkanDataPeminjamanWithFilter() {
+    console.log('🔄 Loading peminjaman data...');
+    const tbody = document.getElementById('tabel-peminjaman-body');
+    
+    if (!tbody) {
+        console.error('❌ Element tabel-peminjaman-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('api/get_peminjaman_admin.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        console.log('📋 Data peminjaman response:', result);
+        
+        if (!result.success) {
+            throw new Error(result.message || 'Gagal memuat data');
+        }
+        
+        // Simpan data asli ke variabel global
+        allPeminjamanData = result.data || [];
+        const stats = result.stats || {};
+        
+        // Update statistik di dashboard
+        updatePeminjamanStats(stats);
+        
+        // Tampilkan semua data
+        displayFilteredData(allPeminjamanData);
+        
+        console.log('✅ Data peminjaman berhasil dimuat!', allPeminjamanData.length, 'records');
+        
+    } catch (error) {
+        console.error('❌ Error loading peminjaman:', error);
+        showError(tbody, `Gagal memuat data peminjaman: ${error.message}`);
+    }
+}
+
+function displayFilteredData(data) {
+    const tbody = document.getElementById('tabel-peminjaman-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (data.length === 0) {
+        return showError(tbody, 'Tidak ada data yang sesuai dengan filter.');
+    }
+    
+    // Group data berdasarkan status untuk tampilan yang lebih terorganisir
+    const groupedData = {
+        'Dipinjam': [],
+        'Terlambat': [],
+        'Dikembalikan': []
+    };
+    
+    data.forEach(item => {
+        const status = item.status_display || item.status;
+        if (groupedData[status]) {
+            groupedData[status].push(item);
+        } else {
+            groupedData['Dikembalikan'].push(item); // Default ke dikembalikan
+        }
+    });
+    
+    // Tampilkan data berdasarkan prioritas: Terlambat -> Dipinjam -> Dikembalikan
+    const statusOrder = ['Terlambat', 'Dipinjam', 'Dikembalikan'];
+    
+    statusOrder.forEach(status => {
+        if (groupedData[status] && groupedData[status].length > 0) {
+            // Header untuk setiap grup status
+            if (status !== 'Dikembalikan') { // Skip header untuk yang sudah dikembalikan
+                tbody.innerHTML += `
+                    <tr class="bg-gradient-to-r ${getStatusHeaderClass(status)}">
+                        <td colspan="8" class="py-3 px-4 font-bold text-white">
+                            <i class="fas ${getStatusIcon(status)} mr-2"></i>
+                            ${status.toUpperCase()} (${groupedData[status].length} item)
+                        </td>
+                    </tr>
+                `;
+            }
+            
+            // Data untuk setiap grup
+            groupedData[status].forEach(peminjaman => {
+                tbody.innerHTML += createPeminjamanRow(peminjaman);
+            });
+        }
+    });
+}
+
+function applyPeminjamanFilter() {
+    console.log('🔍 Applying filters...');
+    
+    // Ambil nilai filter
+    const statusFilter = document.getElementById('filterStatus')?.value || '';
+    const roleFilter = document.getElementById('filterRole')?.value || '';
+    const tanggalFilter = document.getElementById('filterTanggal')?.value || '';
+    
+    console.log('Filter values:', { statusFilter, roleFilter, tanggalFilter });
+    
+    // Mulai dengan semua data
+    let filteredData = [...allPeminjamanData];
+    
+    // Filter berdasarkan status
+    if (statusFilter) {
+        filteredData = filteredData.filter(item => {
+            const itemStatus = item.status_display || item.status;
+            return itemStatus === statusFilter;
+        });
+        console.log(`After status filter (${statusFilter}):`, filteredData.length, 'items');
+    }
+    
+    // Filter berdasarkan role peminjam
+    if (roleFilter) {
+        filteredData = filteredData.filter(item => {
+            return item.role_peminjam === roleFilter;
+        });
+        console.log(`After role filter (${roleFilter}):`, filteredData.length, 'items');
+    }
+    
+    // Filter berdasarkan tanggal
+    if (tanggalFilter) {
+        filteredData = filteredData.filter(item => {
+            // Konversi tanggal untuk perbandingan
+            const itemDate = new Date(item.tgl_pinjam);
+            const filterDate = new Date(tanggalFilter);
+            
+            // Bandingkan tanggal (tanpa mempertimbangkan waktu)
+            return itemDate.toDateString() === filterDate.toDateString();
+        });
+        console.log(`After date filter (${tanggalFilter}):`, filteredData.length, 'items');
+    }
+    
+    // Tampilkan data yang sudah difilter
+    displayFilteredData(filteredData);
+    
+    // Update statistik untuk data yang difilter
+    updateFilteredStats(filteredData);
+}
+
+// Fungsi untuk update statistik data yang difilter
+function updateFilteredStats(data) {
+    const stats = {
+        total_peminjaman: data.length,
+        sedang_dipinjam: data.filter(item => (item.status_display || item.status) === 'Dipinjam').length,
+        terlambat: data.filter(item => (item.status_display || item.status) === 'Terlambat').length,
+        dikembalikan: data.filter(item => (item.status_display || item.status) === 'Dikembalikan').length
+    };
+    
+    updatePeminjamanStats(stats);
+}
+
+// Fungsi untuk reset filter
+function resetPeminjamanFilter() {
+    console.log('🔄 Resetting filters...');
+    
+    // Reset semua input filter
+    const filterStatus = document.getElementById('filterStatus');
+    const filterRole = document.getElementById('filterRole');
+    const filterTanggal = document.getElementById('filterTanggal');
+    
+    if (filterStatus) filterStatus.value = '';
+    if (filterRole) filterRole.value = '';
+    if (filterTanggal) filterTanggal.value = '';
+    
+    // Tampilkan semua data
+    displayFilteredData(allPeminjamanData);
+    
+    // Update statistik dengan data asli
+    updateFilteredStats(allPeminjamanData);
+}
+
+// Fungsi untuk export data (placeholder)
+function exportPeminjamanData() {
+    if (allPeminjamanData.length === 0) {
+        alert('Tidak ada data untuk di-export!');
+        return;
+    }
+    
+    // Ambil data yang sedang ditampilkan (setelah filter)
+    const currentlyDisplayedData = getCurrentlyDisplayedData();
+    
+    // Konversi ke CSV
+    const csvData = convertToCSV(currentlyDisplayedData);
+    
+    // Download file
+    downloadCSV(csvData, 'data_peminjaman_' + new Date().toISOString().split('T')[0] + '.csv');
+}
+
+// Helper function untuk mendapatkan data yang sedang ditampilkan
+function getCurrentlyDisplayedData() {
+    const statusFilter = document.getElementById('filterStatus')?.value || '';
+    const roleFilter = document.getElementById('filterRole')?.value || '';
+    const tanggalFilter = document.getElementById('filterTanggal')?.value || '';
+    
+    let data = [...allPeminjamanData];
+    
+    if (statusFilter) {
+        data = data.filter(item => (item.status_display || item.status) === statusFilter);
+    }
+    
+    if (roleFilter) {
+        data = data.filter(item => item.role_peminjam === roleFilter);
+    }
+    
+    if (tanggalFilter) {
+        data = data.filter(item => {
+            const itemDate = new Date(item.tgl_pinjam);
+            const filterDate = new Date(tanggalFilter);
+            return itemDate.toDateString() === filterDate.toDateString();
+        });
+    }
+    
+    return data;
+}
+
+// Helper function untuk konversi ke CSV
+function convertToCSV(data) {
+    const headers = [
+        'Nama Peminjam', 'Nomor Induk', 'Role', 'Nama Alat', 'Kode Alat', 
+        'Kategori', 'Tanggal Pinjam', 'Rencana Kembali', 'Aktual Kembali', 
+        'Durasi (Hari)', 'Status', 'Lokasi'
+    ];
+    
+    const csvRows = [headers.join(',')];
+    
+    data.forEach(item => {
+        const row = [
+            `"${item.nama_peminjam || ''}"`,
+            `"${item.nomor_induk_peminjam || ''}"`,
+            `"${item.role_peminjam || ''}"`,
+            `"${item.nama_alat || ''}"`,
+            `"${item.kode_alat || ''}"`,
+            `"${item.kategori || ''}"`,
+            `"${item.tgl_pinjam_formatted || ''}"`,
+            `"${item.tgl_rencana_kembali_formatted || ''}"`,
+            `"${item.tgl_aktual_kembali_formatted || ''}"`,
+            `"${item.durasi_hari || 0}"`,
+            `"${item.status_display || item.status || ''}"`,
+            `"${item.lokasi || ''}"`
+        ];
+        csvRows.push(row.join(','));
+    });
+    
+    return csvRows.join('\n');
+}
+
+// Helper function untuk download CSV
+function downloadCSV(csvData, filename) {
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else {
+        alert('Browser Anda tidak mendukung download otomatis. Silakan copy data dari console.');
+        console.log('CSV Data:', csvData);
+    }
+}
+
+// Event listeners untuk filter real-time
+document.addEventListener('DOMContentLoaded', function() {
+    // Tambahkan event listener setelah DOM loaded
+    setTimeout(() => {
+        const filterStatus = document.getElementById('filterStatus');
+        const filterRole = document.getElementById('filterRole');
+        const filterTanggal = document.getElementById('filterTanggal');
+        
+        if (filterStatus) {
+            filterStatus.addEventListener('change', applyPeminjamanFilter);
+        }
+        
+        if (filterRole) {
+            filterRole.addEventListener('change', applyPeminjamanFilter);
+        }
+        
+        if (filterTanggal) {
+            filterTanggal.addEventListener('change', applyPeminjamanFilter);
+        }
+    }, 1000);
+});
+
+
+
+async function tampilkanDataPeminjaman() {
+    console.log('🔄 Loading peminjaman data...');
+    const tbody = document.getElementById('tabel-peminjaman-body');
+    
+    if (!tbody) {
+        console.error('❌ Element tabel-peminjaman-body tidak ditemukan!');
+        return;
+    }
+    
+    showLoading(tbody);
+    
+    try {
+        const response = await fetch('api/get_peminjaman_admin.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        console.log('📋 Data peminjaman response:', result);
+        
+        if (!result.success) {
+            throw new Error(result.message || 'Gagal memuat data');
+        }
+        
+        const data = result.data || [];
+        const stats = result.stats || {};
+        
+        // Update statistik di dashboard jika ada
+        updatePeminjamanStats(stats);
+        
+        tbody.innerHTML = '';
+        
+        if (data.length === 0) {
+            return showError(tbody, 'Belum ada data peminjaman.');
+        }
+        
+        // Group data berdasarkan status untuk tampilan yang lebih terorganisir
+        const groupedData = {
+            'Dipinjam': [],
+            'Terlambat': [],
+            'Dikembalikan': []
+        };
+        
+        data.forEach(item => {
+            const status = item.status_display || item.status;
+            if (groupedData[status]) {
+                groupedData[status].push(item);
+            } else {
+                groupedData['Dikembalikan'].push(item); // Default ke dikembalikan
+            }
+        });
+        
+        // Tampilkan data berdasarkan prioritas: Terlambat -> Dipinjam -> Dikembalikan
+        const statusOrder = ['Terlambat', 'Dipinjam', 'Dikembalikan'];
+        
+        statusOrder.forEach(status => {
+            if (groupedData[status] && groupedData[status].length > 0) {
+                // Header untuk setiap grup status
+                if (status !== 'Dikembalikan') { // Skip header untuk yang sudah dikembalikan
+                    tbody.innerHTML += `
+                        <tr class="bg-gradient-to-r ${getStatusHeaderClass(status)}">
+                            <td colspan="8" class="py-3 px-4 font-bold text-white">
+                                <i class="fas ${getStatusIcon(status)} mr-2"></i>
+                                ${status.toUpperCase()} (${groupedData[status].length} item)
+                            </td>
+                        </tr>
+                    `;
+                }
+                
+                // Data untuk setiap grup
+                groupedData[status].forEach(peminjaman => {
+                    tbody.innerHTML += createPeminjamanRow(peminjaman);
+                });
+            }
+        });
+        
+        console.log('✅ Data peminjaman berhasil dimuat!', data.length, 'records');
+        
+    } catch (error) {
+        console.error('❌ Error loading peminjaman:', error);
+        showError(tbody, `Gagal memuat data peminjaman: ${error.message}`);
+    }
+}
+
+function createPeminjamanRow(peminjaman) {
+    const statusInfo = getStatusStyle(peminjaman.status_display || peminjaman.status);
+    
+    // Hitung durasi dengan warna
+    const durasiInfo = getDurasiInfo(peminjaman.durasi_hari, peminjaman.status_display);
+    
+    // Format role peminjam
+    const roleBadge = peminjaman.role_peminjam === 'dosen' 
+        ? '<span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Dosen</span>'
+        : '<span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Asisten</span>';
+    
+    // Tombol aksi berdasarkan status
+    let actionButtons = '';
+    if (peminjaman.status_display === 'Dipinjam' || peminjaman.status_display === 'Terlambat') {
+        actionButtons = `
+            <button class="btn-kembalikan bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
+                    data-id="${peminjaman.peminjaman_id}" 
+                    data-alat="${peminjaman.nama_alat}"
+                    title="Tandai sebagai dikembalikan">
+                <i class="fas fa-check mr-1"></i>Kembalikan
+            </button>
+        `;
+    } else {
+        actionButtons = `
+            <span class="text-xs text-gray-500">
+                <i class="fas fa-check-circle text-green-500 mr-1"></i>Selesai
+            </span>
+        `;
+    }
+    
+    return `
+        <tr class="hover:bg-gray-50 transition-colors ${peminjaman.status_display === 'Terlambat' ? 'border-l-4 border-red-500' : ''}">
+            <td class="py-3 px-4">
+                <div class="font-medium text-gray-900">${peminjaman.nama_peminjam || 'Unknown User'}</div>
+                <div class="text-sm text-gray-500">
+                    ${peminjaman.nomor_induk_peminjam || '-'} ${roleBadge}
+                </div>
+            </td>
+            <td class="py-3 px-4">
+                <div class="font-medium text-blue-600">${peminjaman.nama_alat || 'Unknown Item'}</div>
+                <div class="text-xs text-gray-500">
+                    <span class="font-mono">${peminjaman.kode_alat || '-'}</span>
+                    ${peminjaman.kategori ? `• ${peminjaman.kategori}` : ''}
+                </div>
+            </td>
+            <td class="py-3 px-4 text-center">
+                <div class="text-sm font-medium">${peminjaman.tgl_pinjam_formatted || '-'}</div>
+            </td>
+            <td class="py-3 px-4 text-center">
+                <div class="text-sm ${peminjaman.status_display === 'Terlambat' ? 'text-red-600 font-bold' : ''}">${peminjaman.tgl_rencana_kembali_formatted || '-'}</div>
+            </td>
+            <td class="py-3 px-4 text-center">
+                <div class="text-sm">${peminjaman.tgl_aktual_kembali_formatted || '-'}</div>
+            </td>
+            <td class="py-3 px-4 text-center">
+                <span class="${durasiInfo.class}">${durasiInfo.text}</span>
+            </td>
+            <td class="py-3 px-4 text-center">
+                <span class="${statusInfo.class} py-1 px-3 rounded-full text-xs font-medium">
+                    ${statusInfo.text}
+                </span>
+            </td>
+            <td class="py-3 px-4 text-center">
+                ${actionButtons}
+            </td>
+        </tr>
+    `;
+}
+
+function getStatusStyle(status) {
+    switch (status) {
+        case 'Dipinjam':
+            return {
+                class: 'bg-yellow-200 text-yellow-800',
+                text: 'Dipinjam'
+            };
+        case 'Terlambat':
+            return {
+                class: 'bg-red-200 text-red-800',
+                text: 'Terlambat'
+            };
+        case 'Dikembalikan':
+            return {
+                class: 'bg-green-200 text-green-800',
+                text: 'Dikembalikan'
+            };
+        default:
+            return {
+                class: 'bg-gray-200 text-gray-800',
+                text: status || 'Unknown'
+            };
+    }
+}
+
+function getStatusHeaderClass(status) {
+    switch (status) {
+        case 'Terlambat':
+            return 'from-red-500 to-red-600';
+        case 'Dipinjam':
+            return 'from-yellow-500 to-yellow-600';
+        case 'Dikembalikan':
+            return 'from-green-500 to-green-600';
+        default:
+            return 'from-gray-500 to-gray-600';
+    }
+}
+
+function getStatusIcon(status) {
+    switch (status) {
+        case 'Terlambat':
+            return 'fa-exclamation-triangle';
+        case 'Dipinjam':
+            return 'fa-clock';
+        case 'Dikembalikan':
+            return 'fa-check-circle';
+        default:
+            return 'fa-info-circle';
+    }
+}
+
+function getDurasiInfo(durasi, status) {
+    const hari = parseInt(durasi) || 0;
+    
+    if (status === 'Terlambat') {
+        return {
+            class: 'text-red-600 font-bold',
+            text: `${hari} hari ⚠️`
+        };
+    } else if (hari > 7) {
+        return {
+            class: 'text-orange-600 font-medium',
+            text: `${hari} hari`
+        };
+    } else {
+        return {
+            class: 'text-gray-600',
+            text: `${hari} hari`
+        };
+    }
+}
+
+function updatePeminjamanStats(stats) {
+    // Update statistik di card dashboard jika ada
+    const elements = {
+        'totalPeminjaman': stats.total_peminjaman,
+        'sedangDipinjam': stats.sedang_dipinjam,
+        'terlambat': stats.terlambat,
+        'dikembalikan': stats.dikembalikan
+    };
+    
+    Object.keys(elements).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = elements[id] || '0';
+        }
+    });
+}
+
+// Fungsi untuk menandai peminjaman sebagai dikembalikan
+async function kembalikanAlat(peminjamanId, namaAlat) {
+    if (!confirm(`Apakah Anda yakin ingin menandai "${namaAlat}" sebagai dikembalikan?`)) {
+        return;
+    }
+    
+    const button = document.querySelector(`button[data-id='${peminjamanId}']`);
+    if (button) {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Proses...';
+        button.disabled = true;
+    }
+    
+    try {
+        const formData = new FormData();
+        formData.append('peminjaman_id', peminjamanId);
+        
+        const response = await fetch('api/proses_pengembalian.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(result.message || 'Alat berhasil dikembalikan!');
+            tampilkanDataPeminjaman(); // Reload data
+        } else {
+            alert('Error: ' + (result.message || 'Gagal memproses pengembalian'));
+        }
+    } catch (error) {
+        console.error('Error kembalikan alat:', error);
+        alert('Terjadi kesalahan saat memproses pengembalian.');
+    } finally {
+        if (button) {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+}
+
+
+
+// ===================================================================
+// NAVIGATION AND INITIALIZATION
+// ===================================================================
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    const activePage = document.getElementById(`page-${pageId}`);
+    if (activePage) {
+        activePage.classList.add('active');
+    }
+    
+    // Load data based on page
+    if (pageId === 'dashboard') {
+        loadDashboardData();
+    } else if (pageId === 'izin') {
+        tampilkanRiwayatIzin();
+    } else if (pageId === 'dosen') {
+        const formView = document.getElementById('dosen-form-view');
+        const detailView = document.getElementById('dosen-detail-view');
+        const listView = document.getElementById('dosen-list-view');
+        
+        if (formView) formView.classList.add('hidden');
+        if (detailView) detailView.classList.add('hidden');
+        if (listView) listView.classList.remove('hidden');
+        tampilkanDataDosen();
+    } else if (pageId === 'asisten') {
+        tampilkanDataAsisten();
+    } else if (pageId === 'inventory') {
+        tampilkanDataInventory();
+    } else if (pageId === 'peminjaman') {
+        // GANTI INI: panggil function yang baru dengan filter
+        tampilkanDataPeminjamanWithFilter();
+    } else if (pageId === 'presensi') { 
+        tampilkanDataPresensi();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check admin ID
+    const adminId = document.body.dataset.adminId;
+    if (!adminId) {
+        console.error('Admin ID not found');
+        alert('Session error: Admin ID tidak ditemukan. Silakan login ulang.');
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Load dashboard data on initial load
+    loadDashboardData();
+    
+    // Navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageTitle = document.getElementById('page-title');
+    const menuButton = document.getElementById('menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const contentArea = document.getElementById('content-area');
+
+    if (navLinks) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.dataset.page;
+                if (pageTitle) pageTitle.textContent = this.querySelector('span').textContent;
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                showPage(pageId);
+                if (window.innerWidth < 768 && sidebar) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+    }
+
+    if (menuButton && sidebar) {
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    }
+
+    // Content handlers
+    if (contentArea) {
+        contentArea.addEventListener('click', async function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+            
+            if (target.classList.contains('btn-setujui') || target.classList.contains('btn-tolak')) {
+                prosesAksiIzin(target.dataset.id, target.dataset.action);
+            }
+            
+            if (target.classList.contains('btn-detail-dosen')) {
+                tampilkanDetailDosen(target.dataset.id);
+            }
+            
+            if (target.id === 'btn-kembali-dosen') {
+                const formView = document.getElementById('dosen-form-view');
+                const detailView = document.getElementById('dosen-detail-view');
+                const listView = document.getElementById('dosen-list-view');
+                
+                if (formView) formView.classList.add('hidden');
+                if (detailView) detailView.classList.add('hidden');
+                if (listView) listView.classList.remove('hidden');
+            }
+
+            // Asisten CRUD handlers
+           if (target.id === 'btn-tambah-asisten') {
+                showModalAsisten(false);
+            }
+            if (target.classList.contains('btn-edit-asisten')) {
+                const data = {
+                    id: target.dataset.id,
+                    userId: target.dataset.userId,
+                    nim: target.dataset.nim, // ✅ ini yang kurang
+                    nama: target.dataset.nama, 
+                    jabatan: target.dataset.jabatan,
+                    angkatan: target.dataset.angkatan,
+                    status: target.dataset.status
+                };
+                 console.log('✏️ Edit button clicked dengan data:', data);
+                showModalAsisten(true, data);
+            }
+
+             if (target.classList.contains('btn-delete-asisten')) {
+                deleteAsisten(target.dataset.id, target.dataset.nama);
+            }
+
+            if (target.classList.contains('btn-kembalikan')) {
+            kembalikanAlat(target.dataset.id, target.dataset.alat);
+            }
+
+            if (target.id === 'btn-close-modal' || target.id === 'btn-cancel') {
+                hideModalAsisten();
+            }
+
+            // Dosen CRUD handlers - TAMBAHKAN INI
+if (target.id === 'btn-tambah-dosen') {
+    showFormDosen(false);
+}
+
+if (target.classList.contains('btn-edit-dosen')) {
+    const data = {
+        id: target.dataset.id,
+        nama_dosen: target.dataset.nama,
+        gelar_depan: target.dataset.gelarDepan,
+        gelar_belakang: target.dataset.gelarBelakang,
+        nidn: target.dataset.nidn,
+        nip: target.dataset.nip,
+        email: target.dataset.email,
+        homebase_prodi: target.dataset.homebase,
+        username: target.dataset.username
+    };
+    showFormDosen(true, data);
+}
+
+if (target.classList.contains('btn-delete-dosen')) {
+    deleteDosen(target.dataset.id, target.dataset.nama);
+}
+
+if (target.id === 'btn-batal-form') {
+    document.getElementById('dosen-form-view').classList.add('hidden');
+    document.getElementById('dosen-list-view').classList.remove('hidden');
+}
+        });
+    
+    }
+
+    // Modal form submission
+    const formAsisten = document.getElementById('form-asisten');
+    if (formAsisten) {
+        formAsisten.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validasi form
+            const namaUser = document.getElementById('nama-user').value.trim();
+            const nimUser = document.getElementById('nim-user').value.trim();
+            const jabatan = document.getElementById('jabatan').value.trim();
+            const angkatan = document.getElementById('angkatan').value.trim();
+            const status = document.getElementById('status-input').value.trim();
+            
+            if (!namaUser || !nimUser || !jabatan || !angkatan || !status) {
+                alert('Semua field harus diisi!');
+                return;
+            }
+            
+            const formData = new FormData(this);
+            console.log('📨 Submitting form dengan data:', Object.fromEntries(formData));
+            saveAsisten(formData);
+        });
+        
+    }
+    // Form dosen submission - TAMBAHKAN INI
+    const formDosen = document.getElementById('form-dosen');
+    if (formDosen) {
+        formDosen.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            console.log('📨 Submitting dosen form');
+            saveDosen(formData);
+        });
+    }
+});

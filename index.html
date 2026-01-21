@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan SMKN 2 Surakarta</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2f4f2f; /* Hijau Army */
+            --secondary-color: #1f3d1f;
+            --light-bg: #f4f8f5;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --shadow: 0 10px 25px rgba(0,0,0,0.08);
+            --radius: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        /* HEADER */
+        .main-header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .main-header .logo {
+            height: 55px;
+            width: auto;
+        }
+
+        .main-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #ffffff, #edf4ef);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 45px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h2 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h2 .welcome-small {
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        .hero-text p {
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .btn-login {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .hero-img {
+            flex: 1.2;
+            text-align: center;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* INFO GRID */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-section {
+            background-color: var(--card-bg);
+            padding: 35px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+        }
+
+        .info-section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .info-section h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .info-section p {
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .info-section ul {
+            padding-left: 20px;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            padding: 18px;
+            margin-top: 50px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text h2 {
+                font-size: 2.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <img src="assets/images/logosmk.png" alt="Logo SMKN 2 Surakarta" class="logo">
+    <h1>Perpustakaan SMKN 2 Surakarta</h1>
+</header>
+
+
+<div class="container">
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-text">
+            <h2><span class="welcome-small">Selamat Datang di Perpustakaan</span><br><span>SMKN 2 Surakarta</span></h2>
+            <p>
+                Perpustakaan SMKN 2 Surakarta merupakan pusat sumber belajar
+                yang mendukung kegiatan akademik siswa dan guru.
+                Kami menyediakan berbagai koleksi buku pelajaran,
+                kejuruan, serta literasi umum.
+            </p>
+            <p>
+                Untuk mengakses layanan perpustakaan dan informasi koleksi buku,
+                silakan login terlebih dahulu.
+            </p>
+            <a href="login.html" class="btn-login">Masuk ke Halaman Login</a>
+        </div>
+
+        <div class="hero-img">
+            <!-- GANTI FOTO SESUAI KEBUTUHAN -->
+            <img src="assets/images/smkn.jpg" alt="Perpustakaan SMKN 2 Surakarta">
+        </div>
+    </section>
+
+    <!-- CARD SECTION -->
+    <section class="info-grid">
+
+        <div class="info-section">
+            <h3>Visi & Misi</h3>
+            <p>
+                Menjadi perpustakaan sekolah yang modern, nyaman,
+                dan mendukung peningkatan literasi siswa.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h3>Layanan Unggulan</h3>
+            <ul>
+                <li>Peminjaman & pengembalian buku</li>
+                <li>Koleksi buku kejuruan</li>
+                <li>Ruang baca nyaman</li>
+                <li>Literasi digital</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>Kegiatan & Prestasi</h3>
+            <p>
+                Mendukung kegiatan literasi sekolah,
+                lomba membaca, dan pembelajaran berbasis proyek.
+            </p>
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    &copy; 2025 Perpustakaan SMKN 2 Surakarta
+</footer>
+
+</body>
+</html>

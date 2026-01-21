@@ -1,0 +1,865 @@
+--- Log at 2025-07-21 08:30:30 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-21 08:30:45 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-21 08:30:53 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:05 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:10 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:17 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:20 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:25 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079045}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-21 08:31:48 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753079503}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-21 08:31:58 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753079503}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-21 08:32:12 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753079527}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-21 08:32:24 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753079527}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-21 08:32:36 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753079527}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-21 08:32:57 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753079574}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-22 04:06:52 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753150002}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-22 04:53:18 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753152769}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:53:35 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753152769}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:53:39 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753152769}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:53:48 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753152769}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 04:54:21 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753152849}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:54:33 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753152849}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 04:54:48 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753152882}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:55:05 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753152882}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 04:55:18 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753152882}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 04:59:43 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753153179}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 05:29:45 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753153244}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 05:29:53 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753153244}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 05:31:48 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753155102}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 05:31:56 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753155102}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 06:15:24 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753155129}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 06:15:47 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753157740}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 06:15:55 ---
+Session data terbaca: {"user_id":17,"nama_lengkap":null,"email":null,"user_name":"Ir. Bambang Suhardi","user_email":"IrBambangSuhardi@gmail.com","user_role":"dosen","login_time":1753157740}
+User ID dari session: 17
+Query dijalankan untuk user_id: 17. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 06:16:43 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753157764}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 06:16:51 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753157764}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 06:17:05 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753157764}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-22 06:24:51 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753157764}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-22 06:39:04 ---
+Session data terbaca: {"user_id":1,"nama_lengkap":null,"email":null,"user_name":"Andi Pratama","user_email":"andi.p@student.univ.ac.id","user_role":"mahasiswa","login_time":1753159135}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-22 09:18:43 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753168711}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 04:05:01 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753236289}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-23 04:05:20 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753236289}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 04:46:10 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753238755}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 05:03:14 ---
+Session data terbaca: {"user_id":5,"nama_lengkap":null,"email":null,"user_name":"Desnita Fitriani","user_email":"DesnitaFitriani@gmai.com","user_role":"asisten","login_time":1753239772}
+User ID dari session: 5
+Query dijalankan untuk user_id: 5. Jumlah baris ditemukan: 0
+
+--- Log at 2025-07-23 05:03:31 ---
+Session data terbaca: {"user_id":5,"nama_lengkap":null,"email":null,"user_name":"Desnita Fitriani","user_email":"DesnitaFitriani@gmai.com","user_role":"asisten","login_time":1753239772}
+User ID dari session: 5
+Query dijalankan untuk user_id: 5. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 05:46:50 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753242047}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 05:46:55 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753242047}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 05:48:35 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753242047}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 05:48:47 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753242047}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 06:14:39 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753244068}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 06:14:49 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753244068}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 06:29:37 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753244966}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 06:44:39 ---
+Session data terbaca: {"user_id":5,"nama_lengkap":null,"email":null,"user_name":"Desnita Fitriani","user_email":"DesnitaFitriani@gmai.com","user_role":"asisten","login_time":1753245873}
+User ID dari session: 5
+Query dijalankan untuk user_id: 5. Jumlah baris ditemukan: 1
+
+--- Log at 2025-07-23 06:45:49 ---
+Session data terbaca: {"user_id":5,"nama_lengkap":null,"email":null,"user_name":"Desnita Fitriani","user_email":"DesnitaFitriani@gmai.com","user_role":"asisten","login_time":1753245873}
+User ID dari session: 5
+Query dijalankan untuk user_id: 5. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 06:46:14 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753245957}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 06:46:33 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753245957}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 07:55:45 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753249944}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 08:18:56 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753249944}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 08:19:03 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753249944}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 08:27:37 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 08:28:24 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-23 08:28:35 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 08:28:40 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 09:14:17 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-23 09:31:25 ---
+Session data terbaca: {"user_id":37,"nama_lengkap":null,"email":null,"user_name":"Dicky Pamungkas ","user_email":"DickyPamungkas@gmail.com ","user_role":"asisten","login_time":1753251626}
+User ID dari session: 37
+Query dijalankan untuk user_id: 37. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-24 04:55:43 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753325723}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 05:14:01 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753326798}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 06:35:05 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753326798}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 06:57:27 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753331910}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-24 06:57:57 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753331910}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-24 08:22:13 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 08:33:48 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 08:40:04 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 08:51:30 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 09:52:07 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 2
+
+--- Log at 2025-07-24 09:52:18 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-24 09:52:55 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-24 09:53:11 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753333403}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 04:39:05 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753410015}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 04:44:47 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753410015}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 04:45:52 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753410015}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 04:46:30 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753410015}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 04:46:30 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753410015}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 05:16:50 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753412357}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 05:17:17 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753412357}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-25 09:20:24 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753427999}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-25 09:20:24 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753427999}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 4
+
+--- Log at 2025-07-25 09:21:04 ---
+Session data terbaca: {"user_id":4,"nama_lengkap":null,"email":null,"user_name":"Citta Gurnita Prasista","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1753427999}
+User ID dari session: 4
+Query dijalankan untuk user_id: 4. Jumlah baris ditemukan: 5
+
+--- Log at 2025-07-25 09:29:39 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:29:39 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:30:09 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:30:09 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:30:33 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:30:33 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 3
+
+--- Log at 2025-07-25 09:31:00 ---
+Session data terbaca: {"user_id":74,"nama_lengkap":null,"email":null,"user_name":"Admin","user_email":"a@gmail.com","user_role":"admin","login_time":1753428411}
+User ID dari session: 74
+Query dijalankan untuk user_id: 74. Jumlah baris ditemukan: 4
+
+--- Log at 2025-08-01 05:47:37 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754020003,"guest_session_start":"2025-08-01 05:19:07","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754020003,"session_token":"e35f9fc9ce5775f49e3054f4b1ecced9"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-01 05:47:37 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754020003,"guest_session_start":"2025-08-01 05:19:07","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754020003,"session_token":"e35f9fc9ce5775f49e3054f4b1ecced9"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-01 08:24:35 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754029436,"guest_session_start":"2025-08-01 06:31:30","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754029436,"session_token":"faf3e6ce197d65633508e242df98071c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-01 08:24:35 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754029436,"guest_session_start":"2025-08-01 06:31:30","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754029436,"session_token":"faf3e6ce197d65633508e242df98071c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-02 05:48:02 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754106463,"guest_session_start":"2025-08-02 05:44:46","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754106463,"session_token":"7e981d66d256cb5dc4fa9bea405e187d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-02 05:48:02 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754106463,"guest_session_start":"2025-08-02 05:44:46","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754106463,"session_token":"7e981d66d256cb5dc4fa9bea405e187d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-02 05:51:51 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754106694,"guest_session_start":"2025-08-02 05:50:17","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754106694,"session_token":"0fbcb68b79a0f79bf5bbae256ddaf815"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-02 05:51:51 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754106694,"guest_session_start":"2025-08-02 05:50:17","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754106694,"session_token":"0fbcb68b79a0f79bf5bbae256ddaf815"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-05 05:23:28 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754364202,"guest_session_start":"2025-08-05 04:28:52","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754364202,"session_token":"7a0636dd9b9852512b458ef860a915d4"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-05 05:23:28 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754364202,"guest_session_start":"2025-08-05 04:28:52","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754364202,"session_token":"7a0636dd9b9852512b458ef860a915d4"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-05 05:23:52 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754364202,"guest_session_start":"2025-08-05 04:28:52","user_name":"citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754364202,"session_token":"7a0636dd9b9852512b458ef860a915d4"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-11 05:30:51 ---
+Session data terbaca: {"user_id":6,"user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","login_time":1754882899,"last_activity":1754882899,"session_token":"4ac9b4c01b01cb93855927e14765bcfc"}
+User ID dari session: 6
+ERROR di blok CATCH: Unknown column 'i.nama_alat' in 'field list'
+
+--- Log at 2025-08-11 05:30:51 ---
+Session data terbaca: {"user_id":6,"user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","login_time":1754882899,"last_activity":1754882899,"session_token":"4ac9b4c01b01cb93855927e14765bcfc"}
+User ID dari session: 6
+ERROR di blok CATCH: Unknown column 'i.nama_alat' in 'field list'
+
+--- Log at 2025-08-11 05:43:29 ---
+Session data terbaca: {"user_id":6,"user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","login_time":1754882899,"last_activity":1754882899,"session_token":"4ac9b4c01b01cb93855927e14765bcfc"}
+User ID dari session: 6
+Query dijalankan untuk user_id: 6. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-11 05:43:29 ---
+Session data terbaca: {"user_id":6,"user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","login_time":1754882899,"last_activity":1754882899,"session_token":"4ac9b4c01b01cb93855927e14765bcfc"}
+User ID dari session: 6
+Query dijalankan untuk user_id: 6. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-11 06:35:25 ---
+Session data terbaca: {"user_id":6,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754885998,"guest_session_start":"2025-08-11 06:18:46","user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","last_activity":1754885998,"session_token":"e9076099ce31f79c9e00144516da8534"}
+User ID dari session: 6
+Query dijalankan untuk user_id: 6. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-11 06:35:26 ---
+Session data terbaca: {"user_id":6,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754885998,"guest_session_start":"2025-08-11 06:18:46","user_name":"citta","user_email":"citta@gmail.com","user_role":"asisten","last_activity":1754885998,"session_token":"e9076099ce31f79c9e00144516da8534"}
+User ID dari session: 6
+Query dijalankan untuk user_id: 6. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-12 07:25:46 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754976252,"guest_session_start":"2025-08-12 07:03:31","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754976252,"session_token":"09c1a84d2ff69a499ca3082351235444"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-12 07:25:46 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754976252,"guest_session_start":"2025-08-12 07:03:31","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754976252,"session_token":"09c1a84d2ff69a499ca3082351235444"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 0
+
+--- Log at 2025-08-12 07:26:00 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754976252,"guest_session_start":"2025-08-12 07:03:31","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754976252,"session_token":"09c1a84d2ff69a499ca3082351235444"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 07:35:41 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754976927,"guest_session_start":"2025-08-12 07:35:03","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754976927,"session_token":"2d60494278c0cae2a4b86b78b6875f3c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 07:35:41 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754976927,"guest_session_start":"2025-08-12 07:35:03","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754976927,"session_token":"2d60494278c0cae2a4b86b78b6875f3c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 07:52:54 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754977899,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754977899,"session_token":"2bac9c7165b6a7427cf65518f1ac715c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 07:52:54 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754977899,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754977899,"session_token":"2bac9c7165b6a7427cf65518f1ac715c"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:34:25 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980289,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980289,"session_token":"99c80903b314b679a89c060098858bc3"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:34:25 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980289,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980289,"session_token":"99c80903b314b679a89c060098858bc3"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:36:50 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:36:50 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:48:09 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:48:09 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:51:41 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 08:51:42 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 09:01:16 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-12 09:01:16 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1754980605,"guest_session_start":"2025-08-12 07:47:50","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1754980605,"session_token":"71f941273a30ad7e7fa3f3c08e82dec6"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 1
+
+--- Log at 2025-08-13 06:17:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:17:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:18:10 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:18:10 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:25:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:25:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:28:28 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:28:28 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:32:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:32:55 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:49:54 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:49:54 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:50:06 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 06:50:06 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:26:05 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:26:05 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:35:36 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:35:36 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:58:18 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:58:18 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 2
+
+--- Log at 2025-08-13 07:58:53 ---
+Session data terbaca: {"user_id":1,"username":"guest","nama_lengkap":"Tamu LSTARS","email":"tamu@lpske.ac.id","role":"guest","is_guest":true,"login_time":1755058367,"guest_session_start":"2025-08-13 06:12:04","user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","last_activity":1755058367,"session_token":"582af1761ab9b0383d122e1ad7c5433d"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-13 17:30:49 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755099010,"last_activity":1755099010,"session_token":"9847bf6bd3a261487a567e247b0c3fad"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-13 17:30:49 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755099010,"last_activity":1755099010,"session_token":"9847bf6bd3a261487a567e247b0c3fad"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-14 04:14:22 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755137261,"last_activity":1755137261,"session_token":"881fc1493f07b161307037035dbb2922"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-14 04:14:22 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755137261,"last_activity":1755137261,"session_token":"881fc1493f07b161307037035dbb2922"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-14 04:15:05 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755137261,"last_activity":1755137261,"session_token":"881fc1493f07b161307037035dbb2922"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-14 04:15:05 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755137261,"last_activity":1755137261,"session_token":"881fc1493f07b161307037035dbb2922"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-14 07:43:52 ---
+Session data terbaca: {"user_id":2,"user_name":"a","user_email":"a@gmail.com","user_role":"mahasiswa","login_time":1755150200,"last_activity":1755150200,"session_token":"ed6b2dac74f8affc5b807e1aa20fc5fb"}
+User ID dari session: 2
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:43:52 ---
+Session data terbaca: {"user_id":2,"user_name":"a","user_email":"a@gmail.com","user_role":"mahasiswa","login_time":1755150200,"last_activity":1755150200,"session_token":"ed6b2dac74f8affc5b807e1aa20fc5fb"}
+User ID dari session: 2
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:53:23 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:53:23 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:57:27 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:57:27 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:59:43 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 07:59:43 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 09:34:41 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 09:34:41 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 09:37:17 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-14 09:37:17 ---
+Session data terbaca: {"user_id":1,"user_name":"fadhilah nm","user_email":"fadhilah@gmail.com","user_role":"admin","login_time":1755150701,"last_activity":1755150701,"session_token":"41adfdd7222e29d31dda0e581e7777a4"}
+User ID dari session: 1
+ERROR di blok CATCH: Unknown column 'p.peminjam_user_id' in 'where clause'
+
+--- Log at 2025-08-15 05:22:33 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-15 05:22:33 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 3
+
+--- Log at 2025-08-15 05:22:55 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 4
+
+--- Log at 2025-08-15 05:23:26 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 4
+
+--- Log at 2025-08-15 05:23:26 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 4
+
+--- Log at 2025-08-15 05:25:22 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 4
+
+--- Log at 2025-08-15 05:25:22 ---
+Session data terbaca: {"user_id":1,"user_name":"Citta","user_email":"Citta@gmail.com","user_role":"asisten","login_time":1755223342,"last_activity":1755223342,"session_token":"6045e02816749dac5595ddbc9eb542af"}
+User ID dari session: 1
+Query dijalankan untuk user_id: 1. Jumlah baris ditemukan: 4
+

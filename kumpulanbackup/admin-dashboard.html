@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Portal LPSKE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Portal LPSKE - Admin</h1>
+            <div class="flex items-center space-x-4">
+                <span id="userName">Loading...</span>
+                <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white h-screen shadow-lg">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Menu Admin</h2>
+                <ul class="space-y-2">
+                    <li><a href="#dashboard" onclick="showPage('dashboard')" class="block p-2 hover:bg-blue-100 rounded">📊 Dashboard</a></li>
+                    <li><a href="#perizinan" onclick="showPage('perizinan')" class="block p-2 hover:bg-blue-100 rounded">📋 Kelola Perizinan</a></li>
+                    <li><a href="#users" onclick="showPage('users')" class="block p-2 hover:bg-blue-100 rounded">👥 Kelola Users</a></li>
+                    <li><a href="#asisten" onclick="showPage('asisten')" class="block p-2 hover:bg-blue-100 rounded">🧑‍🔬 Database Asisten</a></li>
+                    <li><a href="#inventory" onclick="showPage('inventory')" class="block p-2 hover:bg-blue-100 rounded">📦 Inventory Lab</a></li>
+                    <li><a href="#laporan" onclick="showPage('laporan')" class="block p-2 hover:bg-blue-100 rounded">📈 Laporan</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <!-- Dashboard Page -->
+            <div id="page-dashboard" class="page">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Dashboard Admin</h2>
+                
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold text-gray-700">Perizinan Pending</h3>
+                        <p class="text-3xl font-bold text-yellow-600" id="pendingCount">-</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold text-gray-700">Total Users</h3>
+                        <p class="text-3xl font-bold text-blue-600" id="usersCount">-</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold text-gray-700">Lab Aktif</h3>
+                        <p class="text-3xl font-bold text-green-600" id="activeLabCount">-</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold text-gray-700">Equipment</h3>
+                        <p class="text-3xl font-bold text-purple-600" id="equipmentCount">-</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Aktivitas Terbaru</h3>
+                    <div id="recentActivities">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Perizinan Page -->
+            <div id="page-perizinan" class="page hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Kelola Perizinan</h2>
+                
+                <!-- Perizinan Pending -->
+                <div class="bg-white p-6 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Perizinan Menunggu Persetujuan</h3>
+                    <div id="pendingPerizinan">Loading...</div>
+                </div>
+                
+                <!-- All Perizinan -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Semua Perizinan</h3>
+                    <div id="allPerizinan">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Other Pages (Asisten, Users, etc) -->
+            <div id="page-asisten" class="page hidden">
+                <!-- Copy dari halaman asisten yang sudah Anda buat -->
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Database Asisten Laboratorium</h2>
+                <!-- Tabel asisten existing code -->
+            </div>
+
+            <!-- Add other pages as needed -->
+            <div id="page-users" class="page hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Kelola Users</h2>
+                <p>Fitur kelola users akan ditambahkan di sini</p>
+            </div>
+
+            <div id="page-inventory" class="page hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Inventory Lab</h2>
+                <p>Fitur inventory akan ditambahkan di sini</p>
+            </div>
+
+            <div id="page-laporan" class="page hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Laporan</h2>
+                <p>Fitur laporan akan ditambahkan di sini</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in and is admin
+        async function checkAccess() {
+            try {
+                const response = await fetch('api/check_session.php');
+                const result = await response.json();
+                
+                if (!result.logged_in) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                if (result.user_data.role !== 'admin') {
+                    window.location.href = 'user-dashboard.html';
+                    return;
+                }
+                
+                // Set user name
+                document.getElementById('userName').textContent = result.user_data.nama;
+                
+                // Load dashboard data
+                loadDashboardData();
+                
+            } catch (error) {
+                console.error('Access check error:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Show specific page
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+            
+            // Load page specific data
+            if (pageId === 'perizinan') {
+                loadPerizinanData();
+            } else if (pageId === 'asisten') {
+                // Call your existing function
+                if (typeof tampilkanDataAsisten === 'function') {
+                    tampilkanDataAsisten();
+                }
+            }
+        }
+
+        // Load dashboard statistics
+        async function loadDashboardData() {
+            try {
+                // You can create separate API endpoints for each statistic
+                // For now, using placeholder values
+                document.getElementById('pendingCount').textContent = '5';
+                document.getElementById('usersCount').textContent = '25';
+                document.getElementById('activeLabCount').textContent = '3';
+                document.getElementById('equipmentCount').textContent = '15';
+                
+                document.getElementById('recentActivities').innerHTML = `
+                    <div class="space-y-2">
+                        <p class="text-sm text-gray-600">• User john.doe@example.com mengajukan perizinan ruangan</p>
+                        <p class="text-sm text-gray-600">• Perizinan penelitian dari jane.smith@example.com disetujui</p>
+                        <p class="text-sm text-gray-600">• Equipment mikroskop dipinjam oleh mahasiswa</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Dashboard load error:', error);
+            }
+        }
+
+        // Load perizinan data
+        async function loadPerizinanData() {
+            // Implement perizinan loading logic
+            document.getElementById('pendingPerizinan').innerHTML = 'Loading perizinan data...';
+            document.getElementById('allPerizinan').innerHTML = 'Loading all perizinan...';
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                await fetch('api/logout.php', { method: 'POST' });
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', checkAccess);
+    </script>
+</body>
+</html>

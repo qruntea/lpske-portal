@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim Kolaborator Proyek - LPSKE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 via-purple-500 to-purple-600 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                    <div class="text-white">
+                        <h1 class="text-2xl font-bold">Tim Kolaborator Proyek</h1>
+                        <p class="text-blue-100 text-sm">Portal LPSKE - Teknik Industri UNS</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="guest-dashboard.php" class="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 text-white font-medium rounded-lg hover:bg-opacity-30 transition-all duration-300 backdrop-blur-sm border border-white border-opacity-20">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Kembali ke Halaman Beranda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        
+        <!-- Page Title -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-3">Tim Kolaborator Proyek</h1>
+            <p class="text-gray-600">Orang-orang luar biasa yang terlibat dalam pengembangan website LPSKE ini</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="border-b border-gray-200 mb-8">
+            <nav class="-mb-px flex space-x-8">
+                <button class="tab-button border-b-2 border-blue-500 py-2 px-1 text-sm font-medium text-blue-600" data-team="smk">
+                    SMK N 2 Surakarta
+                </button>
+                <button class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-team="enuma">
+                    Enuma Technology
+                </button>
+                <button class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-team="asisten">
+                    Asisten Laboratorium LSTARS
+                </button>
+                <button class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-team="mersiflab">
+                    Mersiflab
+                </button>
+            </nav>
+        </div>
+
+        <!-- Team Grid -->
+        <div id="team-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            
+            <!-- SMK N 2 Surakarta Team Members (Default) -->
+            <div class="team-group" data-team="smk">
+            <div class="bg-white rounded-lg shadow-sm border p-6 text-center h-full">
+                <img src="https://i.pravatar.cc/150?u=ocha" alt="Foto Ocha Viantika Sari" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-3 border-red-400">
+                
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">Ocha Viantika Sari</h3>
+                <p class="text-sm text-gray-600 mb-1">Kelas 12 PPLG B/SMK N 2 Surakarta</p>
+                <p class="text-sm text-gray-500">2025/2026</p>
+            </div>
+        </div>
+
+           <div class="team-group" data-team="smk">
+            <div class="bg-white rounded-lg shadow-sm border p-6 text-center h-full">
+                <img src="https://i.pravatar.cc/150?u=mutia" alt="Foto Mutia Putri Nur Aziza" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-3 border-red-400">
+
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">Mutia Putri Nur Aziza</h3>
+                <p class="text-sm text-gray-600 mb-1">Kelas 12 PPLG B/SMK N 2 Surakarta</p>
+                <p class="text-sm text-gray-500">2025/2026</p>
+            </div>
+        </div>
+
+        <div class="team-group" data-team="smk">
+            <div class="bg-white rounded-lg shadow-sm border p-6 text-center h-full">
+                <img src="https://i.pravatar.cc/150?u=kirana" alt="Foto Kirana Putri Andrea" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-3 border-red-400">
+
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">Kirana Putri Andrea</h3>
+                <p class="text-sm text-gray-600 mb-1">Kelas 12 PPLG B/SMK N 2 Surakarta</p>
+                <p class="text-sm text-gray-500">2025/2026</p>
+            </div>
+        </div>
+
+            <!-- Enuma Technology Team Members -->
+            <div class="team-group hidden" data-team="enuma">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-green-400 bg-green-100 flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-lg">AS</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Dr. Ahmad Susanto</h3>
+                    <p class="text-sm text-gray-600 mb-1">CEO & Founder Enuma Technology</p>
+                    <p class="text-sm text-gray-500">Senior Developer</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="enuma">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-green-400 bg-green-100 flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-lg">SIP</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Sari Indah Putri</h3>
+                    <p class="text-sm text-gray-600 mb-1">UI/UX Designer</p>
+                    <p class="text-sm text-gray-500">Enuma Technology</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="enuma">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-green-400 bg-green-100 flex items-center justify-center">
+                        <span class="text-green-600 font-bold text-lg">BH</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Budi Hartono</h3>
+                    <p class="text-sm text-gray-600 mb-1">Full Stack Developer</p>
+                    <p class="text-sm text-gray-500">Enuma Technology</p>
+                </div>
+            </div>
+
+            <!-- Asisten Laboratorium LSTARS Team Members -->
+            <div class="team-group hidden" data-team="asisten">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-blue-400 bg-blue-100 flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-lg">RP</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Rian Pratama</h3>
+                    <p class="text-sm text-gray-600 mb-1">Asisten Laboratorium Senior</p>
+                    <p class="text-sm text-gray-500">LSTARS - Teknik Industri UNS</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="asisten">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-blue-400 bg-blue-100 flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-lg">MS</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Maya Sari</h3>
+                    <p class="text-sm text-gray-600 mb-1">Asisten Laboratorium</p>
+                    <p class="text-sm text-gray-500">LSTARS - Teknik Industri UNS</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="asisten">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-blue-400 bg-blue-100 flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-lg">DS</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Dedi Supriadi</h3>
+                    <p class="text-sm text-gray-600 mb-1">Asisten Laboratorium</p>
+                    <p class="text-sm text-gray-500">LSTARS - Teknik Industri UNS</p>
+                </div>
+            </div>
+
+            <!-- Mersiflab Team Members -->
+            <div class="team-group hidden" data-team="mersiflab">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-purple-400 bg-purple-100 flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-lg">IW</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Prof. Dr. Indra Wijaya</h3>
+                    <p class="text-sm text-gray-600 mb-1">Director of Research</p>
+                    <p class="text-sm text-gray-500">Mersiflab</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="mersiflab">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-purple-400 bg-purple-100 flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-lg">LP</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Dr. Lisa Permata</h3>
+                    <p class="text-sm text-gray-600 mb-1">Research Scientist</p>
+                    <p class="text-sm text-gray-500">Mersiflab</p>
+                </div>
+            </div>
+
+            <div class="team-group hidden" data-team="mersiflab">
+                <div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-4 border-3 border-purple-400 bg-purple-100 flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-lg">FR</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">M. Fadli Rahman</h3>
+                    <p class="text-sm text-gray-600 mb-1">Lab Technician</p>
+                    <p class="text-sm text-gray-500">Mersiflab</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Tab functionality with team switching
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const teamGroups = document.querySelectorAll('.team-group');
+
+        function showTeam(teamName) {
+            // Hide all team groups
+            teamGroups.forEach(group => {
+                group.classList.add('hidden');
+            });
+
+            // Show selected team groups
+            const selectedTeams = document.querySelectorAll(`[data-team="${teamName}"]`);
+            selectedTeams.forEach(team => {
+                if (team.classList.contains('team-group')) {
+                    team.classList.remove('hidden');
+                }
+            });
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const teamName = button.getAttribute('data-team');
+                
+                // Remove active class from all tabs
+                tabButtons.forEach(tab => {
+                    tab.classList.remove('border-blue-500', 'text-blue-600');
+                    tab.classList.add('border-transparent', 'text-gray-500');
+                });
+                
+                // Add active class to clicked tab
+                button.classList.remove('border-transparent', 'text-gray-500');
+                button.classList.add('border-blue-500', 'text-blue-600');
+
+                // Show corresponding team
+                showTeam(teamName);
+            });
+        });
+
+        // Initialize with SMK team
+        showTeam('smk');
+    </script>
+</body>
+</html>
