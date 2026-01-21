@@ -1,9 +1,9 @@
 // ===================================================================
-// LSTARS PORTAL - LOGIN SCRIPT
-// Script untuk menangani login regular dan guest login
+// PERPUSTAKAAN - LOGIN SCRIPT
+// Script untuk menangani login regular dan pengunjung (Perpustakaan)
 // ===================================================================
 
-console.log('🚀 LSTARS Login System Loading...');
+console.log('🚀 Perpustakaan Digital - Login System Loading...');
 
 // ===================================================================
 // UTILITY FUNCTIONS
@@ -273,6 +273,8 @@ async function initializeLogin() {
         } else {
             console.error('❌ Guest login button not found');
         }
+
+        
         
         console.log('🚀 Login system initialized successfully!');
         
@@ -295,12 +297,16 @@ window.addEventListener('load', function() {
     initializeLogin();
 });
 
+ 
+
+// Smooth scroll removed (explore button deleted)
+
 // ===================================================================
 // DOM CONTENT LOADED EVENT (Fallback)
 // ===================================================================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📋 DOM loaded, ensuring login system is ready...');
-    
+        
     // Double-check initialization after a short delay
     setTimeout(() => {
         const loginForm = document.getElementById('loginForm');

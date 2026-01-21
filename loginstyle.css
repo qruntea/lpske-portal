@@ -1,20 +1,24 @@
  /* Base styles for body and overall layout */
-         body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 2rem;
+html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    min-height: auto;
+    padding: 2rem;
             /* Correct path for bguns.jpg */
             background-image: url('uploads/bguns.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+                /* allow page scrolling */
+                background-attachment: scroll;
             /* Fallback background color if image fails to load */
             background-color: #e2e8f0;
-            overflow: hidden;
+                overflow: auto;
             position: relative;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
@@ -37,7 +41,7 @@
             pointer-events: none;
             width: 4px;
             height: 4px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(16,185,129,0.22);
             border-radius: 50%;
             animation: particleFloat 15s infinite linear;
         }
@@ -82,9 +86,12 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 
                         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             display: flex;
+            align-items: flex-start; /* ensure children don't stretch vertically */
             width: 100%;
-            max-width: 1200px;
-            overflow: hidden;
+            max-width: 1100px;
+            margin: 4rem auto;
+            /* allow content to grow so page becomes scrollable */
+            overflow: visible;
             animation: slideInFromBottom 1s ease-out forwards;
             z-index: 10;
             position: relative;
@@ -117,6 +124,7 @@
             text-align: center;
             position: relative;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: auto;
         }
 
         /* Floating elements in left section */
@@ -125,7 +133,7 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 197, 253, 0.3));
+            background: linear-gradient(45deg, rgba(16, 185, 129, 0.25), rgba(167, 243, 208, 0.25));
             border-radius: 50%;
             top: -100px;
             right: -100px;
@@ -138,7 +146,7 @@
             position: absolute;
             width: 150px;
             height: 150px;
-            background: linear-gradient(-45deg, rgba(168, 85, 247, 0.3), rgba(196, 181, 253, 0.3));
+            background: linear-gradient(-45deg, rgba(34,197,94,0.18), rgba(52,211,153,0.18));
             border-radius: 50%;
             bottom: -75px;
             left: -75px;
@@ -157,11 +165,49 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             position: relative;
+            min-height: auto;
+            /* Make the right (welcome/login) box scrollable when content overflows */
+            /* fixed height to ensure internal scrolling works reliably */
+            height: calc(70vh);
+            /* restore default overflow behavior */
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
         }
+
+        /* Custom scrollbar for right-section (WebKit) */
+        .right-section::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .right-section::-webkit-scrollbar-track {
+            background: rgba(16,185,129,0.06);
+            border-radius: 10px;
+        }
+
+        .right-section::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #10b981, #047857);
+            border-radius: 10px;
+            box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        .right-section::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #059669, #065f46);
+        }
+
+        /* Firefox scrollbar */
+        .right-section {
+            scrollbar-width: thin;
+            scrollbar-color: #10b981 rgba(16,185,129,0.06);
+        }
+
+        
 
         /* Enhanced input styling */
         .input-with-icon {
@@ -172,7 +218,7 @@
         .input-with-icon input {
             width: 100%;
             padding: 1.2rem 1rem 1.2rem 3.5rem;
-            border: 2px solid rgba(59, 130, 246, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.08);
             border-radius: 1rem;
             background: rgba(248, 250, 252, 0.8);
             backdrop-filter: blur(10px);
@@ -184,9 +230,9 @@
         }
 
         .input-with-icon input:focus {
-            border-color: #3b82f6;
+            border-color: #10b981;
             background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08), 
                         0 10px 15px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
@@ -196,7 +242,7 @@
             left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #3b82f6;
+            color: #10b981;
             font-size: 1.1rem;
             transition: all 0.3s ease;
             z-index: 2;
@@ -204,7 +250,7 @@
 
         .input-with-icon input:focus + .icon,
         .input-with-icon input:focus ~ .icon {
-            color: #1d4ed8;
+            color: #047857;
             transform: translateY(-50%) scale(1.1);
         }
 
@@ -223,8 +269,8 @@
         }
 
         .input-with-icon .eye-icon:hover {
-            color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
         }
 
         /* Enhanced checkbox styling */
@@ -241,7 +287,7 @@
             appearance: none;
             width: 1.4rem;
             height: 1.4rem;
-            border: 2px solid #3b82f6;
+            border: 2px solid #10b981;
             border-radius: 0.4rem;
             margin-right: 0.75rem;
             display: grid;
@@ -258,13 +304,13 @@
             transform: scale(0);
             transition: 200ms transform cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: inset 1em 1em #ffffff;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #10b981, #047857);
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 60%);
         }
 
         .checkbox-container input[type="checkbox"]:checked {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border-color: #1d4ed8;
+            background: linear-gradient(135deg, #10b981, #047857);
+            border-color: #047857;
             transform: scale(1.05);
         }
 
@@ -274,14 +320,14 @@
 
         /* Premium login button */
         .login-button-gradient {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8, #6366f1);
+            background: linear-gradient(135deg, #10b981, #059669, #047857);
             background-size: 200% 200%;
             color: white;
             font-weight: 700;
             padding: 1.2rem 2rem;
             border-radius: 1rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
             letter-spacing: 0.05em;
             border: none;
             position: relative;
@@ -304,7 +350,7 @@
         .login-button-gradient:hover {
             background-position: 100% 0;
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.45);
         }
 
         .login-button-gradient:hover::before {
@@ -313,7 +359,7 @@
 
         .login-button-gradient:active {
             transform: translateY(-1px);
-            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.38);
         }
 
         /* Enhanced alert styles */
@@ -354,8 +400,8 @@
         .spinner-premium {
             width: 50px;
             height: 50px;
-            border: 4px solid rgba(59, 130, 246, 0.1);
-            border-left: 4px solid #3b82f6;
+            border: 4px solid rgba(16, 185, 129, 0.08);
+            border-left: 4px solid #10b981;
             border-radius: 50%;
             animation: spin 1s linear infinite, glow 2s ease-in-out infinite alternate;
         }
@@ -366,8 +412,8 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
-            100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.4); }
+            0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.25); }
+            100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 30px rgba(16, 185, 129, 0.35); }
         }
 
         /* Responsive adjustments */
@@ -387,6 +433,7 @@
                 padding: 2.5rem;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                min-height: auto;
             }
             
             .right-section {
@@ -396,11 +443,12 @@
 
         /* Text styling for left section */
         .hero-title {
-            background: linear-gradient(135deg, #ffffff, #e2e8f0);
+            background: linear-gradient(90deg, #064e3b, #10b981);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 4px 8px rgba(6, 78, 59, 0.12));
+            font-weight: 800;
         }
 
         .hero-subtitle {
