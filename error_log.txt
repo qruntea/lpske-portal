@@ -271,3 +271,25 @@ Stack trace:
 [21-Jan-2026 01:28:26 Europe/Berlin] Guest login successful at 2026-01-21 01:28:26
 [21-Jan-2026 02:17:48 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
 [21-Jan-2026 02:17:48 Europe/Berlin] Guest login successful at 2026-01-21 02:17:48
+[22-Jan-2026 08:23:00 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[22-Jan-2026 08:23:00 Europe/Berlin] Guest login successful at 2026-01-22 08:23:00
+[23-Jan-2026 05:56:36 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 05:56:36 Europe/Berlin] Guest login successful at 2026-01-23 05:56:36
+[23-Jan-2026 05:56:47 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 05:56:47 Europe/Berlin] Guest login successful at 2026-01-23 05:56:47
+[23-Jan-2026 05:58:29 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 05:58:29 Europe/Berlin] Guest login successful at 2026-01-23 05:58:29
+[23-Jan-2026 06:08:10 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:08:10 Europe/Berlin] Guest login successful at 2026-01-23 06:08:10
+[23-Jan-2026 06:15:18 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:15:18 Europe/Berlin] Guest login successful at 2026-01-23 06:15:18
+[23-Jan-2026 06:24:22 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:24:22 Europe/Berlin] Guest login successful at 2026-01-23 06:24:22
+[23-Jan-2026 06:24:27 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:24:27 Europe/Berlin] Guest login successful at 2026-01-23 06:24:27
+[23-Jan-2026 06:25:22 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:25:22 Europe/Berlin] Guest login successful at 2026-01-23 06:25:22
+[23-Jan-2026 06:29:55 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:29:55 Europe/Berlin] Guest login successful at 2026-01-23 06:29:55
+[23-Jan-2026 06:40:23 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[23-Jan-2026 06:40:23 Europe/Berlin] Guest login successful at 2026-01-23 06:40:23
