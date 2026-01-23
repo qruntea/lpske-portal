@@ -16,7 +16,7 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Laboratorium LSTARS</title>
+    <title>Perpustakaan SMAKADUTA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -24,7 +24,7 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gradient-to-b from-emerald-50 to-white">
     <!-- Modern Navbar -->
     <nav class="navbar-royal shadow-xl sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,13 +33,13 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 flex items-center space-x-3">
                         <div class="w-12 h-12 bg-gradient-to-br from-white to-gray-100 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l-1.414-1.414m15.152 15.152l-1.414-1.414M18.364 5.636l-1.414 1.414m-11.314 11.314l-1.414 1.414" />
                             </svg>
                         </div>
                         <div class="text-white">
-                            <h1 class="text-xl font-bold">LSTARS Portal</h1>
-                            <p class="text-xs text-purple-200">Universitas Sebelas Maret</p>
+                            <h1 class="text-xl font-bold">Perpustakaan SMAKADUTA</h1>
+                            <p class="text-xs text-emerald-200">Portal Koleksi Buku</p>
                         </div>
                     </div>
                 </div>
@@ -47,64 +47,56 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-8" id="main-nav">
                     <!-- Dashboard -->
-                    <a href="#" data-page="dashboard" class="nav-link active nav-item text-white hover:text-purple-200 px-3 py-2 rounded-lg font-medium transition-all duration-300">
+                    <a href="#" data-page="dashboard" class="nav-link active nav-item text-white hover:text-emerald-200 px-3 py-2 rounded-lg font-medium transition-all duration-300">
                         <i class="fas fa-home mr-2"></i>
                         <span>Dashboard</span>
                     </a>
 
                     <!-- Database Dropdown -->
                     <div class="relative nav-item">
-                        <button class="text-white hover:text-purple-200 px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center" onclick="toggleDropdown('database-dropdown')">
+                        <button class="text-white hover:text-emerald-200 px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center" onclick="toggleDropdown('database-dropdown')">
                             <i class="fas fa-database mr-2"></i>
                             <span>Database</span>
                             <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-300" id="database-chevron"></i>
                         </button>
                         <div id="database-dropdown" class="nav-dropdown absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 py-2">
-                            <a href="#" data-page="dosen" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-user-tie w-5 mr-3 text-purple-500"></i>
-                                <span>Database Dosen</span>
-                            </a>
-                            <a href="#" data-page="asisten" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-user-graduate w-5 mr-3 text-indigo-500"></i>
-                                <span>Database Asisten</span>
-                            </a>
-                            <a href="#" data-page="inventory" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-boxes w-5 mr-3 text-violet-500"></i>
-                                <span>Database Inventory</span>
+                            <a href="#" data-page="inventory" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-book w-5 mr-3 text-emerald-500"></i>
+                                <span>Inventory Buku</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- Layanan Dropdown -->
                     <div class="relative nav-item">
-                        <button class="text-white hover:text-purple-200 px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center" onclick="toggleDropdown('layanan-dropdown')">
+                        <button class="text-white hover:text-emerald-200 px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center" onclick="toggleDropdown('layanan-dropdown')">
                             <i class="fas fa-cogs mr-2"></i>
                             <span>Layanan</span>
                             <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-300" id="layanan-chevron"></i>
                         </button>
                         <div id="layanan-dropdown" class="nav-dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 py-2">
-                            <a href="#" data-page="peminjaman" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-exchange-alt w-5 mr-3 text-purple-500"></i>
+                            <a href="#" data-page="peminjaman" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-exchange-alt w-5 mr-3 text-emerald-500"></i>
                                 <span>Peminjaman & Pengembalian</span>
                             </a>
-                            <a href="#" data-page="izin" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-file-signature w-5 mr-3 text-indigo-500"></i>
-                                <span>Izin Kerja/Penelitian</span>
+                            <a href="#" data-page="izin" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-file-signature w-5 mr-3 text-emerald-500"></i>
+                                <span>Izin Peminjaman</span>
                             </a>
-                            <a href="#" data-page="presensi" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-clock w-5 mr-3 text-violet-500"></i>
+                            <a href="#" data-page="presensi" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-clock w-5 mr-3 text-emerald-500"></i>
                                 <span>Presensi Piket</span>
                             </a>
-                            <a href="#" data-page="presensi_praktikum" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
+                            <a href="#" data-page="presensi_praktikum" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
                                 <i class="fas fa-user-check w-5 mr-3 text-teal-500"></i>
                                 <span>Presensi Praktikum</span>
                             </a>
-                            <a href="#" data-page="dokumentasi" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-camera w-5 mr-3 text-pink-500"></i>
+                            <a href="#" data-page="dokumentasi" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-camera w-5 mr-3 text-emerald-500"></i>
                                 <span>Dokumentasi Kegiatan</span>
                             </a>
-                            <a href="#" data-page="LogbookKegiatanLab" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-book w-5 mr-3 text-fuchsia-500"></i>
+                            <a href="#" data-page="LogbookKegiatanLab" class="nav-link dropdown-item flex items-center px-4 py-3 text-gray-700 hover:text-emerald-600">
+                                <i class="fas fa-book w-5 mr-3 text-emerald-500"></i>
                                 <span>LogBook Kegiatan</span>
                             </a>
                         </div>
@@ -114,9 +106,9 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                 <!-- Right Side - Profile & Notifications -->
                 <div class="flex items-center space-x-4">
                     <!-- Notification Bell -->
-                    <button class="relative text-white hover:text-purple-200 transition-colors duration-300">
+                    <button class="relative text-white hover:text-emerald-200 transition-colors duration-300">
                         <i class="fas fa-bell text-lg"></i>
-                        <span class="notification-badge absolute -top-1 -right-1 w-3 h-3 bg-pink-500 rounded-full"></span>
+                        <span class="notification-badge absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full"></span>
                     </button>
 
                     <!-- Profile Info & Logout -->
@@ -125,7 +117,7 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                             <i class="fas fa-user-circle text-lg text-white mr-2"></i>
                             <span id="welcome-message" class="text-white font-medium">Memuat data...</span>
                         </div>
-                        <button onclick="logout()" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg">
+                        <button onclick="logout()" class="bg-gradient-to-r from-emerald-500 to-emerald-500 hover:from-emerald-600 hover:to-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg">
                             <i class="fas fa-sign-out-alt mr-2"></i>Logout
                         </button>
                     </div>
@@ -147,26 +139,20 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                     
                     <!-- Mobile Database Section -->
                     <div class="space-y-2">
-                        <p class="px-4 text-purple-200 text-xs font-semibold uppercase tracking-wider">Database</p>
-                        <a href="#" data-page="dosen" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
-                            <i class="fas fa-user-tie mr-3"></i>Database Dosen
-                        </a>
-                        <a href="#" data-page="asisten" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
-                            <i class="fas fa-user-graduate mr-3"></i>Database Asisten
-                        </a>
+                        <p class="px-4 text-emerald-200 text-xs font-semibold uppercase tracking-wider">Database</p>
                         <a href="#" data-page="inventory" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
-                            <i class="fas fa-boxes mr-3"></i>Database Inventory
+                            <i class="fas fa-book mr-3"></i>Inventory Buku
                         </a>
                     </div>
                     
                     <!-- Mobile Layanan Section -->
                     <div class="space-y-2">
-                        <p class="px-4 text-purple-200 text-xs font-semibold uppercase tracking-wider">Layanan</p>
+                        <p class="px-4 text-emerald-200 text-xs font-semibold uppercase tracking-wider">Layanan</p>
                         <a href="#" data-page="peminjaman" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
                             <i class="fas fa-exchange-alt mr-3"></i>Peminjaman & Pengembalian
                         </a>
                         <a href="#" data-page="izin" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
-                            <i class="fas fa-file-signature mr-3"></i>Izin Kerja/Penelitian
+                            <i class="fas fa-file-signature mr-3"></i>Izin Peminjaman
                         </a>
                         <a href="#" data-page="presensi" class="nav-link block px-6 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300">
                             <i class="fas fa-clock mr-3"></i>Presensi Piket
@@ -187,15 +173,15 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
     </nav>
 
     <!-- Page Title Bar -->
-    <div class="bg-white border-b border-gray-200 px-6 py-4">
+    <div class="bg-white border-b-2 border-emerald-200 px-6 py-4 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900" id="page-title">Dashboard</h1>
-                <p class="text-sm text-gray-500 mt-1">Kelola data dan layanan LSTARS dengan mudah</p>
+                <h1 class="text-2xl font-bold text-emerald-900" id="page-title">Dashboard</h1>
+                <p class="text-sm text-emerald-600 mt-1">Kelola koleksi buku perpustakaan dengan mudah</p>
             </div>
             <div class="flex items-center space-x-4">
-                <div class="text-sm text-gray-500">
-                    <i class="fas fa-clock mr-1"></i>
+                <div class="text-sm text-emerald-700 bg-emerald-50 px-4 py-2 rounded-lg">
+                    <i class="fas fa-clock mr-2 text-emerald-600"></i>
                     <span id="current-navbar-time">Loading...</span>
                 </div>
             </div>
@@ -208,30 +194,30 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
         <!-- Dashboard Page -->
         <div id="page-dashboard" class="page">
             <!-- Dashboard Header -->
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-800">Selamat Datang di Portal LSTARS</h2>
-                <p class="mt-2 text-gray-600">Silakan gunakan menu di atas untuk mengakses fitur yang tersedia.</p>
+            <div class="mb-8 bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl p-8 border-l-4 border-emerald-600">
+                <h2 class="text-4xl font-bold text-emerald-900">Selamat Datang di Perpustakaan SMAKADUTA</h2>
+                <p class="mt-3 text-lg text-emerald-700">Silakan gunakan menu di atas untuk mengakses fitur yang tersedia.</p>
             </div>
 
             <!-- Real-time Clock Card -->
-            <div class="bg-white p-4 rounded-lg shadow-lg border-l-4 border-blue-500 mb-8">
+            <div class="bg-white p-4 rounded-lg shadow-lg border-l-4 border-emerald-500 mb-8">
                 <div class="text-center">
-                    <div class="text-2xl font-bold text-blue-600" id="currentTime">00:00:00</div>
+                    <div class="text-2xl font-bold text-emerald-600" id="currentTime">00:00:00</div>
                     <div class="text-sm text-gray-600" id="currentDate">Loading...</div>
                     <div class="text-xs text-gray-500 mt-1" id="currentDay">Loading...</div>
                 </div>
             </div>
 
             <!-- User Profile Card -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <div class="bg-gradient-to-r from-white to-emerald-50 p-6 rounded-lg shadow-md mb-8 border-l-4 border-emerald-500">
                 <div class="flex items-center space-x-4">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                        <i class="fas fa-user text-blue-600 text-2xl"></i>
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-user text-white text-2xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-800" id="userName">Loading...</h3>
-                        <p class="text-gray-600" id="userRole">Loading...</p>
-                        <p class="text-sm text-gray-500" id="userInfo">Loading...</p>
+                        <h3 class="text-xl font-semibold text-emerald-900" id="userName">Loading...</h3>
+                        <p class="text-emerald-700 font-medium" id="userRole">Loading...</p>
+                        <p class="text-sm text-emerald-600" id="userInfo">Loading...</p>
                     </div>
                 </div>
             </div>
@@ -242,11 +228,11 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                     <div class="flex items-center">
                         <div class="flex-1">
                             <h3 class="text-lg font-semibold text-gray-700">Perizinan Saya</h3>
-                            <p class="text-3xl font-bold text-blue-600" id="myPermissions">-</p>
+                            <p class="text-3xl font-bold text-emerald-600" id="myPermissions">-</p>
                             <p class="text-sm text-gray-500">total pengajuan</p>
                         </div>
                         <div class="ml-4">
-                            <i class="fas fa-file-alt text-blue-500 text-2xl"></i>
+                            <i class="fas fa-file-alt text-emerald-500 text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -281,11 +267,11 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                     <div class="flex items-center">
                         <div class="flex-1">
                             <h3 class="text-lg font-semibold text-gray-700">Equipment Tersedia</h3>
-                            <p class="text-3xl font-bold text-purple-600" id="equipmentCount">-</p>
+                            <p class="text-3xl font-bold text-emerald-600" id="equipmentCount">-</p>
                             <p class="text-sm text-gray-500">dapat dipinjam</p>
                         </div>
                         <div class="ml-4">
-                            <i class="fas fa-boxes text-purple-500 text-2xl"></i>
+                            <i class="fas fa-boxes text-emerald-500 text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -298,11 +284,11 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
             </div>
         </div>
         
-        <!-- Dosen Page - FIXED VERSION -->
-<div id="page-dosen" class="page hidden">
+        <!-- Dosen Page - HIDDEN -->
+        <div id="page-dosen" class="page hidden" style="display:none;">
     <div id="dosen-list-view">
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Database Dosen LSTARS</h2>
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Daftar Staf</h2>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
                     <thead class="bg-gray-200">
@@ -322,10 +308,10 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
     </div>
 </div>
 
-        <!-- Asisten Page -->
-        <div id="page-asisten" class="page hidden">
+        <!-- Asisten Page - HIDDEN -->
+        <div id="page-asisten" class="page hidden" style="display:none;">
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Database Asisten Laboratorium</h2>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Daftar Asisten</h2>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white">
                         <thead class="bg-gray-200">
@@ -369,27 +355,27 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-xl font-semibold text-gray-700 mb-4">
-                <i class="fas fa-clipboard-list mr-2 text-blue-500"></i>Form Peminjaman
+                <i class="fas fa-clipboard-list mr-2 text-emerald-500"></i>Form Peminjaman
             </h2>
             
             <form id="form-peminjaman" class="space-y-4">
                 
                 <!-- BAGIAN DATA PEMINJAM -->
-                <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h3 class="text-sm font-semibold text-blue-800 mb-3">
+                <div class="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                    <h3 class="text-sm font-semibold text-emerald-800 mb-3">
                         <i class="fas fa-user mr-1"></i>Data Peminjam
                     </h3>
                     
                     <div class="space-y-3">
                         <div>
                             <label for="nama_peminjam" class="block text-sm font-medium text-gray-700 mb-1">
-                                Nama Lengkap <span class="text-red-500">*</span>
+                                Nama Lengkap <span class="text-emerald-500">*</span>
                             </label>
                             <input 
                                 type="text" 
                                 id="nama_peminjam" 
                                 name="nama_peminjam" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
                                 placeholder="Masukkan nama lengkap Anda"
                                 required
                                 autocomplete="off"
@@ -399,13 +385,13 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                         
                         <div>
                             <label for="nim_peminjam" class="block text-sm font-medium text-gray-700 mb-1">
-                                NIM/NPM <span class="text-red-500">*</span>
+                                NIM/NPM <span class="text-emerald-500">*</span>
                             </label>
                             <input 
                                 type="text" 
                                 id="nim_peminjam" 
                                 name="nim_peminjam" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
                                 placeholder="Masukkan NIM/NPM Anda"
                                 pattern="[A-Za-z0-9]+"
                                 title="NIM hanya boleh berisi huruf dan angka"
@@ -421,12 +407,12 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                 <div class="space-y-4">
                     <div>
                         <label for="select-alat" class="block text-sm font-medium text-gray-700 mb-1">
-                            Alat/Ruang yang Dipinjam <span class="text-red-500">*</span>
+                            Alat/Ruang yang Dipinjam <span class="text-emerald-500">*</span>
                         </label>
                         <select 
                             id="select-alat" 
                             name="alat_id" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
                             required
                         >
                             <option value="">-- Pilih Alat/Ruang --</option>
@@ -437,26 +423,26 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                             <label for="tgl_pinjam" class="block text-sm font-medium text-gray-700 mb-1">
-                                Tanggal Peminjaman <span class="text-red-500">*</span>
+                                Tanggal Peminjaman <span class="text-emerald-500">*</span>
                             </label>
                             <input 
                                 type="date" 
                                 id="tgl_pinjam" 
                                 name="tgl_pinjam" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
                                 required
                             >
                         </div>
                         
                         <div>
                             <label for="tgl_rencana_kembali" class="block text-sm font-medium text-gray-700 mb-1">
-                                Rencana Tanggal Pengembalian <span class="text-red-500">*</span>
+                                Rencana Tanggal Pengembalian <span class="text-emerald-500">*</span>
                             </label>
                             <input 
                                 type="date" 
                                 id="tgl_rencana_kembali" 
                                 name="tgl_rencana_kembali" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm"
                                 required
                             >
                         </div>
@@ -466,7 +452,7 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
                 <!-- TOMBOL SUBMIT -->
                 <button 
                     type="submit" 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 flex items-center justify-center"
+                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 flex items-center justify-center"
                     id="btn-submit-peminjaman"
                 >
                     <i class="fas fa-paper-plane mr-2"></i>
@@ -554,8 +540,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDebugInfo('Form initialized');
     
     // Auto-fill dari localStorage
-    const savedNama = localStorage.getItem('lstars_user_nama');
-    const savedNim = localStorage.getItem('lstars_user_nim');
+    const savedNama = localStorage.getItem('perpustakaan_user_nama');
+    const savedNim = localStorage.getItem('perpustakaan_user_nim');
     
     if (savedNama) {
         document.getElementById('nama_peminjam').value = savedNama;
@@ -637,8 +623,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(result.message || 'Pengajuan berhasil!');
                 
                 // Save to localStorage
-                localStorage.setItem('lstars_user_nama', nama);
-                localStorage.setItem('lstars_user_nim', nim);
+                localStorage.setItem('perpustakaan_user_nama', nama);
+                localStorage.setItem('perpustakaan_user_nim', nim);
                 
                 // Reset form
                 form.reset();
@@ -700,29 +686,29 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Izin Page -->
         <div id="page-izin" class="page hidden">
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Pengajuan Izin Kerja / Penelitian</h2>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Pengajuan Izin Peminjaman</h2>
                 <form id="form-izin" class="space-y-4 mb-8">
                     <div>
                         <label for="nama-mahasiswa" class="block text-sm font-medium text-gray-700">Nama Mahasiswa / Peneliti</label>
-                        <input type="text" id="nama-mahasiswa" name="nama_mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required>
+                        <input type="text" id="nama-mahasiswa" name="nama_mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required>
                     </div>
                     <div>
                         <label for="nim-mahasiswa" class="block text-sm font-medium text-gray-700">NIM</label>
-                        <input type="text" id="nim-mahasiswa" name="nim_mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" placeholder="Masukkan NIM Anda" required>
+                        <input type="text" id="nim-mahasiswa" name="nim_mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan NIM Anda" required>
                     </div>
                     <div>
-                        <label for="judul_penelitian" class="block text-sm font-medium text-gray-700">Judul Penelitian / Nama Kegiatan</label>
-                        <input type="text" id="judul_penelitian" name="judul_penelitian" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" required>
+                        <label for="judul_penelitian" class="block text-sm font-medium text-gray-700">Judul Kegiatan</label>
+                        <input type="text" id="judul_penelitian" name="judul_penelitian" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required>
                     </div>
                     <div>
-                        <label for="select-dosen" class="block text-sm font-medium text-gray-700">Dosen Pembimbing</label>
-                        <select id="select-dosen" name="dosen_pembimbing" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" required></select>
+                        <label for="select-petugas" class="block text-sm font-medium text-gray-700">Petugas Perpustakaan</label>
+                        <select id="select-petugas" name="petugas_perpustakaan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required></select>
                     </div>
                     <div>
                         <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi Singkat Kegiatan</label>
-                        <textarea id="deskripsi" name="deskripsi" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" required></textarea>
+                        <textarea id="deskripsi" name="deskripsi" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required></textarea>
                     </div>
-                    <button type="submit" class="w-full md:w-auto bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Ajukan Izin</button>
+                    <button type="submit" class="w-full md:w-auto bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-700">Ajukan Izin</button>
                 </form>
                 
                 <h3 class="text-lg font-semibold text-gray-700 mb-4">Riwayat Pengajuan Izin</h3>
@@ -753,11 +739,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="space-y-4 mb-6 text-left">
                     <div>
                         <label for="presensi-piket-nama" class="block text-sm font-medium text-gray-700">Nama Asisten</label>
-                        <input type="text" id="presensi-piket-nama" name="nama_asisten" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required autocomplete="off">
+                        <input type="text" id="presensi-piket-nama" name="nama_asisten" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required autocomplete="off">
                     </div>
                     <div>
                         <label for="presensi-piket-nim" class="block text-sm font-medium text-gray-700">NIM</label>
-                        <input type="text" id="presensi-piket-nim" name="nim_asisten" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan NIM Anda" required autocomplete="off">
+                        <input type="text" id="presensi-piket-nim" name="nim_asisten" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan NIM Anda" required autocomplete="off">
                     </div>
                 </div>
                 
@@ -765,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button id="btn-clock-in" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
                         <i class="fas fa-sign-in-alt mr-2"></i>Clock In
                     </button>
-                    <button id="btn-clock-out" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
+                    <button id="btn-clock-out" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
                         <i class="fas fa-sign-out-alt mr-2"></i>Clock Out
                     </button>
                 </div>
@@ -824,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button id="btn-clock-in-praktikum" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
                         <i class="fas fa-sign-in-alt mr-2"></i>Clock In
                     </button>
-                    <button id="btn-clock-out-praktikum" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
+                    <button id="btn-clock-out-praktikum" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg text-base transition-transform transform hover:scale-105">
                         <i class="fas fa-sign-out-alt mr-2"></i>Clock Out
                     </button>
                 </div>
@@ -863,8 +849,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="fas fa-arrow-left text-xl"></i>
                         </button>
                         <div>
-                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Dokumentasi Kegiatan LSTARS</h2>
-                            <p class="text-gray-600 text-lg">Koleksi foto dan dokumentasi berbagai kegiatan di Laboratorium Pengembangan Sistem dan Komputasi Edukatif</p>
+                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Dokumentasi Kegiatan</h2>
+                            <p class="text-gray-600 text-lg">Koleksi foto dan dokumentasi berbagai kegiatan di Perpustakaan SMAKADUTA</p>
                         </div>
                     </div>
                 </div>
@@ -873,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="mb-8">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">Filter Kategori:</h3>
                     <div class="flex flex-wrap gap-3">
-                        <button class="filter-kategori bg-blue-500 text-white px-5 py-2 rounded-lg text-sm font-medium shadow-md hover:bg-blue-600 transition-colors active" data-kategori="semua">
+                        <button class="filter-kategori bg-emerald-500 text-white px-5 py-2 rounded-lg text-sm font-medium shadow-md hover:bg-emerald-600 transition-colors active" data-kategori="semua">
                             <i class="fas fa-th-large mr-2"></i>Semua
                         </button>
                         <button class="filter-kategori bg-white border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all" data-kategori="Fasilitas">
@@ -885,8 +871,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button class="filter-kategori bg-white border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all" data-kategori="Pelatihan">
                             <i class="fas fa-chalkboard-teacher mr-2"></i>Pelatihan
                         </button>
-                        <button class="filter-kategori bg-white border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all" data-kategori="Penelitian">
-                            <i class="fas fa-flask mr-2"></i>Penelitian
+                        <button class="filter-kategori bg-white border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all" data-kategori="Kegiatan">
+                            <i class="fas fa-book mr-2"></i>Kegiatan
                         </button>
                         <button class="filter-kategori bg-white border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-all" data-kategori="Event">
                             <i class="fas fa-calendar-alt mr-2"></i>Event
@@ -899,13 +885,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <!-- Info Section -->
                 <div id="dokumentasi-info" class="mb-6">
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-info-circle text-blue-500 text-lg"></i>
+                                <i class="fas fa-info-circle text-emerald-500 text-lg"></i>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm text-blue-700">
+                                <p class="text-sm text-emerald-700">
                                     <span id="dokumentasi-count">Loading...</span> dokumentasi tersedia. Klik pada foto untuk melihat detail lengkap.
                                 </p>
                             </div>
@@ -932,30 +918,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Form Section -->
                 <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-semibold text-gray-700 mb-4">
-                        <i class="fas fa-plus-circle mr-2 text-fuchsia-500"></i>Tambah LogBook Baru
+                        <i class="fas fa-plus-circle mr-2 text-emerald-500"></i>Tambah LogBook Baru
                     </h2>
                     <form id="form-logbook" class="space-y-4">
                         <div>
                             <label for="logbook-nama" class="block text-sm font-medium text-gray-700">Nama Pengisi</label>
-                            <input type="text" id="logbook-nama" name="nama_pengisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required>
+                            <input type="text" id="logbook-nama" name="nama_pengisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan nama lengkap Anda" required>
                         </div>
                         <div>
                             <label for="logbook-nim" class="block text-sm font-medium text-gray-700">NIM</label>
-                            <input type="text" id="logbook-nim" name="nim_pengisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 sm:text-sm" placeholder="Masukkan NIM Anda" required>
+                            <input type="text" id="logbook-nim" name="nim_pengisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" placeholder="Masukkan NIM Anda" required>
                         </div>
                         <div>
                             <label for="logbook-judul" class="block text-sm font-medium text-gray-700">Judul Kegiatan</label>
-                            <input type="text" id="logbook-judul" name="judul" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 sm:text-sm" required>
+                            <input type="text" id="logbook-judul" name="judul" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required>
                         </div>
                         <div>
                             <label for="logbook-tanggal" class="block text-sm font-medium text-gray-700">Tanggal Kegiatan</label>
-                            <input type="date" id="logbook-tanggal" name="tanggal_kegiatan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 sm:text-sm" required>
+                            <input type="date" id="logbook-tanggal" name="tanggal_kegiatan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required>
                         </div>
                         <div>
                             <label for="logbook-deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                            <textarea id="logbook-deskripsi" name="deskripsi" rows="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 sm:text-sm" required></textarea>
+                            <textarea id="logbook-deskripsi" name="deskripsi" rows="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm" required></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-fuchsia-600 text-white py-2 px-4 rounded-md hover:bg-fuchsia-700 transition-all duration-300 flex items-center justify-center">
+                        <button type="submit" class="w-full bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-700 transition-all duration-300 flex items-center justify-center">
                             <i class="fas fa-save mr-2"></i>
                             <span>Simpan Catatan</span>
                         </button>
@@ -964,7 +950,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Table Section -->
                 <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-semibold text-gray-700 mb-4">
-                        <i class="fas fa-history mr-2 text-fuchsia-500"></i>Riwayat LogBook
+                        <i class="fas fa-history mr-2 text-emerald-500"></i>Riwayat LogBook
                     </h2>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white">
@@ -996,56 +982,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- About Section -->
                 <div>
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-violet-500 rounded-lg flex items-center justify-center">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l-1.414-1.414m15.152 15.152l-1.414-1.414M18.364 5.636l-1.414 1.414m-11.314 11.314l-1.414 1.414" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold">LSTARS Portal</h3>
+                        <h3 class="text-xl font-bold">Perpustakaan SMAKADUTA</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Laboratorium Pengembangan Sistem dan Komputasi Edukatif - Universitas Sebelas Maret</p>
-                    <p class="text-sm text-gray-400">Portal manajemen lab yang modern dan efisien untuk mendukung kegiatan akademik dan penelitian.</p>
+                    <p class="text-gray-300 mb-4">Perpustakaan SMAKADUTA - SMK 2 Surakarta</p>
+                    <p class="text-sm text-gray-400">Portal manajemen koleksi buku yang modern dan efisien untuk mendukung kegiatan akademik.</p>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4 text-purple-300">Menu Utama</h4>
+                    <h4 class="text-lg font-semibold mb-4 text-emerald-300">Menu Utama</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" data-page="dashboard" class="nav-link text-gray-300 hover:text-purple-300 transition-colors text-sm"><i class="fas fa-home w-4 mr-2"></i>Dashboard</a></li>
-                        <li><a href="#" data-page="dosen" class="nav-link text-gray-300 hover:text-purple-300 transition-colors text-sm"><i class="fas fa-user-tie w-4 mr-2"></i>Database Dosen</a></li>
-                        <li><a href="#" data-page="asisten" class="nav-link text-gray-300 hover:text-purple-300 transition-colors text-sm"><i class="fas fa-user-graduate w-4 mr-2"></i>Database Asisten</a></li>
-                        <li><a href="#" data-page="inventory" class="nav-link text-gray-300 hover:text-purple-300 transition-colors text-sm"><i class="fas fa-boxes w-4 mr-2"></i>Database Inventory</a></li>
-                        <li><a href="#" data-page="peminjaman" class="nav-link text-gray-300 hover:text-purple-300 transition-colors text-sm"><i class="fas fa-exchange-alt w-4 mr-2"></i>Peminjaman</a></li>
+                        <li><a href="#" data-page="dashboard" class="nav-link text-gray-300 hover:text-emerald-300 transition-colors text-sm"><i class="fas fa-home w-4 mr-2"></i>Dashboard</a></li>
+                        <li><a href="#" data-page="inventory" class="nav-link text-gray-300 hover:text-emerald-300 transition-colors text-sm"><i class="fas fa-book w-4 mr-2"></i>Inventory Buku</a></li>
+                        <li><a href="#" data-page="peminjaman" class="nav-link text-gray-300 hover:text-emerald-300 transition-colors text-sm"><i class="fas fa-exchange-alt w-4 mr-2"></i>Peminjaman</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact & Social Media -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4 text-purple-300">Hubungi Kami</h4>
+                    <h4 class="text-lg font-semibold mb-4 text-emerald-300">Hubungi Kami</h4>
                     <div class="space-y-3 mb-6">
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-map-marker-alt text-purple-400 w-4"></i>
-                            <span class="text-gray-300 text-sm">Tekhnik Industri, Universitas Sebelas Maret</span>
+                            <i class="fas fa-map-marker-alt text-emerald-400 w-4"></i>
+                            <span class="text-gray-300 text-sm">SMK 2 Surakarta</span>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-envelope text-purple-400 w-4"></i>
-                            <span class="text-gray-300 text-sm">lstars@mipa.uns.ac.id</span>
+                            <i class="fas fa-envelope text-emerald-400 w-4"></i>
+                            <span class="text-gray-300 text-sm">perpustakaan@smakaduta.sch.id</span>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone text-purple-400 w-4"></i>
+                            <i class="fas fa-phone text-emerald-400 w-4"></i>
                             <span class="text-gray-300 text-sm">+62 271 646994</span>
                         </div>
                     </div>
 
                     <!-- Social Media Links -->
                     <div>
-                        <h5 class="text-sm font-semibold mb-3 text-purple-300">Follow Us</h5>
+                        <h5 class="text-sm font-semibold mb-3 text-emerald-300">Follow Us</h5>
                         <div class="flex space-x-4">
-                            <a href="https://instagram.com/lstars_uns" target="_blank" rel="noopener noreferrer" 
-                                class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
+                            <a href="https://instagram.com/smakaduta" target="_blank" rel="noopener noreferrer" 
+                                class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
                                 <i class="fab fa-instagram text-white"></i>
                             </a>
-                            <a href="https://tiktok.com/@lstars_uns" target="_blank" rel="noopener noreferrer" 
+                            <a href="https://tiktok.com/@smakaduta" target="_blank" rel="noopener noreferrer" 
                                 class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
                                 <i class="fab fa-tiktok text-white"></i>
                             </a>
@@ -1053,12 +1037,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                 class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
                                 <i class="fab fa-whatsapp text-white"></i>
                             </a>
-                            <a href="https://youtube.com/@lstars_uns" target="_blank" rel="noopener noreferrer" 
-                                class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
+                            <a href="https://youtube.com/@smakaduta" target="_blank" rel="noopener noreferrer" 
+                                class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
                                 <i class="fab fa-youtube text-white"></i>
                             </a>
-                            <a href="https://twitter.com/lstars_uns" target="_blank" rel="noopener noreferrer" 
-                                class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
+                            <a href="https://twitter.com/smakaduta" target="_blank" rel="noopener noreferrer" 
+                                class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg">
                                 <i class="fab fa-twitter text-white"></i>
                             </a>
                         </div>
@@ -1071,25 +1055,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-center md:text-left mb-4 md:mb-0">
                         <p class="text-gray-300 text-sm">
-                            © 2024 Portal LSTARS - Universitas Sebelas Maret. All rights reserved.
+                            © 2026 Perpustakaan SMAKADUTA. Semua hak dilindungi.
                         </p>
                         <p class="text-gray-400 text-xs mt-1">
-                            Website ini dibuat oleh <span class="text-purple-400 font-medium">Tim Pengembang LSTARS</span> dengan ❤️
+                            Website ini dibuat dengan ❤️
                         </p>
                     </div>
                     <div class="flex items-center space-x-4 text-xs text-gray-400">
-                        <a href="#" class="hover:text-purple-300 transition-colors">Privacy Policy</a>
+                        <a href="#" class="hover:text-emerald-300 transition-colors">Privacy Policy</a>
                         <span>•</span>
-                        <a href="#" class="hover:text-purple-300 transition-colors">Terms of Service</a>
+                        <a href="#" class="hover:text-emerald-300 transition-colors">Terms of Service</a>
                         <span>•</span>
-                        <a href="#" class="hover:text-purple-300 transition-colors">Support</a>
+                        <a href="#" class="hover:text-emerald-300 transition-colors">Support</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Decorative Bottom Line -->
-        <div class="h-1 bg-gradient-to-r from-purple-500 via-violet-500 to-purple-500"></div>
+        <div class="h-1 bg-gradient-to-r from-emerald-500 via-violet-500 to-emerald-500"></div>
     </footer>
 
     <!-- Modal Detail Dokumentasi -->
@@ -1098,7 +1082,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Modal Header -->
             <div class="flex justify-between items-center p-6 border-b border-gray-200">
                 <div class="flex items-center space-x-3">
-                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-emerald-500 rounded-full"></div>
                     <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
                     <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
@@ -1122,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h3 class="text-lg font-semibold text-gray-800 mb-3">Informasi Kegiatan</h3>
                             <div class="space-y-3">
                                 <div class="flex items-center">
-                                    <i class="fas fa-calendar-alt text-blue-500 w-5 mr-3"></i>
+                                    <i class="fas fa-calendar-alt text-emerald-500 w-5 mr-3"></i>
                                     <span class="text-gray-700">Tanggal: <span id="detail-tanggal" class="font-medium"></span></span>
                                 </div>
                                 <div class="flex items-center">
@@ -1130,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <span class="text-gray-700">Kategori: <span id="detail-kategori" class="font-medium"></span></span>
                                 </div>
                                 <div class="flex items-center">
-                                    <i class="fas fa-user text-purple-500 w-5 mr-3"></i>
+                                    <i class="fas fa-user text-emerald-500 w-5 mr-3"></i>
                                     <span class="text-gray-700">Uploader: <span id="detail-uploader" class="font-medium"></span></span>
                                 </div>
                             </div>

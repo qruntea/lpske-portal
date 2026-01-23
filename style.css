@@ -34,7 +34,7 @@ body {
     left: 50%;
     width: 0;
     height: 3px;
-    background: linear-gradient(90deg, #A855F7, #EC4899);
+    background: linear-gradient(90deg, #10b981, #34d399);
     border-radius: 2px;
     transition: all 0.3s ease;
     transform: translateX(-50%);
@@ -62,7 +62,7 @@ body {
 }
 
 .dropdown-item:hover {
-    background: linear-gradient(135deg, #F3E8FF, #E0E7FF);
+    background: linear-gradient(135deg, #D1FAE5, #ECFDF5);
     transform: translateX(5px);
 }
 
@@ -117,7 +117,7 @@ body {
 }
 
 .navbar-royal {
-    background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a855f7 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
 /* Glass effect */
@@ -261,6 +261,35 @@ body {
     .card-hover:hover {
         transform: none;
     }
+}
+
+/* Hidden Scrollbar - Keep Scroll Functionality */
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Hide scrollbar for all elements while keeping scroll functionality */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 
 /* Print Styles */
