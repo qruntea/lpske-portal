@@ -17,7 +17,7 @@ try {
         ],
         'sample_data' => [
             'peminjaman_count' => $pdo->query("SELECT COUNT(*) FROM peminjaman")->fetchColumn(),
-            'inventory_count' => $pdo->query("SELECT COUNT(*) FROM inventory")->fetchColumn(),
+            'inventory_count' => $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn(),
             'users_count' => $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn()
         ]
     ]);

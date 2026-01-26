@@ -32,8 +32,8 @@ try {
                 u.role AS role_peminjam,
                 
                 -- Mengambil detail alat dari tabel inventory
-                i.nama_alat,
-                i.kode_alat,
+                i.nama_buku,
+                i.kode_buku,
                 i.kategori,
                 i.lokasi
             FROM 

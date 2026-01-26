@@ -2,8 +2,8 @@
 // config/database.php
 $host = 'localhost';
 $dbname = 'lpske-pkl'; // GANTI dengan nama database Anda
-$username = 'root';              // GANTI jika berbeda
-$password = '';                  // GANTI jika ada password
+$username = 'root';              
+$password = '';                 
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);

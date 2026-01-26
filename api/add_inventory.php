@@ -20,23 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     // Ambil data dari POST
-    $nama_alat = trim($_POST['nama_alat'] ?? '');
-    $kode_alat = trim($_POST['kode_alat'] ?? '');
+    $nama_buku = trim($_POST['nama_buku'] ?? '');
+    $kode_buku = trim($_POST['kode_buku'] ?? '');
     $jumlah_total = intval($_POST['jumlah_total'] ?? 1);
     $status = trim($_POST['status'] ?? 'Tersedia');
-    $lokasi = trim($_POST['lokasi'] ?? '');
     
     // Debug: Log received data
-    error_log("Add Inventory - Data: nama=$nama_alat, kode=$kode_alat, jumlah=$jumlah_total");
+    error_log("Add Inventory - Data: nama=$nama_buku, kode=$kode_buku, jumlah=$jumlah_total");
     
     // Validation
-    if (empty($nama_alat)) {
-        echo json_encode(['success' => false, 'message' => 'Nama alat wajib diisi']);
+    if (empty($nama_buku)) {
+        echo json_encode(['success' => false, 'message' => 'Nama buku wajib diisi']);
         exit;
     }
     
-    if (empty($kode_alat)) {
-        echo json_encode(['success' => false, 'message' => 'Kode alat wajib diisi']);
+    if (empty($kode_buku)) {
+        echo json_encode(['success' => false, 'message' => 'Kode buku wajib diisi']);
         exit;
     }
     
@@ -45,12 +44,12 @@ try {
         exit;
     }
     
-    // Check duplicate kode_alat
-    $checkSql = "SELECT id FROM inventory WHERE kode_alat = '" . mysqli_real_escape_string($koneksi, $kode_alat) . "'";
+    // Check duplicate kode_buku
+    $checkSql = "SELECT id FROM buku WHERE kode_buku = '" . mysqli_real_escape_string($koneksi, $kode_buku) . "'";
     $checkResult = mysqli_query($koneksi, $checkSql);
     
     if (mysqli_num_rows($checkResult) > 0) {
-        echo json_encode(['success' => false, 'message' => 'Kode alat sudah digunakan']);
+        echo json_encode(['success' => false, 'message' => 'Kode buku sudah digunakan']);
         exit;
     }
     
@@ -59,16 +58,14 @@ try {
     $default_deskripsi = '';
     $jumlah_tersedia = $jumlah_total; // Default: semua tersedia
     
-    // Insert to database - SESUAI STRUKTUR DB EXISTING
-    $sql = "INSERT INTO inventory (
-                nama_alat, kode_alat, kategori, deskripsi, lokasi, 
+    // Insert to database - SESUAI STRUKTUR DB BUKU
+    $sql = "INSERT INTO buku (
+                nama_buku, kode_buku, kategori,
                 jumlah_total, jumlah_tersedia, status
             ) VALUES (
-                '" . mysqli_real_escape_string($koneksi, $nama_alat) . "',
-                '" . mysqli_real_escape_string($koneksi, $kode_alat) . "',
+                '" . mysqli_real_escape_string($koneksi, $nama_buku) . "',
+                '" . mysqli_real_escape_string($koneksi, $kode_buku) . "',
                 '" . mysqli_real_escape_string($koneksi, $default_kategori) . "',
-                '" . mysqli_real_escape_string($koneksi, $default_deskripsi) . "',
-                '" . mysqli_real_escape_string($koneksi, $lokasi) . "',
                 " . $jumlah_total . ",
                 " . $jumlah_tersedia . ",
                 '" . mysqli_real_escape_string($koneksi, $status) . "'
@@ -87,13 +84,12 @@ try {
             'id' => $newId,
             'data' => [
                 'id' => $newId,
-                'nama_alat' => $nama_alat,
-                'kode_alat' => $kode_alat,
+                'nama_buku' => $nama_buku,
+                'kode_buku' => $kode_buku,
                 'kategori' => $default_kategori,
                 'jumlah_total' => $jumlah_total,
                 'jumlah_tersedia' => $jumlah_tersedia,
-                'status' => $status,
-                'lokasi' => $lokasi
+                'status' => $status
             ]
         ]);
     } else {

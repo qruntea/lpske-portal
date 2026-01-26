@@ -32,8 +32,8 @@ try {
                 p.catatan,
                 
                 -- Data inventory
-                i.nama_alat,
-                i.kode_alat,
+                i.nama_buku,
+                i.kode_buku,
                 i.kategori,
                 i.lokasi,
                 
@@ -78,8 +78,8 @@ try {
             'peminjaman_id' => $baris['peminjaman_id'],
             'inventory_id' => $baris['inventory_id'],
             'peminjam_user_id' => $baris['peminjam_user_id'],
-            'nama_alat' => $baris['nama_alat'],
-            'kode_alat' => $baris['kode_alat'],
+            'nama_alat' => $baris['nama_buku'],
+            'kode_alat' => $baris['kode_buku'],
             'kategori' => $baris['kategori'],
             'lokasi' => $baris['lokasi'],
             'nama_peminjam' => $baris['nama_peminjam'],

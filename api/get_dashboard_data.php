@@ -56,7 +56,7 @@ try {
     mysqli_stmt_close($pending_stmt);
     
     // Equipment tersedia (pakai sistem quantity)
-    $equipment_sql = "SELECT SUM(jumlah_tersedia) as count FROM inventory WHERE jumlah_tersedia > 0";
+    $equipment_sql = "SELECT SUM(jumlah_tersedia) as count FROM buku WHERE jumlah_tersedia > 0";
     $equipment_result = mysqli_query($koneksi, $equipment_sql);
     $equipment_count = $equipment_result ? mysqli_fetch_assoc($equipment_result)['count'] : 0;
     

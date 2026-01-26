@@ -86,7 +86,7 @@ try {
     }
     
     // Equipment tersedia (untuk semua role)
-    $equipment_sql = "SELECT COUNT(*) as count FROM inventory WHERE status = 'Tersedia'";
+    $equipment_sql = "SELECT COUNT(*) as count FROM buku WHERE status = 'Tersedia'";
     $equipment_result = mysqli_query($koneksi, $equipment_sql);
     $data['statistics']['equipment_count'] = $equipment_result ? mysqli_fetch_assoc($equipment_result)['count'] : 0;
     

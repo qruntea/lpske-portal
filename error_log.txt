@@ -299,3 +299,5 @@ Stack trace:
 [23-Jan-2026 06:55:14 Europe/Berlin] Guest login successful at 2026-01-23 06:55:14
 [23-Jan-2026 07:09:23 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
 [23-Jan-2026 07:09:23 Europe/Berlin] Guest login successful at 2026-01-23 07:09:23
+[25-Jan-2026 06:25:55 Europe/Berlin] Guest login attempt - Raw input: {"action":"guest_login"}
+[25-Jan-2026 06:25:55 Europe/Berlin] Guest login successful at 2026-01-25 06:25:55

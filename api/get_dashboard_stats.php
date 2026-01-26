@@ -35,7 +35,7 @@ try {
     $stats['total_users'] = $stats['total_dosen'] + $stats['total_asisten'];
     
     // 5. Equipment/Inventory (dari tabel inventory)
-    $equipment_sql = "SELECT COUNT(*) as count FROM inventory";
+    $equipment_sql = "SELECT COUNT(*) as count FROM buku";
     $equipment_result = mysqli_query($koneksi, $equipment_sql);
     $stats['total_equipment'] = $equipment_result ? mysqli_fetch_assoc($equipment_result)['count'] : 0;
     
@@ -59,7 +59,7 @@ try {
     }
     
     // 8. Equipment Tersedia (jika ada sistem quantity)
-    $equipment_tersedia_sql = "SELECT COUNT(*) as count FROM inventory WHERE status = 'Tersedia'";
+    $equipment_tersedia_sql = "SELECT COUNT(*) as count FROM buku WHERE status = 'Tersedia'";
     $equipment_tersedia_result = mysqli_query($koneksi, $equipment_tersedia_sql);
     $stats['equipment_tersedia'] = $equipment_tersedia_result ? mysqli_fetch_assoc($equipment_tersedia_result)['count'] : $stats['total_equipment'];
     

@@ -632,25 +632,25 @@ $admin_id = $_SESSION['user_id'];
                     <!-- Hidden field untuk ID (untuk edit) -->
                     <input type="hidden" id="inventory-id" name="inventory_id">
 
-                    <!-- Nama Alat -->
+                    <!-- Nama Buku -->
                     <div>
                         <label for="nama-alat" class="block text-sm font-medium text-gray-700 mb-1">
-                            Nama Alat <span class="text-red-500">*</span>
+                            Nama Buku <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="nama-alat" name="nama_alat" required
+                        <input type="text" id="nama-alat" name="nama_buku" required
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                               placeholder="Contoh: Jangka Sorong">
+                               placeholder="Contoh: Analisis Kimia">
                     </div>
 
-                    <!-- Kode Alat -->
+                    <!-- Kode Buku -->
                     <div>
                         <label for="kode-alat" class="block text-sm font-medium text-gray-700 mb-1">
-                            Kode Alat <span class="text-red-500">*</span>
+                            Kode Buku <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="kode-alat" name="kode_alat" required
+                        <input type="text" id="kode-alat" name="kode_buku" required
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                               placeholder="Contoh: AA01, AA02, dll">
-                        <p class="text-xs text-gray-500 mt-1">Format: AA + nomor urut (contoh: AA01, AA02)</p>
+                               placeholder="Contoh: KB01, KB02, dll">
+                        <p class="text-xs text-gray-500 mt-1">Format: KB + nomor urut (contoh: KB01, KB02)</p>
                     </div>
 
 
@@ -679,18 +679,6 @@ $admin_id = $_SESSION['user_id'];
                             <option value="Maintenance">Maintenance</option>
                         </select>
                     </div>
-
-                    <!-- Lokasi -->
-                    <div>
-                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-1">
-                            Lokasi
-                        </label>
-                        <input type="text" id="lokasi" name="lokasi"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                               placeholder="Contoh: Rak A1, Lemari B2, dll">
-                    </div>
-
-
 
                     <!-- Submit Button -->
                     <div class="flex gap-3 pt-4">

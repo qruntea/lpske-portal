@@ -24,16 +24,16 @@ $analisis_sql = "SELECT
                         WHEN status = 'Rusak' AND jumlah_tersedia > 0 THEN 'MASALAH: Rusak tapi masih ada tersedia'
                         ELSE 'OK'
                     END as diagnosis
-                 FROM inventory 
+                 FROM buku 
                  ORDER BY 
                      CASE diagnosis WHEN 'OK' THEN 2 ELSE 1 END,
-                     nama_alat";
+                     nama_buku";
 
 $analisis_result = mysqli_query($koneksi, $analisis_sql);
 
 echo "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>";
 echo "<tr style='background: #f0f0f0;'>";
-echo "<th>Nama Alat</th><th>Kode</th><th>Status DB</th><th>Total</th><th>Tersedia</th><th>Diagnosis</th>";
+echo "<th>Nama Buku</th><th>Kode Buku</th><th>Status DB</th><th>Total</th><th>Tersedia</th><th>Diagnosis</th>";
 echo "</tr>";
 
 $masalah_count = 0;

@@ -21,14 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 try {
     // Ambil data dari POST
     $inventory_id = intval($_POST['inventory_id'] ?? 0);
-    $nama_alat = trim($_POST['nama_alat'] ?? '');
-    $kode_alat = trim($_POST['kode_alat'] ?? '');
+    $nama_buku = trim($_POST['nama_buku'] ?? '');
+    $kode_buku = trim($_POST['kode_buku'] ?? '');
     $jumlah_total = intval($_POST['jumlah_total'] ?? 1);
     $status = trim($_POST['status'] ?? 'Tersedia');
-    $lokasi = trim($_POST['lokasi'] ?? '');
     
     // Debug: Log received data
-    error_log("Update Inventory - ID: $inventory_id, Data: nama=$nama_alat, kode=$kode_alat");
+    error_log("Update Inventory - ID: $inventory_id, Data: nama=$nama_buku, kode=$kode_buku");
     
     // Validation
     if ($inventory_id <= 0) {
@@ -36,13 +35,13 @@ try {
         exit;
     }
     
-    if (empty($nama_alat)) {
-        echo json_encode(['success' => false, 'message' => 'Nama alat wajib diisi']);
+    if (empty($nama_buku)) {
+        echo json_encode(['success' => false, 'message' => 'Nama buku wajib diisi']);
         exit;
     }
     
-    if (empty($kode_alat)) {
-        echo json_encode(['success' => false, 'message' => 'Kode alat wajib diisi']);
+    if (empty($kode_buku)) {
+        echo json_encode(['success' => false, 'message' => 'Kode buku wajib diisi']);
         exit;
     }
     
@@ -52,7 +51,7 @@ try {
     }
     
     // Check if inventory exists
-    $checkSql = "SELECT jumlah_tersedia FROM inventory WHERE id = " . $inventory_id;
+    $checkSql = "SELECT jumlah_tersedia FROM buku WHERE id = " . $inventory_id;
     $result = mysqli_query($koneksi, $checkSql);
     
     if (mysqli_num_rows($result) === 0) {
@@ -63,12 +62,12 @@ try {
     $currentData = mysqli_fetch_assoc($result);
     $currentTersedia = $currentData['jumlah_tersedia'];
     
-    // Check duplicate kode_alat (exclude current item)
-    $dupSql = "SELECT id FROM inventory WHERE kode_alat = '" . mysqli_real_escape_string($koneksi, $kode_alat) . "' AND id != " . $inventory_id;
+    // Check duplicate kode_buku (exclude current item)
+    $dupSql = "SELECT id FROM buku WHERE kode_buku = '" . mysqli_real_escape_string($koneksi, $kode_buku) . "' AND id != " . $inventory_id;
     $dupResult = mysqli_query($koneksi, $dupSql);
     
     if (mysqli_num_rows($dupResult) > 0) {
-        echo json_encode(['success' => false, 'message' => 'Kode alat sudah digunakan']);
+        echo json_encode(['success' => false, 'message' => 'Kode buku sudah digunakan']);
         exit;
     }
     
@@ -78,14 +77,13 @@ try {
         $newJumlahTersedia = $jumlah_total;
     }
     
-    // Update database - SESUAI STRUKTUR DB EXISTING
-    $updateSql = "UPDATE inventory SET 
-                nama_alat = '" . mysqli_real_escape_string($koneksi, $nama_alat) . "', 
-                kode_alat = '" . mysqli_real_escape_string($koneksi, $kode_alat) . "', 
+    // Update database - SESUAI STRUKTUR DB BUKU
+    $updateSql = "UPDATE buku SET 
+                nama_buku = '" . mysqli_real_escape_string($koneksi, $nama_buku) . "', 
+                kode_buku = '" . mysqli_real_escape_string($koneksi, $kode_buku) . "', 
                 jumlah_total = " . $jumlah_total . ", 
                 jumlah_tersedia = " . $newJumlahTersedia . ",
-                status = '" . mysqli_real_escape_string($koneksi, $status) . "', 
-                lokasi = '" . mysqli_real_escape_string($koneksi, $lokasi) . "'
+                status = '" . mysqli_real_escape_string($koneksi, $status) . "'
             WHERE id = " . $inventory_id;
     
     $updateResult = mysqli_query($koneksi, $updateSql);
@@ -99,12 +97,11 @@ try {
             'id' => $inventory_id,
             'data' => [
                 'id' => $inventory_id,
-                'nama_alat' => $nama_alat,
-                'kode_alat' => $kode_alat,
+                'nama_buku' => $nama_buku,
+                'kode_buku' => $kode_buku,
                 'jumlah_total' => $jumlah_total,
                 'jumlah_tersedia' => $newJumlahTersedia,
-                'status' => $status,
-                'lokasi' => $lokasi
+                'status' => $status
             ]
         ]);
     } else {

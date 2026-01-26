@@ -15,17 +15,17 @@ if ($id <= 0) {
 
 try {
     // Check if quantity columns exist
-    $check_columns_sql = "SHOW COLUMNS FROM inventory LIKE 'jumlah_total'";
+    $check_columns_sql = "SHOW COLUMNS FROM buku LIKE 'jumlah_total'";
     $check_result = mysqli_query($koneksi, $check_columns_sql);
     $hasQuantityColumns = mysqli_num_rows($check_result) > 0;
     
-    // PERBAIKAN: Cek nama kolom yang benar
-    $check_kode_sql = "SHOW COLUMNS FROM inventory";
+    // PERBAIKAN: Cek nama kolom yang benar - kode_buku adalah yang baru
+    $check_kode_sql = "SHOW COLUMNS FROM buku";
     $kode_result = mysqli_query($koneksi, $check_kode_sql);
-    $kode_column = 'kode'; // default
+    $kode_column = 'kode_buku'; // default ke kode_buku
     
     while ($col = mysqli_fetch_assoc($kode_result)) {
-        if (in_array($col['Field'], ['kode', 'kode_alat'])) {
+        if (in_array($col['Field'], ['kode_buku', 'kode_alat', 'kode'])) {
             $kode_column = $col['Field'];
             break;
         }
@@ -38,9 +38,9 @@ try {
                     WHEN jumlah_tersedia < jumlah_total THEN 'Dipinjam'
                     ELSE 'Tersedia'
                 END as status_ketersediaan
-                FROM inventory WHERE id = ?";
+                FROM buku WHERE id = ?";
     } else {
-        $sql = "SELECT *, {$kode_column} as kode FROM inventory WHERE id = ?";
+        $sql = "SELECT *, {$kode_column} as kode FROM buku WHERE id = ?";
     }
     
     $stmt = $koneksi->prepare($sql);

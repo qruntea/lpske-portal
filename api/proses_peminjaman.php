@@ -148,7 +148,7 @@ try {
     }
     
     // Cek apakah alat tersedia
-    $check_query = "SELECT id, nama_alat, kode_alat, status FROM inventory WHERE id = ?";
+    $check_query = "SELECT id, nama_buku, kode_buku, status FROM buku WHERE id = ?";
     $check_stmt = $koneksi->prepare($check_query);
     
     if (!$check_stmt) {

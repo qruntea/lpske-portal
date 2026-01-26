@@ -330,21 +330,19 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
 
         <!-- Inventory Page -->
         <div id="page-inventory" class="page hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4">Database Inventory</h2>
+            <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white">
-                        <thead class="bg-gray-200">
-                            <tr>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Nama Alat</th>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Kode</th>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Keterangan</th>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Jumlah</th>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Status</th>
-                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Lokasi</th>
+                    <table class="w-full bg-white">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
+                                <th class="py-4 px-6 text-left font-semibold text-base">Nama Buku</th>
+                                <th class="py-4 px-6 text-left font-semibold text-base">Kode Buku</th>
+                                <th class="py-4 px-6 text-left font-semibold text-base">Kategori</th>
+                                <th class="py-4 px-6 text-center font-semibold text-base">Jumlah</th>
+                                <th class="py-4 px-6 text-center font-semibold text-base">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="tabel-inventory-body" class="text-gray-700"></tbody>
+                        <tbody id="tabel-inventory-body" class="text-gray-700 divide-y divide-gray-200 text-base"></tbody>
                     </table>
                 </div>
             </div>
@@ -775,7 +773,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </thead>
                         <tbody id="tabel-riwayat-presensi-body" class="text-gray-700">
                             <tr>
-                                <td colspan="6" class="text-center py-8 text-gray-500">
+                                <td colspan="6" class="text-center p-4 text-gray-500">
                                     <p>Memuat riwayat...</p>
                                 </td>
                             </tr>

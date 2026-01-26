@@ -65,8 +65,8 @@ try {
             u.role as recipient_role,
             
             p.id as peminjaman_id,
-            i.nama_alat,
-            i.kode_alat
+            i.nama_buku,
+            i.kode_buku
             
         FROM notification_logs nl
         LEFT JOIN users u ON nl.user_id = u.id
@@ -109,8 +109,8 @@ try {
             ],
             'peminjaman' => [
                 'id' => $row['peminjaman_id'],
-                'nama_alat' => $row['nama_alat'],
-                'kode_alat' => $row['kode_alat']
+                'nama_alat' => $row['nama_buku'],
+                'kode_alat' => $row['kode_buku']
             ]
         ];
     }

@@ -46,7 +46,7 @@ try {
     }
     
     // Check if inventory exists and get name for confirmation
-    $checkSql = "SELECT nama_alat FROM inventory WHERE id = ?";
+    $checkSql = "SELECT nama_buku FROM buku WHERE id = ?";
     $stmt = $koneksi->prepare($checkSql);
     
     if (!$stmt) {
@@ -63,14 +63,14 @@ try {
     }
     
     $itemData = $result->fetch_assoc();
-    $namaAlat = $itemData['nama_alat'];
+    $namaBuku = $itemData['nama_buku'];
     $stmt->close();
     
     // TODO: Check if item is currently borrowed (add this check if needed)
     // You can add a check here to prevent deletion of borrowed items
     
     // Delete the inventory item
-    $deleteSql = "DELETE FROM inventory WHERE id = ?";
+    $deleteSql = "DELETE FROM buku WHERE id = ?";
     $stmt = $koneksi->prepare($deleteSql);
     
     if (!$stmt) {
@@ -81,13 +81,13 @@ try {
     
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            error_log("Delete success - ID: $inventory_id, Name: $namaAlat");
+            error_log("Delete success - ID: $inventory_id, Name: $namaBuku");
             
             echo json_encode([
                 'success' => true,
-                'message' => "Item '$namaAlat' berhasil dihapus",
+                'message' => "Item '$namaBuku' berhasil dihapus",
                 'deleted_id' => $inventory_id,
-                'deleted_name' => $namaAlat
+                'deleted_name' => $namaBuku
             ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Tidak ada data yang dihapus']);

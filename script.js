@@ -1117,9 +1117,12 @@ async function tampilkanDataInventory() {
                     }
                     
                     quantityColumn = `
-                        <td class="py-3 px-4 text-center">
-                            <span class="font-medium text-blue-600">${tersedia}</span>
-                            <span class="text-gray-500"> / ${total}</span>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex items-center justify-center">
+                                <span class="font-bold text-emerald-600 text-lg">${tersedia}</span>
+                                <span class="text-gray-400 mx-1">/</span>
+                                <span class="font-semibold text-gray-600">${total}</span>
+                            </div>
                         </td>
                     `;
                 } else {
@@ -1145,21 +1148,19 @@ async function tampilkanDataInventory() {
                 }
                 
                 const row = `
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="py-3 px-4 font-medium">${item.nama_alat || '-'}</td>
-                        <td class="py-3 px-4 text-gray-600">${item.kode_alat || '-'}</td>
-                        <td class="py-3 px-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs">
+                    <tr class="hover:bg-emerald-50 transition-colors border-b border-gray-200 last:border-b-0">
+                        <td class="py-4 px-6 font-medium text-gray-900">${item.nama_buku || '-'} <span class="text-gray-500 font-mono">(${item.kode_buku || '-'})</span></td>
+                        <td class="py-4 px-6">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium">
                                 ${item.kategori || '-'}
                             </span>
                         </td>
                         ${quantityColumn}
-                        <td class="py-3 px-4">
-                            <span class="${statusClass} py-1 px-3 rounded-full text-xs font-medium">
+                        <td class="py-4 px-6 text-center">
+                            <span class="${statusClass} py-2 px-4 rounded-full text-xs font-semibold inline-block">
                                 ${statusText}
                             </span>
                         </td>
-                        <td class="py-3 px-4 text-gray-600">${item.lokasi || '-'}</td>
                     </tr>
                 `;
                 
@@ -1212,9 +1213,9 @@ async function muatOpsiPeminjaman() {
                 
                 let optionText;
                 if (hasQuantity) {
-                    optionText = `${item.nama_alat} (${item.kode_alat}) - Tersedia: ${tersedia}`;
+                    optionText = `${item.nama_buku} (${item.kode_buku}) - Tersedia: ${tersedia}`;
                 } else {
-                    optionText = `${item.nama_alat} (${item.kode_alat})`;
+                    optionText = `${item.nama_buku} (${item.kode_buku})`;
                 }
                 
                 const option = document.createElement('option');
@@ -1301,7 +1302,7 @@ async function tampilkanRiwayatPeminjaman() {
                 <tr class="hover:bg-gray-50">
                     <td class="py-3 px-4">${p.nama_peminjam || '-'}</td>
                     <td class="py-3 px-4">${p.nim_peminjam || '-'}</td>
-                    <td class="py-3 px-4">${p.nama_alat || '-'}</td>
+                    <td class="py-3 px-4">${p.nama_buku || '-'}</td>
                     <td class="py-3 px-4 text-sm">${formatDate(p.tgl_pinjam)}</td>
                     <td class="py-3 px-4 text-sm">${formatDate(p.tgl_rencana_kembali)}</td>
                     <td class="py-3 px-4">

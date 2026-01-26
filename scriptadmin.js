@@ -239,11 +239,10 @@ function showModalInventory(isEdit = false, data = {}) {
         console.log('📝 Filling form for edit mode:', data);
         
         document.getElementById('inventory-id').value = data.id || '';
-        document.getElementById('nama-alat').value = data.nama_alat || '';
-        document.getElementById('kode-alat').value = data.kode_alat || '';
+        document.getElementById('nama-alat').value = data.nama_buku || '';
+        document.getElementById('kode-alat').value = data.kode_buku || '';
         document.getElementById('jumlah-total').value = data.jumlah_total || 1;
         document.getElementById('status-inventory').value = data.status || 'Tersedia';
-        document.getElementById('lokasi').value = data.lokasi || '';
         
     } else {
         // Mode Tambah: Reset form
@@ -405,10 +404,10 @@ async function loadInventoryData() {
         return;
     }
    
-    // Show loading - Updated colspan to 6
+    // Show loading - Updated colspan to 5
     tbody.innerHTML = `
         <tr>
-            <td colspan="6" class="py-8 text-center">
+            <td colspan="5" class="py-8 text-center">
                 <div class="flex justify-center items-center">
                     <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
                     <span class="text-gray-600">Memuat data inventory...</span>
@@ -466,7 +465,7 @@ async function loadInventoryData() {
         console.error('❌ Error loading inventory data:', error);
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="py-8 text-center">
+                <td colspan="5" class="py-8 text-center">
                     <div class="flex flex-col justify-center items-center text-red-600">
                         <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
                         <span class="font-medium">Gagal memuat data inventory</span>
@@ -568,8 +567,8 @@ function createInventoryRowNoKategori(item) {
 
     return `
         <tr class="hover:bg-gray-50 transition-colors">
-            <td class="py-3 px-4 font-medium">${escapeHtml(item.nama_alat || '-')}</td>
-            <td class="py-3 px-4 text-gray-600">${escapeHtml(item.kode_alat || '-')}</td>
+            <td class="py-3 px-4 font-medium">${escapeHtml(item.nama_buku || '-')}</td>
+            <td class="py-3 px-4 text-gray-600">${escapeHtml(item.kode_buku || '-')}</td>
             <td class="py-3 px-4 text-center">
                 <span class="font-medium text-blue-600">${jumlahDisplay}</span>
             </td>
@@ -578,23 +577,21 @@ function createInventoryRowNoKategori(item) {
                     ${statusText}
                 </span>
             </td>
-            <td class="py-3 px-4 text-gray-600">${escapeHtml(item.lokasi || '-')}</td>
             <td class="py-3 px-4 text-center">
                 <div class="flex justify-center space-x-2">
                     <button class="btn-edit-inventory bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs transition-colors"
                             data-id="${item.id}" 
-                            data-nama-alat="${escapeHtml(item.nama_alat || '')}"
-                            data-kode-alat="${escapeHtml(item.kode_alat || '')}"
+                            data-nama-alat="${escapeHtml(item.nama_buku || '')}"
+                            data-kode-alat="${escapeHtml(item.kode_buku || '')}"
                             data-jumlah-total="${item.jumlah_total || 1}"
                             data-jumlah-tersedia="${item.jumlah_tersedia || 1}"
                             data-status="${escapeHtml(item.status || '')}"
-                            data-lokasi="${escapeHtml(item.lokasi || '')}"
                             title="Edit item ini">
                         <i class="fas fa-edit"></i> Edit
                     </button>
                     <button class="btn-delete-inventory bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs transition-colors"
                             data-id="${item.id}" 
-                            data-nama="${escapeHtml(item.nama_alat || '')}"
+                            data-nama="${escapeHtml(item.nama_buku || '')}"
                             title="Hapus item ini">
                         <i class="fas fa-trash"></i> Hapus
                     </button>
@@ -615,12 +612,11 @@ function attachInventoryButtonListeners() {
             
             const data = {
                 id: this.dataset.id,
-                nama_alat: this.dataset.namaAlat,
-                kode_alat: this.dataset.kodeAlat,
+                nama_buku: this.dataset.namaAlat,
+                kode_buku: this.dataset.kodeAlat,
                 jumlah_total: this.dataset.jumlahTotal,
                 jumlah_tersedia: this.dataset.jumlahTersedia,
-                status: this.dataset.status,
-                lokasi: this.dataset.lokasi
+                status: this.dataset.status
             };
             
             console.log('✏️ Edit button clicked:', data);
@@ -2057,8 +2053,8 @@ function convertToCSV(data) {
             `"${item.nama_peminjam || ''}"`,
             `"${item.nomor_induk_peminjam || ''}"`,
             `"${item.role_peminjam || ''}"`,
-            `"${item.nama_alat || ''}"`,
-            `"${item.kode_alat || ''}"`,
+            `"${item.nama_buku || ''}"`,
+            `"${item.kode_buku || ''}"`,
             `"${item.kategori || ''}"`,
             `"${item.tgl_pinjam_formatted || ''}"`,
             `"${item.tgl_rencana_kembali_formatted || ''}"`,
@@ -2250,8 +2246,8 @@ function createPeminjamanRow(peminjaman) {
                 
             </td>
             <td class="py-3 px-4">
-                <div class="font-medium text-blue-600">${peminjaman.nama_alat}</div>
-                <div class="text-xs text-gray-500">${peminjaman.kode_alat}</div>
+                <div class="font-medium text-blue-600">${peminjaman.nama_buku}</div>
+                <div class="text-xs text-gray-500">${peminjaman.kode_buku}</div>
             </td>
             <td class="py-3 px-4 text-center text-sm">${peminjaman.tgl_pinjam_formatted || '-'}</td>
             <td class="py-3 px-4 text-center text-sm">${peminjaman.tgl_rencana_kembali_formatted || '-'}</td>
@@ -2552,7 +2548,7 @@ function showNotificationResult(result) {
                                         ${result.notifications.map(notif => `
                                             <tr class="border-b">
                                                 <td class="p-2">${notif.nama_peminjam}</td>
-                                                <td class="p-2">${notif.nama_alat}</td>
+                                                <td class="p-2">${notif.nama_buku}</td>
                                                 <td class="text-center p-2">${notif.hari_terlambat} hari</td>
                                                 <td class="text-center p-2">
                                                     ${notif.email_sent ? '<i class="fas fa-envelope text-green-500" title="Email terkirim"></i>' : ''}
@@ -2637,8 +2633,8 @@ function showLateLoansPreview(lateLoans) {
                                         <td class="p-2 font-medium">${loan.nama_peminjam}</td>
                                         <td class="p-2">${loan.nomor_induk}</td>
                                         <td class="p-2">
-                                            <div>${loan.nama_alat}</div>
-                                            <div class="text-xs text-gray-500">${loan.kode_alat}</div>
+                                            <div>${loan.nama_buku}</div>
+                                            <div class="text-xs text-gray-500">${loan.kode_buku}</div>
                                         </td>
                                         <td class="text-center p-2">
                                             <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">
@@ -2723,7 +2719,7 @@ function showNotificationLogs(logs) {
                                     <tr>
                                         <th class="text-left p-3">Waktu</th>
                                         <th class="text-left p-3">Penerima</th>
-                                        <th class="text-left p-3">Alat</th>
+                                        <th class="text-left p-3">Buku</th>
                                         <th class="text-left p-3">Status</th>
                                         <th class="text-left p-3">Preview</th>
                                     </tr>
@@ -2739,9 +2735,9 @@ function showNotificationLogs(logs) {
                                                 <div class="text-gray-500 text-xs">${log.recipient.id}</div>
                                             </td>
                                             <td class="p-3">
-                                                ${log.peminjaman.nama_alat ? `
-                                                    <div>${log.peminjaman.nama_alat}</div>
-                                                    <div class="text-gray-500 text-xs">${log.peminjaman.kode_alat}</div>
+                                                ${log.peminjaman.nama_buku ? `
+                                                    <div>${log.peminjaman.nama_buku}</div>
+                                                    <div class="text-gray-500 text-xs">${log.peminjaman.kode_buku}</div>
                                                 ` : '-'}
                                             </td>
                                             <td class="p-3">

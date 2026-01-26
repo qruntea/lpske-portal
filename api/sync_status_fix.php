@@ -22,8 +22,8 @@ if ($koneksi) {
 // 2. ANALISIS MASALAH SAAT INI
 echo "<h3>1. 📊 Analisis Status Saat Ini:</h3>";
 $analisis_sql = "SELECT 
-                    nama_alat, 
-                    kode_alat, 
+                    nama_buku, 
+                    kode_buku, 
                     status, 
                     jumlah_total, 
                     jumlah_tersedia,
@@ -37,7 +37,7 @@ $analisis_sql = "SELECT
                  FROM inventory 
                  ORDER BY 
                      CASE diagnosis WHEN 'OK' THEN 2 ELSE 1 END,
-                     nama_alat";
+                     nama_buku";
 
 $analisis_result = mysqli_query($koneksi, $analisis_sql);
 
@@ -48,7 +48,7 @@ if (!$analisis_result) {
 
 echo "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>";
 echo "<tr style='background: #f0f0f0;'>";
-echo "<th>Nama Alat</th><th>Kode</th><th>Status DB</th><th>Total</th><th>Tersedia</th><th>Diagnosis</th>";
+echo "<th>Nama Buku</th><th>Kode</th><th>Status DB</th><th>Total</th><th>Tersedia</th><th>Diagnosis</th>";
 echo "</tr>";
 
 $masalah_count = 0;
@@ -57,8 +57,8 @@ while ($row = mysqli_fetch_assoc($analisis_result)) {
     if ($row['diagnosis'] != 'OK') $masalah_count++;
     
     echo "<tr style='background: {$bg_color};'>";
-    echo "<td>{$row['nama_alat']}</td>";
-    echo "<td><strong>{$row['kode_alat']}</strong></td>";
+    echo "<td>{$row['nama_buku']}</td>";
+    echo "<td><strong>{$row['kode_buku']}</strong></td>";
     echo "<td>{$row['status']}</td>";
     echo "<td>{$row['jumlah_total']}</td>";
     echo "<td>{$row['jumlah_tersedia']}</td>";
@@ -105,8 +105,8 @@ if ($masalah_count == 0) {
 // 4. HASIL SETELAH PERBAIKAN
 echo "<h3>3. ✅ Status Setelah Perbaikan:</h3>";
 $result_sql = "SELECT 
-                nama_alat, 
-                kode_alat, 
+                nama_buku, 
+                kode_buku, 
                 status, 
                 jumlah_total, 
                 jumlah_tersedia,
@@ -124,13 +124,13 @@ $result_sql = "SELECT
                        WHEN 'Dipinjam' THEN 2  
                        WHEN 'Habis' THEN 3
                        WHEN 'Rusak' THEN 4
-                   END, nama_alat";
+                   END, nama_buku";
 
 $result = mysqli_query($koneksi, $result_sql);
 
 echo "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>";
 echo "<tr style='background: #f0f0f0;'>";
-echo "<th>Nama Alat</th><th>Kode</th><th>Status</th><th>Total</th><th>Tersedia</th><th>Valid</th>";
+echo "<th>Nama Buku</th><th>Kode</th><th>Status</th><th>Total</th><th>Tersedia</th><th>Valid</th>";
 echo "</tr>";
 
 $status_count = ['Tersedia' => 0, 'Dipinjam' => 0, 'Habis' => 0, 'Rusak' => 0];
@@ -149,8 +149,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $status_count[$row['status']]++;
     
     echo "<tr style='background: {$status_color};'>";
-    echo "<td>{$row['nama_alat']}</td>";
-    echo "<td><strong>{$row['kode_alat']}</strong></td>";
+    echo "<td>{$row['nama_buku']}</td>";
+    echo "<td><strong>{$row['kode_buku']}</strong></td>";
     echo "<td><strong>{$row['status']}</strong></td>";
     echo "<td>{$row['jumlah_total']}</td>";
     echo "<td>{$row['jumlah_tersedia']}</td>";

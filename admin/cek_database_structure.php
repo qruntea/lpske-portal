@@ -12,7 +12,7 @@ echo "<hr>";
 
 // 1. Cek tabel inventory
 echo "<h3>1. Struktur Tabel Inventory:</h3>";
-$sql = "SHOW COLUMNS FROM inventory";
+$sql = "SHOW COLUMNS FROM buku";
 $result = mysqli_query($koneksi, $sql);
 
 echo "<table border='1' style='border-collapse: collapse;'>";
@@ -48,7 +48,7 @@ echo "</table>";
 
 // 3. Cek data sample
 echo "<h3>3. Sample Data Inventory:</h3>";
-$sql = "SELECT * FROM inventory LIMIT 5";
+$sql = "SELECT * FROM buku LIMIT 5";
 $result = mysqli_query($koneksi, $sql);
 
 if (mysqli_num_rows($result) > 0) {
